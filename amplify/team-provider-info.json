@@ -17,7 +17,7 @@
           "clientId": "vxsss3v33fxl8v9fyckzc5z7gtdb48",
           "redirectUrl": "http://localhost:3000",
           "deploymentBucketName": "amplify-amplifyf0983868adf74-staging-211039-deployment",
-          "s3Key": "amplify-builds/TwitchLogin-32764469697365574875-build.zip"
+          "s3Key": "amplify-builds/TwitchLogin-50796149394d31325852-build.zip"
         }
       }
     }

@@ -6,7 +6,7 @@ import ChatContext from './context/Chat/Chat';
 import getAccountInfo from './utils/auth/getAccountInfo';
 import getAuthProvider from './utils/auth/getAuthProvider';
 import connectApi from './utils/auth/connectApi';
-import getStorage from './utils/browser/getStorage';
+// import getStorage from './utils/browser/getStorage';
 import NavBar from './components/NavBar/NavBar';
 import Chat from './routes/Chat/Chat';
 import ChatMessage from './components/ChatMessage/ChatMessage';
@@ -115,16 +115,16 @@ export default function App() {
 
       const href = document.location.href;
       const findToken = href.indexOf('code=');
-      let { accessToken, refreshToken, expiryTimestamp } = getStorage();
+      // let { accessToken, refreshToken, expiryTimestamp } = getStorage();
 
-      if (findToken > -1 && expiryTimestamp === '0') {
+      if (findToken > -1 /* && expiryTimestamp === '0' */) {
         setLoginLoading(true);
         getAccountInfo(href).then(data => {
           user.accessToken = data['accessToken'];
           user.authProvider = getAuthProvider(
-            data['accessToken'],
-            data['refreshToken'],
-            data['expiryTimestamp']
+            data['accessToken']
+            // data['refreshToken'],
+            // data['expiryTimestamp']
           );
           connectApi(user.authProvider).then(data => {
             init(data);
@@ -133,19 +133,19 @@ export default function App() {
         });
       }
 
-      if (expiryTimestamp > 0) {
-        setLoginLoading(true);
-        user.accessToken = accessToken;
-        user.authProvider = getAuthProvider(
-          accessToken,
-          refreshToken,
-          expiryTimestamp
-        );
-        connectApi(user.authProvider).then(data => {
-          init(data);
-        });
-        // console.log({ user });
-      }
+      // if (expiryTimestamp > 0) {
+      //   setLoginLoading(true);
+      //   user.accessToken = accessToken;
+      //   user.authProvider = getAuthProvider(
+      //     accessToken,
+      //     refreshToken,
+      //     expiryTimestamp
+      //   );
+      //   connectApi(user.authProvider).then(data => {
+      //     init(data);
+      //   });
+      // console.log({ user });
+      // }
     }
     return () => (mounted = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps

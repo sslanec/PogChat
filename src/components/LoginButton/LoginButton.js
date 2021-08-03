@@ -1,8 +1,8 @@
-import clearStorage from '../../utils/browser/clearStorage';
+// import clearStorage from '../../utils/browser/clearStorage';
 import { Button } from '@chakra-ui/react';
 
 function handleClick() {
-  clearStorage();
+  // clearStorage();
   window.open(
     'https://id.twitch.tv/oauth2/authorize?' +
       `client_id=${process.env.REACT_APP_CLIENT_ID}&` +

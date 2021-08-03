@@ -5,6 +5,7 @@ exports.handler = async (event, context) => {
   let bodyParse = JSON.parse(event.body);
   bodyParse = JSON.parse(bodyParse);
   const code = bodyParse.code;
+  const redirectUrl = bodyParse.redirectUrl;
 
   const { Parameters } = await new aws.SSM()
     .getParameters({
@@ -19,7 +20,7 @@ exports.handler = async (event, context) => {
     `client_secret=${Parameters[0]['Value']}&` +
     `code=${code}&` +
     `grant_type=authorization_code&` +
-    `redirect_uri=${process.env.REDIRECT_URL}`;
+    `redirect_uri=${redirectUrl}`;
   const fetchData = {
     method: 'POST',
   };
