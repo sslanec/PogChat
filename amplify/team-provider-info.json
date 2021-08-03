@@ -1,0 +1,25 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifyf0983868adf74-staging-211039-authRole",
+      "UnauthRoleArn": "arn:aws:iam::142997406482:role/amplify-amplifyf0983868adf74-staging-211039-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::142997406482:role/amplify-amplifyf0983868adf74-staging-211039-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-amplifyf0983868adf74-staging-211039-deployment",
+      "UnauthRoleName": "amplify-amplifyf0983868adf74-staging-211039-unauthRole",
+      "StackName": "amplify-amplifyf0983868adf74-staging-211039",
+      "StackId": "arn:aws:cloudformation:us-east-1:142997406482:stack/amplify-amplifyf0983868adf74-staging-211039/ec5eb940-f30c-11eb-a10c-0e09773e6f3f",
+      "AmplifyAppId": "d14qxfuznmtcpf"
+    },
+    "categories": {
+      "function": {
+        "TwitchLogin": {
+          "clientId": "vxsss3v33fxl8v9fyckzc5z7gtdb48",
+          "redirectUrl": "http://localhost:3000",
+          "deploymentBucketName": "amplify-amplifyf0983868adf74-staging-211039-deployment",
+          "s3Key": "amplify-builds/TwitchLogin-32764469697365574875-build.zip"
+        }
+      }
+    }
+  }
+}

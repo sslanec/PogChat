@@ -1,0 +1,16 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "clientId",
+      "environmentVariableName": "CLIENT_ID"
+    },
+    {
+      "cloudFormationParameterName": "redirectUrl",
+      "environmentVariableName": "REDIRECT_URL"
+    }
+  ],
+  "secretNames": [
+    "CLIENT_SECRET"
+  ]
+}

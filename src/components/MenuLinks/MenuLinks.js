@@ -1,6 +1,6 @@
 import { Box, Stack } from '@chakra-ui/react';
 import MenuItem from '../MenuItem/MenuItem';
-import { ColorModeSwitcher } from '../ColorModeSwitcher/ColorModeSwitcher';
+// import { ColorModeSwitcher } from '../ColorModeSwitcher/ColorModeSwitcher';
 
 export default function MenuLinks(props) {
   return (
@@ -25,7 +25,7 @@ export default function MenuLinks(props) {
         <MenuItem toggle={props.toggle} to="/user-settings">
           Settings
         </MenuItem>
-        <ColorModeSwitcher />
+        {/* <ColorModeSwitcher /> */}
       </Stack>
     </Box>
   );

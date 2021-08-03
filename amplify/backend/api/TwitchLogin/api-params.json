@@ -1,0 +1,35 @@
+{
+  "paths": [
+    {
+      "name": "/TwitchLogin",
+      "lambdaFunction": "TwitchLogin",
+      "privacy": {
+        "open": true
+      },
+      "policyResourceName": "/TwitchLogin"
+    }
+  ],
+  "resourceName": "TwitchLogin",
+  "apiName": "TwitchLogin",
+  "functionArns": [
+    {
+      "lambdaFunction": "TwitchLogin"
+    }
+  ],
+  "privacy": {
+    "auth": 0,
+    "unauth": 0,
+    "authRoleName": "amplify-amplifyf0983868adf74-staging-211039-authRole",
+    "unAuthRoleName": "amplify-amplifyf0983868adf74-staging-211039-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "TwitchLogin",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}

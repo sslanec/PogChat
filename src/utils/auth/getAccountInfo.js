@@ -1,3 +1,5 @@
+import { API } from 'aws-amplify';
+
 export default async function getAccountInfo(href) {
   let split = href.split('code=');
   split = split[1].split('&');
@@ -5,20 +7,15 @@ export default async function getAccountInfo(href) {
   let refreshToken = null;
   let expiryTimestamp = null;
 
-  const url =
-    `https://id.twitch.tv/oauth2/token?` +
-    `client_id=${process.env.REACT_APP_CLIENT_ID}&` +
-    `client_secret=${process.env.REACT_APP_CLIENT_SECRET}&` +
-    `code=${accessToken}&` +
-    `grant_type=authorization_code&` +
-    `redirect_uri=${process.env.REACT_APP_REDIRECT_URL}`;
-  const fetchData = {
-    method: 'POST',
-    headers: new Headers(),
+  const apiName = 'TwitchLogin';
+  const path = '/TwitchLogin';
+  const init = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ code: accessToken }),
   };
-
-  const rawResponse = await fetch(url, fetchData);
-  const content = await rawResponse.json();
+  const content = await API.post(apiName, path, init);
 
   accessToken = content.access_token;
   refreshToken = content.refresh_token;

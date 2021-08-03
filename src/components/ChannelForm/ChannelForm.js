@@ -107,7 +107,7 @@ export default function ChannelInput(props) {
 
       // TODO: Figure this out
       user.chatClient.on('automod', (channel, msgid, message) => {
-        console.log(['automod', { msgid, message }]);
+        // console.log(['automod', { msgid, message }]);
       });
 
       user.chatClient.on('ban', (channel, username, reason, userstate) => {
@@ -167,10 +167,10 @@ export default function ChannelInput(props) {
             channel: channel,
           },
         });
-        console.log([
-          'cheerHandler',
-          { userstate, message, cheerParse, cheerList },
-        ]);
+        // console.log([
+        //   'cheerHandler',
+        //   { userstate, message, cheerParse, cheerList },
+        // ]);
       });
 
       user.chatClient.on('clearchat', channel => {
@@ -243,7 +243,7 @@ export default function ChannelInput(props) {
       );
 
       user.chatClient.on('globaluserstate', userstate => {
-        console.log(['globaluserstate', { userstate }]);
+        // console.log(['globaluserstate', { userstate }]);
       });
 
       user.chatClient.on('hosted', (channel, username, viewers, autohost) => {
@@ -317,14 +317,14 @@ export default function ChannelInput(props) {
       user.chatClient.on(
         'messagedeleted',
         (channel, username, deletedMessage, userstate) => {
-          console.log([
-            'messageDeleted',
-            {
-              username,
-              deletedMessage,
-              userstate,
-            },
-          ]);
+          // console.log([
+          //   'messageDeleted',
+          //   {
+          //     username,
+          //     deletedMessage,
+          //     userstate,
+          //   },
+          // ]);
           if (username !== user.userAccInfo.name) {
             setChats({ type: 'DELETE', item: userstate['target-msg-id'] });
           } else {
@@ -347,12 +347,12 @@ export default function ChannelInput(props) {
       user.chatClient.on(
         'primepaidupgrade',
         (channel, username, methods, userstate) => {
-          console.log(['primepaidupgrade', { username, methods, userstate }]);
+          // console.log(['primepaidupgrade', { username, methods, userstate }]);
         }
       );
 
       user.chatClient.on('raided', (channel, username, viewers, tags) => {
-        console.log(['raided', { username, viewers, tags }]);
+        // console.log(['raided', { username, viewers, tags }]);
         setChats({
           type: 'ADD',
           item: {
@@ -371,7 +371,7 @@ export default function ChannelInput(props) {
       user.chatClient.on(
         'redeem',
         (channel, username, rewardType, userstate) => {
-          console.log(['redeem', { channel, username, rewardType, userstate }]);
+          // console.log(['redeem', { channel, username, rewardType, userstate }]);
         }
       );
 
@@ -499,11 +499,11 @@ export default function ChannelInput(props) {
             state['room-id'],
           ]);
 
-          console.log({ state, user });
+          // console.log({ state, user });
         }
         if (emoteSets.length > 0) {
           user.userEmotes = await getUserEmotes(user.apiClient, emoteSets);
-          console.log({ userEmotes: user.userEmotes });
+          // console.log({ userEmotes: user.userEmotes });
         }
         setLoading(false);
       });
@@ -532,10 +532,10 @@ export default function ChannelInput(props) {
               channel: channel,
             },
           });
-          console.log([
-            'subGift',
-            { username, streakMonths, recipient, methods, userstate },
-          ]);
+          // console.log([
+          //   'subGift',
+          //   { username, streakMonths, recipient, methods, userstate },
+          // ]);
         }
       );
 

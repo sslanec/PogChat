@@ -17,7 +17,6 @@ const userInit = {
     badgeQuality: 3,
     emoteQuality: 3,
     usernameColors: false,
-    autoscroll: true,
   },
   accessToken: null,
   connected: false,
@@ -33,6 +32,7 @@ const userInit = {
   globalBadges: null,
   cheermotes: null,
   loggedIn: false,
+  userFollows: null,
 };
 
 function userReducer(state, item) {
@@ -92,10 +92,11 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState('');
 
-  function init({ apiClient, userAccInfo, globalBadges }) {
+  function init({ apiClient, userAccInfo, globalBadges, userFollows }) {
     user.apiClient = apiClient;
     user.userAccInfo = userAccInfo;
     user.globalBadges = globalBadges;
+    user.userFollows = userFollows;
     setUser({ loggedIn: true });
     setDisplayName(user.userAccInfo.displayName);
     setLoginLoading(false);
@@ -106,6 +107,12 @@ export default function App() {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
+      const colorMode = localStorage.getItem('chakra-ui-color-mode');
+      if (!colorMode || colorMode !== 'dark') {
+        localStorage.setItem('chakra-ui-color-mode', 'dark');
+        window.location.reload();
+      }
+
       const href = document.location.href;
       const findToken = href.indexOf('code=');
       let { accessToken, refreshToken, expiryTimestamp } = getStorage();
@@ -122,7 +129,7 @@ export default function App() {
           connectApi(user.authProvider).then(data => {
             init(data);
           });
-          console.log({ user });
+          // console.log({ user });
         });
       }
 
@@ -137,7 +144,7 @@ export default function App() {
         connectApi(user.authProvider).then(data => {
           init(data);
         });
-        console.log({ user });
+        // console.log({ user });
       }
     }
     return () => (mounted = false);
