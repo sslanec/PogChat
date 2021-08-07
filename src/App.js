@@ -157,7 +157,7 @@ export default function App() {
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
         <ChakraProvider theme={theme}>
-          <Flex flexDirection="column" height={window.innerHeight} position="sticky">
+          <Flex flexDirection="column" height={window.innerHeight}>
             <NavBar
               avatarUrl={avatarUrl}
               displayName={displayName}

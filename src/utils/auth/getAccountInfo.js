@@ -2,6 +2,7 @@ import { API } from 'aws-amplify';
 
 export default async function getAccountInfo(href) {
   let split = href.split('code=');
+  window.history.replaceState(null, '', process.env.REACT_APP_REDIRECT_URL);
   split = split[1].split('&');
   let accessToken = split[0];
   let refreshToken = null;
@@ -19,17 +20,16 @@ export default async function getAccountInfo(href) {
     }),
   };
   const content = await API.post(apiName, path, init);
+  // console.log({ content });
 
   accessToken = content.access_token;
-  // refreshToken = content.refresh_token;
+  refreshToken = content.refresh_token;
   // expiryTimestamp = new Date(Date.now() + content['expires_in'] * 1000);
   // expiryTimestamp = expiryTimestamp.getTime();
 
-  // sessionStorage.setItem('accessToken', accessToken);
-  // sessionStorage.setItem('refreshToken', refreshToken);
+  localStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('refreshToken', refreshToken);
   // sessionStorage.setItem('expiryTimestamp', expiryTimestamp);
-
-  window.history.replaceState(null, '', process.env.REACT_APP_REDIRECT_URL);
 
   return { accessToken, refreshToken, expiryTimestamp };
 }

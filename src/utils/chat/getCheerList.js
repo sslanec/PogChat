@@ -1,11 +1,8 @@
-import capitalizeFirstLetter from '../capitalizeFirstLetter';
-
 export default function getCheerList(cheerParse) {
   let cheerList = {};
   for (let i in cheerParse) {
-    let key = capitalizeFirstLetter(
-      cheerParse[i]['name'] + cheerParse[i]['amount']
-    );
+    let key = cheerParse[i]['name'] + cheerParse[i]['amount'];
+    key = key.toLowerCase();
     let url = cheerParse[i]['displayInfo']['url'];
     url = url.substring(0, url.length - 5);
     cheerList[key] = {

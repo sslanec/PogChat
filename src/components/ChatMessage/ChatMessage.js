@@ -34,8 +34,8 @@ export default function ChatMessage({
     let msgEmotes = detectEmotes(msgArray, userstate.emotes);
     msgArray = insertEmotes(msgArray, msgEmotes, emoteQuality);
   }
-  if (bits) {
-    msgArray = insertEmotes(msgArray, cheerList, emoteQuality);
+  if (bits !== false) {
+    msgArray = insertEmotes(msgArray, cheerList, emoteQuality, true);
   }
   msgArray = insertEmotes(msgArray, bttvEmotes, emoteQuality);
 

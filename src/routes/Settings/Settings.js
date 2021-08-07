@@ -18,17 +18,17 @@ export default function Settings(props) {
       <HStack marginTop={2} spacing="auto">
         <Text fontSize="large">Badge Quality</Text>
         <Select width="25%">
-          <option value={1}>Low</option>
-          <option value={2}>Medium</option>
           <option value={3}>High</option>
+          <option value={2}>Medium</option>
+          <option value={1}>Low</option>
         </Select>
       </HStack>
       <HStack marginTop={2} spacing="auto">
         <Text fontSize="large">Emote Quality</Text>
         <Select width="25%">
-          <option value={1}>Low</option>
-          <option value={2}>Medium</option>
           <option value={3}>High</option>
+          <option value={2}>Medium</option>
+          <option value={1}>Low</option>
         </Select>
       </HStack>
       <HStack marginTop={2} spacing="auto">

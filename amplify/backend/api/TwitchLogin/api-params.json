@@ -19,8 +19,8 @@
   "privacy": {
     "auth": 0,
     "unauth": 0,
-    "authRoleName": "amplify-amplifyf0983868adf74-staging-211039-authRole",
-    "unAuthRoleName": "amplify-amplifyf0983868adf74-staging-211039-unauthRole"
+    "authRoleName": "amplify-pogchat-dev-92526-authRole",
+    "unAuthRoleName": "amplify-pogchat-dev-92526-authRole"
   },
   "dependsOn": [
     {
