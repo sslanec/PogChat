@@ -7,7 +7,9 @@ export default async function connectApi(authProvider) {
   });
   const userAccInfo = await apiClient.helix.users.getMe();
   const globalBadges = await getGlobalBadges(apiClient);
-  const userFollows = await userAccInfo.getFollows();
+  const userFollows = await apiClient.helix.streams.getFollowedStreams(
+    userAccInfo.id
+  );
 
   return { apiClient, userAccInfo, globalBadges, userFollows };
 }

@@ -644,12 +644,15 @@ export default function ChannelInput(props) {
           disabled={!user.loggedIn || user.connected || loading}
           onChange={handleChange}
           placeholder={placeholder}
+          size="sm"
           value={value}
         />
         <Button
           disabled={!user.loggedIn || loading}
           isLoading={loading}
+          size="sm"
           type="submit"
+          variant="outline"
         >
           {user.connected ? 'Disconnect' : 'Connect'}
         </Button>

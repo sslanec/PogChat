@@ -8,7 +8,7 @@ export default function ChatView(props) {
   const { chats } = useContext(ChatContext);
 
   return (
-    <Flex flexFlow="column" {...props}>
+    <Flex flexDirection="column" {...props}>
       <ScrollableFeed>
         {chats.map(({ msg }) => (
           <Box key={uuid()}>{msg}</Box>

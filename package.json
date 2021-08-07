@@ -41,7 +41,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "react-scripts build && serve -s build -p 3000"
+    "serve": "react-scripts build && serve -s build -p 3000",
+    "lt": "lt --port 3000 --subdomain pogchat"
   },
   "eslintConfig": {
     "extends": "react-app"

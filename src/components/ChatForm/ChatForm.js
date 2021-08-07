@@ -24,9 +24,14 @@ export default function ChatForm(props) {
         <Input
           disabled={!user.loggedIn || !user.connected}
           onChange={handleChange}
+          size="sm"
           value={msg}
         />
-        <Button disabled={!user.loggedIn || !user.connected} type="submit">
+        <Button
+          disabled={!user.loggedIn || !user.connected}
+          size="sm"
+          type="submit"
+        >
           Send
         </Button>
       </HStack>

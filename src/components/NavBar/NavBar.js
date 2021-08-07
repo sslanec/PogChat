@@ -17,6 +17,7 @@ export default function NavBar(props) {
           text={props.displayName}
         ></LoginButton>
         <Avatar
+          size="sm"
           src={props.avatarUrl}
           visibility={props.loggedIn ? '' : 'hidden'}
         ></Avatar>

@@ -8,7 +8,7 @@ function handleClick() {
       `client_id=${process.env.REACT_APP_CLIENT_ID}&` +
       `redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&` +
       'response_type=id_token+code&' +
-      'scope=openid+chat:read+chat:edit+user_read&' +
+      'scope=openid+chat:read+chat:edit+user:read:follows&' +
       'force_verify=true',
     '_self'
   );
@@ -20,6 +20,7 @@ export default function LoginButton(props) {
       key={'LoginButton_' + props.text}
       onClick={handleClick}
       isLoading={props.isLoading}
+      size="sm"
       {...props.rest}
     >
       {props.text}

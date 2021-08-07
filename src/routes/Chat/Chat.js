@@ -5,15 +5,9 @@ import ChatForm from '../../components/ChatForm/ChatForm';
 
 export default function Chat(props) {
   return (
-    <Container display="flex" flexDirection="column" {...props}>
+    <Container display="flex" flexDirection="column" minHeight={0} {...props}>
       <ChannelForm />
-      <ChatView
-        backgroundColor="purple.900"
-        flex={[1, 1, '10vh']}
-        height="100%"
-        marginTop={2}
-        overflow="auto"
-      />
+      <ChatView flex={[1, 1, '1px']} marginTop={2} overflow="auto" />
       <ChatForm marginTop={2} />
     </Container>
   );

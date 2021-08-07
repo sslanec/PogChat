@@ -11,6 +11,8 @@ import NavBar from './components/NavBar/NavBar';
 import Chat from './routes/Chat/Chat';
 import ChatMessage from './components/ChatMessage/ChatMessage';
 import Footer from './components/Footer/Footer';
+import Following from './routes/Following/Following';
+import Settings from './routes/Settings/Settings';
 
 const userInit = {
   userOptions: {
@@ -155,7 +157,7 @@ export default function App() {
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
         <ChakraProvider theme={theme}>
-          <Flex flexDirection="column" height="100vh" maxHeight="100vh">
+          <Flex flexDirection="column" height={window.innerHeight} position="sticky">
             <NavBar
               avatarUrl={avatarUrl}
               displayName={displayName}
@@ -173,10 +175,10 @@ export default function App() {
                 <Heading>Privacy Policy</Heading>
               </Route>
               <Route path="/user-following">
-                <Heading>Following</Heading>
+                <Following flexGrow={1} />
               </Route>
               <Route path="/user-settings">
-                <Heading>Settings</Heading>
+                <Settings flexGrow={1} />
               </Route>
               <Route path="/">
                 <ChatContext.Provider value={{ chats, setChats }}>
