@@ -1,12 +1,13 @@
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Container,
-  Flex,
   FormControl,
   Heading,
   HStack,
   Text,
+  VStack,
 } from '@chakra-ui/react';
 import UserContext from '../../context/User/User';
 
@@ -42,7 +43,8 @@ export default function Following(props) {
           </Button>
         </HStack>
       </FormControl>
-      <Flex
+      <VStack
+        align="flex-start"
         flex={[1, 1, '1px']}
         flexDirection="column"
         marginTop={2}
@@ -50,11 +52,13 @@ export default function Following(props) {
       >
         {user.userFollows &&
           user.userFollows.data.map(({ userDisplayName }) => (
-            <Text key={userDisplayName} fontSize="large">
-              {userDisplayName}
-            </Text>
+            <Link to={'/' + userDisplayName} key={userDisplayName + '_link'}>
+              <Text key={userDisplayName} fontSize="large">
+                {userDisplayName}
+              </Text>
+            </Link>
           ))}
-      </Flex>
+      </VStack>
     </Container>
   );
 }
