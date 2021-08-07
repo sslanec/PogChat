@@ -644,7 +644,6 @@ export default function ChannelInput(props) {
           disabled={!user.loggedIn || user.connected || loading}
           onChange={handleChange}
           placeholder={placeholder}
-          size="sm"
           value={value}
         />
         <Button

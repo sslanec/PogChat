@@ -23,8 +23,8 @@ export default function ChatForm(props) {
       <HStack>
         <Input
           disabled={!user.loggedIn || !user.connected}
+          fontSize
           onChange={handleChange}
-          size="sm"
           value={msg}
         />
         <Button

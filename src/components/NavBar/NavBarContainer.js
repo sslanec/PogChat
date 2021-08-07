@@ -8,7 +8,10 @@ export default function NavBarContainer(props) {
       justify="space-between"
       wrap="wrap"
       width="100%"
-      padding={2}
+      paddingTop={2}
+      paddingBottom={1}
+      paddingLeft={2}
+      paddingRight={2}
       background="transparent"
       color="white"
       {...props}
