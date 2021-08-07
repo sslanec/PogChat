@@ -1,5 +1,5 @@
 export default function clearStorage() {
-  sessionStorage.setItem('accessToken', null);
-  sessionStorage.setItem('refreshToken', null);
-  sessionStorage.setItem('expiryTimestamp', 0);
+  localStorage.setItem('accessToken', null);
+  localStorage.setItem('refreshToken', null);
+  localStorage.setItem('expiryTimestamp', 0);
 }

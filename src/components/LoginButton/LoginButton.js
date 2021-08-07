@@ -1,18 +1,19 @@
-// import clearStorage from '../../utils/browser/clearStorage';
+import clearStorage from '../../utils/browser/clearStorage';
 import { Button } from '@chakra-ui/react';
 
-function handleClick() {
-  // clearStorage();
-  window.open(
-    'https://id.twitch.tv/oauth2/authorize?' +
-      `client_id=${process.env.REACT_APP_CLIENT_ID}&` +
-      `redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&` +
-      'response_type=id_token+code&' +
-      'scope=openid+chat:read+chat:edit+user:read:follows&' +
-      'force_verify=true',
-    '_self'
-  );
-}
+const url =
+  'https://id.twitch.tv/oauth2/authorize?' +
+  `client_id=${process.env.REACT_APP_CLIENT_ID}&` +
+  `redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&` +
+  'response_type=id_token+code&' +
+  'scope=openid+chat:read+chat:edit+user:read:follows&' +
+  'force_verify=true';
+
+const handleClick = event => {
+  event.preventDefault();
+  clearStorage();
+  window.open(url, '_self');
+};
 
 export default function LoginButton(props) {
   return (

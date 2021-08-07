@@ -40,7 +40,7 @@
           "clientId": "vxsss3v33fxl8v9fyckzc5z7gtdb48",
           "redirectUrl": "http://localhost:3000",
           "deploymentBucketName": "amplify-pogchat-dev-92526-deployment",
-          "s3Key": "amplify-builds/TwitchLogin-783142487a6b79634650-build.zip"
+          "s3Key": "amplify-builds/TwitchLogin-50796149394d31325852-build.zip"
         }
       },
       "hosting": {

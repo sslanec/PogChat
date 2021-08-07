@@ -1,35 +1,36 @@
 {
-  "paths": [
-    {
-      "name": "/TwitchLogin",
-      "lambdaFunction": "TwitchLogin",
-      "privacy": {
-        "open": true
-      },
-      "policyResourceName": "/TwitchLogin"
-    }
-  ],
-  "resourceName": "TwitchLogin",
-  "apiName": "TwitchLogin",
-  "functionArns": [
-    {
-      "lambdaFunction": "TwitchLogin"
-    }
-  ],
-  "privacy": {
-    "auth": 0,
-    "unauth": 0,
-    "authRoleName": "amplify-pogchat-dev-92526-authRole",
-    "unAuthRoleName": "amplify-pogchat-dev-92526-authRole"
-  },
-  "dependsOn": [
-    {
-      "category": "function",
-      "resourceName": "TwitchLogin",
-      "attributes": [
-        "Name",
-        "Arn"
-      ]
-    }
-  ]
+    "paths": [
+        {
+            "name": "/TwitchLogin",
+            "lambdaFunction": "TwitchLogin",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/TwitchLogin"
+        }
+    ],
+    "resourceName": "TwitchLogin",
+    "apiName": "TwitchLogin",
+    "functionArns": [
+        {
+            "lambdaFunction": "TwitchLogin"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-pogchat-dev-92526-authRole",
+        "unAuthRoleName": "amplify-pogchat-dev-92526-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "TwitchLogin",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "fff3c8a1"
 }

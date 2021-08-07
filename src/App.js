@@ -6,13 +6,14 @@ import ChatContext from './context/Chat/Chat';
 import getAccountInfo from './utils/auth/getAccountInfo';
 import getAuthProvider from './utils/auth/getAuthProvider';
 import connectApi from './utils/auth/connectApi';
-// import getStorage from './utils/browser/getStorage';
+import getStorage from './utils/browser/getStorage';
 import NavBar from './components/NavBar/NavBar';
 import Chat from './routes/Chat/Chat';
 import ChatMessage from './components/ChatMessage/ChatMessage';
 import Footer from './components/Footer/Footer';
 import Following from './routes/Following/Following';
 import Settings from './routes/Settings/Settings';
+import clearStorage from './utils/browser/clearStorage';
 
 const userInit = {
   userOptions: {
@@ -20,7 +21,6 @@ const userInit = {
     emoteQuality: 3,
     usernameColors: false,
   },
-  accessToken: null,
   connected: false,
   authProvider: null,
   apiClient: null,
@@ -117,37 +117,26 @@ export default function App() {
 
       const href = document.location.href;
       const findToken = href.indexOf('code=');
-      // let { accessToken, refreshToken, expiryTimestamp } = getStorage();
+      let { accessToken, expiryTimestamp } = getStorage();
 
-      if (findToken > -1 /* && expiryTimestamp === '0' */) {
+      if (findToken > -1 && expiryTimestamp === '0') {
         setLoginLoading(true);
         getAccountInfo(href).then(data => {
-          user.accessToken = data['accessToken'];
-          user.authProvider = getAuthProvider(
-            data['accessToken']
-            // data['refreshToken'],
-            // data['expiryTimestamp']
-          );
+          user.authProvider = getAuthProvider(data['accessToken']);
           connectApi(user.authProvider).then(data => {
             init(data);
           });
-          // console.log({ user });
         });
+      } else if (expiryTimestamp > Date.now()) {
+        setLoginLoading(true);
+        user.authProvider = getAuthProvider(accessToken);
+        connectApi(user.authProvider).then(data => {
+          init(data);
+        });
+      } else if (expiryTimestamp < Date.now()) {
+        clearStorage();
       }
-
-      // if (expiryTimestamp > 0) {
-      //   setLoginLoading(true);
-      //   user.accessToken = accessToken;
-      //   user.authProvider = getAuthProvider(
-      //     accessToken,
-      //     refreshToken,
-      //     expiryTimestamp
-      //   );
-      //   connectApi(user.authProvider).then(data => {
-      //     init(data);
-      //   });
       // console.log({ user });
-      // }
     }
     return () => (mounted = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -157,7 +146,7 @@ export default function App() {
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
         <ChakraProvider theme={theme}>
-          <Flex flexDirection="column" height={window.innerHeight}>
+          <Flex flexDirection="column" height={'100vh'}>
             <NavBar
               avatarUrl={avatarUrl}
               displayName={displayName}

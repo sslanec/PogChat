@@ -1,7 +1,7 @@
 export default function getStorage() {
-  let accessToken = sessionStorage.getItem('accessToken');
-  let refreshToken = sessionStorage.getItem('refreshToken');
-  let expiryTimestamp = sessionStorage.getItem('expiryTimestamp');
+  let accessToken = localStorage.getItem('accessToken');
+  let refreshToken = localStorage.getItem('refreshToken');
+  let expiryTimestamp = localStorage.getItem('expiryTimestamp');
 
   return { accessToken, refreshToken, expiryTimestamp };
 }

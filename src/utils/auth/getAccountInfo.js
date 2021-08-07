@@ -11,9 +11,7 @@ export default async function getAccountInfo(href) {
   const apiName = 'TwitchLogin';
   const path = '/TwitchLogin';
   const init = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       code: accessToken,
       redirectUrl: process.env.REACT_APP_REDIRECT_URL,
@@ -24,12 +22,12 @@ export default async function getAccountInfo(href) {
 
   accessToken = content.access_token;
   refreshToken = content.refresh_token;
-  // expiryTimestamp = new Date(Date.now() + content['expires_in'] * 1000);
-  // expiryTimestamp = expiryTimestamp.getTime();
+  expiryTimestamp = new Date(Date.now() + content['expires_in'] * 1000);
+  expiryTimestamp = expiryTimestamp.getTime();
 
   localStorage.setItem('accessToken', accessToken);
   localStorage.setItem('refreshToken', refreshToken);
-  // sessionStorage.setItem('expiryTimestamp', expiryTimestamp);
+  localStorage.setItem('expiryTimestamp', expiryTimestamp);
 
   return { accessToken, refreshToken, expiryTimestamp };
 }
