@@ -35,6 +35,7 @@ const userInit = {
   cheermotes: null,
   loggedIn: false,
   userFollows: null,
+  followRefresh: null,
 };
 
 function debounce(func, ms) {
@@ -114,6 +115,7 @@ export default function App() {
     user.userAccInfo = userAccInfo;
     user.globalBadges = globalBadges;
     user.userFollows = userFollows;
+    setUser({ followRefresh: Date.now() });
     setUser({ loggedIn: true });
     setDisplayName(user.userAccInfo.displayName);
     setLoginLoading(false);

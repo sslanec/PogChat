@@ -1,48 +1,34 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Button,
-  Container,
-  FormControl,
-  Heading,
-  HStack,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Container, Heading, Text, VStack } from '@chakra-ui/react';
 import UserContext from '../../context/User/User';
 
 export default function Following(props) {
   const { user } = useContext(UserContext);
-  const [loading, setLoading] = useState(false);
-  const [disabled, setDisabled] = useState(false);
 
-  const handleSubmit = async event => {
-    event.preventDefault();
-    setLoading(true);
-    setDisabled(true);
-    user.userFollows = await user.apiClient.helix.streams.getFollowedStreams(
-      user.userAccInfo.id
-    );
-    setLoading(false);
-    setTimeout(() => setDisabled(false), 1000);
+  const refreshFollows = async id => {
+    return await user.apiClient.helix.streams.getFollowedStreams(id);
   };
+
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      if (Date.now() > user.followRefresh + 10000) {
+        refreshFollows(user.userAccInfo.id).then(
+          data => (user.userFollows = data)
+        );
+        user.followRefresh = Date.now();
+      }
+    }
+    return () => {
+      mounted = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container display="flex" flexDirection="column" minHeight={0} {...props}>
-      <FormControl as="form" onSubmit={handleSubmit}>
-        <HStack spacing="auto">
-          <Heading>Following</Heading>
-          <Button
-            disabled={disabled}
-            isLoading={loading}
-            size="sm"
-            type="submit"
-            variant="outline"
-          >
-            Refresh
-          </Button>
-        </HStack>
-      </FormControl>
+      <Heading>Following</Heading>
       <VStack
         align="flex-start"
         flex={[1, 1, '1px']}
