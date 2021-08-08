@@ -24,7 +24,7 @@ export default function Following(props) {
       user.userAccInfo.id
     );
     setLoading(false);
-    setTimeout(() => setDisabled(false), 5000);
+    setTimeout(() => setDisabled(false), 1000);
   };
 
   return (

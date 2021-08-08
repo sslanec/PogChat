@@ -9,9 +9,9 @@ export default function detectEmotes(msg, emotes) {
         mote = [parseInt(mote[0]), parseInt(mote[1])];
         const id = `${msg}`.substring(mote[0], mote[1] + 1);
         emoteList[id] = {
-          '1x': `http://static-cdn.jtvnw.net/emoticons/v2/${i}/static/light/1.0`,
-          '2x': `http://static-cdn.jtvnw.net/emoticons/v2/${i}/static/light/2.0`,
-          '3x': `http://static-cdn.jtvnw.net/emoticons/v2/${i}/static/light/3.0`,
+          '1x': `https://static-cdn.jtvnw.net/emoticons/v2/${i}/static/light/1.0`,
+          '2x': `https://static-cdn.jtvnw.net/emoticons/v2/${i}/static/light/2.0`,
+          '3x': `https://static-cdn.jtvnw.net/emoticons/v2/${i}/static/light/3.0`,
         };
       }
     }

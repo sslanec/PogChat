@@ -37,6 +37,17 @@ const userInit = {
   userFollows: null,
 };
 
+function debounce(func, ms) {
+  let timer;
+  return _ => {
+    clearTimeout(timer);
+    timer = setTimeout(_ => {
+      timer = null;
+      func.apply(this, arguments);
+    }, ms);
+  };
+}
+
 function userReducer(state, item) {
   return { ...state, ...item };
 }
@@ -93,6 +104,10 @@ export default function App() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState('');
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
 
   function init({ apiClient, userAccInfo, globalBadges, userFollows }) {
     user.apiClient = apiClient;
@@ -109,6 +124,14 @@ export default function App() {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
+      var handleResize = debounce(() => {
+        setDimensions({
+          height: window.innerHeight,
+          width: window.innerWidth,
+        });
+      }, 50);
+      window.addEventListener('resize', handleResize);
+
       const colorMode = localStorage.getItem('chakra-ui-color-mode');
       if (!colorMode || colorMode !== 'dark') {
         localStorage.setItem('chakra-ui-color-mode', 'dark');
@@ -138,7 +161,10 @@ export default function App() {
       }
       // console.log({ user });
     }
-    return () => (mounted = false);
+    return () => {
+      mounted = false;
+      window.removeEventListener('resize', handleResize);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -146,7 +172,11 @@ export default function App() {
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser }}>
         <ChakraProvider theme={theme}>
-          <Flex flexDirection="column" height={'100vh'}>
+          <Flex
+            flexDirection="column"
+            height={dimensions.height}
+            width={dimensions.width}
+          >
             <NavBar
               avatarUrl={avatarUrl}
               displayName={displayName}
