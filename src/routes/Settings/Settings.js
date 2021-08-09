@@ -19,7 +19,16 @@ export default function Settings(props) {
   };
 
   return (
-    <Container display="flex" flexDirection="column" minHeight={0} {...props}>
+    <Container
+      display="flex"
+      flexDirection="column"
+      minHeight={0}
+      paddingTop={2}
+      // paddingBottom={1}
+      paddingLeft={2}
+      paddingRight={2}
+      {...props}
+    >
       <Heading>Settings</Heading>
       <HStack marginTop={2} spacing="auto">
         <Text fontSize="large">Badge Quality</Text>

@@ -19,7 +19,7 @@ const userInit = {
   userOptions: {
     badgeQuality: 3,
     emoteQuality: 3,
-    usernameColors: false,
+    usernameColors: true,
   },
   connected: false,
   authProvider: null,
@@ -191,6 +191,8 @@ export default function App() {
             flexDirection="column"
             height={dimensions.height}
             width={dimensions.width}
+            maxHeight={dimensions.height}
+            maxWidth={dimensions.width}
           >
             <NavBar
               avatarUrl={avatarUrl}
