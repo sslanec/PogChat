@@ -37,10 +37,13 @@ export default function Following(props) {
         overflow="auto"
       >
         {user.userFollows &&
-          user.userFollows.data.map(({ userDisplayName }) => (
-            <Link to={'/' + userDisplayName} key={userDisplayName + '_link'}>
-              <Text key={userDisplayName} fontSize="large">
-                {userDisplayName}
+          user.userFollows.data.map(({ userDisplayName, gameName }) => (
+            <Link to={'/' + userDisplayName} key={userDisplayName}>
+              <Text fontSize="large" fontWeight="bold">
+                {userDisplayName}{' '}
+                <Text as="span" fontSize="md" fontWeight="normal">
+                  {gameName}
+                </Text>
               </Text>
             </Link>
           ))}

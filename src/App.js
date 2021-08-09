@@ -123,9 +123,27 @@ export default function App() {
     setLoggedIn(true);
   }
 
+  async function getUserOptions() {
+    let options = localStorage.getItem('userOptions');
+    if (options === null) {
+      localStorage.setItem('userOptions', JSON.stringify(user.userOptions));
+    } else {
+      options = await JSON.parse(options);
+      user.userOptions = options;
+    }
+  }
+
   useEffect(() => {
     let mounted = true;
     if (mounted) {
+      getUserOptions();
+
+      const colorMode = localStorage.getItem('chakra-ui-color-mode');
+      if (!colorMode || colorMode !== 'dark') {
+        localStorage.setItem('chakra-ui-color-mode', 'dark');
+        window.location.reload();
+      }
+
       var handleResize = debounce(() => {
         setDimensions({
           height: window.innerHeight,
@@ -133,12 +151,6 @@ export default function App() {
         });
       }, 50);
       window.addEventListener('resize', handleResize);
-
-      const colorMode = localStorage.getItem('chakra-ui-color-mode');
-      if (!colorMode || colorMode !== 'dark') {
-        localStorage.setItem('chakra-ui-color-mode', 'dark');
-        window.location.reload();
-      }
 
       const href = document.location.href;
       const findToken = href.indexOf('code=');
@@ -161,7 +173,8 @@ export default function App() {
       } else if (expiryTimestamp < Date.now()) {
         clearStorage();
       }
-      // console.log({ user });
+
+      // console.log(user);
     }
     return () => {
       mounted = false;

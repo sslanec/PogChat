@@ -10,14 +10,27 @@ import {
 import UserContext from '../../context/User/User';
 
 export default function Settings(props) {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  let options = user.userOptions;
+
+  const updateOptions = () => {
+    setUser({ userOptions: options });
+    localStorage.setItem('userOptions', JSON.stringify(options));
+  };
 
   return (
     <Container display="flex" flexDirection="column" minHeight={0} {...props}>
       <Heading>Settings</Heading>
       <HStack marginTop={2} spacing="auto">
         <Text fontSize="large">Badge Quality</Text>
-        <Select width="auto">
+        <Select
+          onChange={event => {
+            options.badgeQuality = event.target.value;
+            updateOptions();
+          }}
+          value={user.userOptions.badgeQuality}
+          width="auto"
+        >
           <option value={3}>High</option>
           <option value={2}>Medium</option>
           <option value={1}>Low</option>
@@ -25,7 +38,14 @@ export default function Settings(props) {
       </HStack>
       <HStack marginTop={2} spacing="auto">
         <Text fontSize="large">Emote Quality</Text>
-        <Select width="auto">
+        <Select
+          onChange={event => {
+            options.emoteQuality = event.target.value;
+            updateOptions();
+          }}
+          value={user.userOptions.emoteQuality}
+          width="auto"
+        >
           <option value={3}>High</option>
           <option value={2}>Medium</option>
           <option value={1}>Low</option>
@@ -33,7 +53,14 @@ export default function Settings(props) {
       </HStack>
       <HStack marginTop={2} spacing="auto">
         <Text fontSize="large">Username Colors</Text>
-        <Checkbox size="lg" />
+        <Checkbox
+          onChange={event => {
+            options.usernameColors = event.target.checked;
+            updateOptions();
+          }}
+          size="lg"
+          isChecked={user.userOptions.usernameColors}
+        />
       </HStack>
     </Container>
   );
