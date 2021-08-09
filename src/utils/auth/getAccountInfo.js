@@ -21,12 +21,12 @@ export default async function getAccountInfo(href) {
   // console.log({ content });
 
   accessToken = content.access_token;
-  refreshToken = content.refresh_token;
+  // refreshToken = content.refresh_token;
   expiryTimestamp = new Date(Date.now() + content['expires_in'] * 1000);
   expiryTimestamp = expiryTimestamp.getTime();
 
   localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('refreshToken', refreshToken);
+  // localStorage.setItem('refreshToken', refreshToken);
   localStorage.setItem('expiryTimestamp', expiryTimestamp);
 
   return { accessToken, refreshToken, expiryTimestamp };
