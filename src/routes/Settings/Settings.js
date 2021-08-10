@@ -32,8 +32,8 @@ export default function Settings(props) {
       {...props}
     >
       <Heading>Settings</Heading>
-      <Box marginTop={2} overflow="auto">
-        <HStack marginTop={4} spacing="auto">
+      <Box paddingTop={4} overflow="auto">
+        <HStack spacing="auto">
           <Text fontSize="large">Badge Quality</Text>
           <Select
             onChange={event => {
@@ -48,7 +48,7 @@ export default function Settings(props) {
             <option value={1}>Low</option>
           </Select>
         </HStack>
-        <HStack marginTop={4} spacing="auto">
+        <HStack paddingTop={4} spacing="auto">
           <Text fontSize="large">Emote Quality</Text>
           <Select
             onChange={event => {
@@ -63,7 +63,7 @@ export default function Settings(props) {
             <option value={1}>Low</option>
           </Select>
         </HStack>
-        <HStack marginTop={4} spacing="auto">
+        <HStack paddingTop={4} spacing="auto">
           <Text fontSize="large">Username Colors</Text>
           <Checkbox
             onChange={event => {
@@ -74,7 +74,7 @@ export default function Settings(props) {
             isChecked={user.userOptions.usernameColors}
           />
         </HStack>
-        <ClearDataAlert marginTop={4} />
+        <ClearDataAlert paddingTop={4} />
       </Box>
     </Container>
   );

@@ -142,6 +142,7 @@ export default function App() {
     }, 50);
 
     if (mounted) {
+      document.body.style.overflow = "hidden"
       window.addEventListener('resize', handleResize);
       let { accessToken, expiryTimestamp, userOptions } = getStorage();
       getUserOptions(userOptions);

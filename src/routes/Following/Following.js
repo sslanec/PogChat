@@ -48,14 +48,10 @@ export default function Following(props) {
       {...props}
     >
       <HStack spacing="auto">
-        <Heading>Following</Heading>
+        <Heading paddingBottom={4}>Following</Heading>
         <Spinner visibility={visible ? '' : 'hidden'} />
       </HStack>
-      <VStack
-        align="flex-start"
-        marginTop={2}
-        overflow="auto"
-      >
+      <VStack align="flex-start" overflow="auto">
         {user.userFollows &&
           user.userFollows.data.map(
             ({ userName, userDisplayName, gameName }) => (
