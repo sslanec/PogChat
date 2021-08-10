@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ChakraProvider, Flex, Heading, theme } from '@chakra-ui/react';
 import UserContext from './context/User/User';
@@ -14,6 +14,7 @@ import Footer from './components/Footer/Footer';
 import Following from './routes/Following/Following';
 import Settings from './routes/Settings/Settings';
 import clearStorage from './utils/browser/clearStorage';
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 const userInit = {
   userOptions: {
@@ -109,6 +110,7 @@ export default function App() {
     height: window.innerHeight,
     width: window.innerWidth,
   });
+  const scrollRef = useRef();
 
   const init = ({ apiClient, userAccInfo, globalBadges, userFollows }) => {
     user.apiClient = apiClient;
@@ -142,10 +144,10 @@ export default function App() {
     }, 50);
 
     if (mounted) {
-      document.body.style.overflow = "hidden"
       window.addEventListener('resize', handleResize);
       let { accessToken, expiryTimestamp, userOptions } = getStorage();
       getUserOptions(userOptions);
+      disableBodyScroll(scrollRef.current);
 
       const colorMode = localStorage.getItem('chakra-ui-color-mode');
       if (!colorMode || colorMode !== 'dark') {
@@ -178,6 +180,7 @@ export default function App() {
     return () => {
       mounted = false;
       window.removeEventListener('resize', handleResize);
+      clearAllBodyScrollLocks();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -190,6 +193,7 @@ export default function App() {
             flexDirection="column"
             height={dimensions.height}
             width={dimensions.width}
+            ref={scrollRef}
           >
             <NavBar
               avatarUrl={avatarUrl}
