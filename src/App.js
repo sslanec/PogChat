@@ -14,7 +14,6 @@ import Footer from './components/Footer/Footer';
 import Following from './routes/Following/Following';
 import Settings from './routes/Settings/Settings';
 import clearStorage from './utils/browser/clearStorage';
-import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 const userInit = {
   userOptions: {
@@ -148,7 +147,6 @@ export default function App() {
       window.addEventListener('resize', handleResize);
       let { accessToken, expiryTimestamp, userOptions } = getStorage();
       getUserOptions(userOptions);
-      disableBodyScroll(scrollRef.current);
 
       const colorMode = localStorage.getItem('chakra-ui-color-mode');
       if (!colorMode || colorMode !== 'dark') {
@@ -181,7 +179,6 @@ export default function App() {
     return () => {
       mounted = false;
       window.removeEventListener('resize', handleResize);
-      clearAllBodyScrollLocks();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
