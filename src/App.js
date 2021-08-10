@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ChakraProvider, Flex, Heading, theme } from '@chakra-ui/react';
 import UserContext from './context/User/User';
@@ -110,7 +110,6 @@ export default function App() {
     height: window.innerHeight,
     width: window.innerWidth,
   });
-  const scrollRef = useRef();
 
   const init = ({ apiClient, userAccInfo, globalBadges, userFollows }) => {
     user.apiClient = apiClient;
@@ -144,7 +143,12 @@ export default function App() {
     }, 50);
 
     if (mounted) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.height = '100%';
+      document.body.style.width = '100%';
+      document.body.style.position = 'fixed';
       window.addEventListener('resize', handleResize);
+
       let { accessToken, expiryTimestamp, userOptions } = getStorage();
       getUserOptions(userOptions);
 
@@ -191,7 +195,6 @@ export default function App() {
             flexDirection="column"
             height={dimensions.height}
             width={dimensions.width}
-            ref={scrollRef}
           >
             <NavBar
               avatarUrl={avatarUrl}
