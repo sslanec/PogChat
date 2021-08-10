@@ -110,7 +110,7 @@ export default function App() {
     width: window.innerWidth,
   });
 
-  function init({ apiClient, userAccInfo, globalBadges, userFollows }) {
+  const init = ({ apiClient, userAccInfo, globalBadges, userFollows }) => {
     user.apiClient = apiClient;
     user.userAccInfo = userAccInfo;
     user.globalBadges = globalBadges;
@@ -121,22 +121,30 @@ export default function App() {
     setLoginLoading(false);
     setAvatarUrl(user.userAccInfo.profilePictureUrl);
     setLoggedIn(true);
-  }
+  };
 
-  async function getUserOptions() {
-    let options = localStorage.getItem('userOptions');
+  const getUserOptions = async options => {
     if (options === null) {
       localStorage.setItem('userOptions', JSON.stringify(user.userOptions));
     } else {
       options = await JSON.parse(options);
       user.userOptions = options;
     }
-  }
+  };
 
   useEffect(() => {
     let mounted = true;
+    const handleResize = debounce(() => {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    }, 50);
+
     if (mounted) {
-      getUserOptions();
+      window.addEventListener('resize', handleResize);
+      let { accessToken, expiryTimestamp, userOptions } = getStorage();
+      getUserOptions(userOptions);
 
       const colorMode = localStorage.getItem('chakra-ui-color-mode');
       if (!colorMode || colorMode !== 'dark') {
@@ -144,17 +152,8 @@ export default function App() {
         window.location.reload();
       }
 
-      var handleResize = debounce(() => {
-        setDimensions({
-          height: window.innerHeight,
-          width: window.innerWidth,
-        });
-      }, 50);
-      window.addEventListener('resize', handleResize);
-
       const href = document.location.href;
       const findToken = href.indexOf('code=');
-      let { accessToken, expiryTimestamp } = getStorage();
 
       if (findToken > -1 && expiryTimestamp === '0') {
         setLoginLoading(true);
@@ -173,7 +172,6 @@ export default function App() {
       } else if (expiryTimestamp < Date.now()) {
         clearStorage();
       }
-
       // console.log(user);
     }
     return () => {
@@ -191,8 +189,6 @@ export default function App() {
             flexDirection="column"
             height={dimensions.height}
             width={dimensions.width}
-            maxHeight={dimensions.height}
-            maxWidth={dimensions.width}
           >
             <NavBar
               avatarUrl={avatarUrl}

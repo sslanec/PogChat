@@ -664,7 +664,7 @@ export default function ChannelInput(props) {
           value={value}
         />
         <Button
-          disabled={!user.loggedIn || loading}
+          disabled={!user.loggedIn || loading || value === ''}
           isLoading={loading}
           size="sm"
           type="submit"

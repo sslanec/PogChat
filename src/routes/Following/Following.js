@@ -53,8 +53,6 @@ export default function Following(props) {
       </HStack>
       <VStack
         align="flex-start"
-        flex={[1, 1, '1px']}
-        flexDirection="column"
         marginTop={2}
         overflow="auto"
       >

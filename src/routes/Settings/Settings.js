@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import {
+  Box,
   Checkbox,
   Container,
   Heading,
@@ -8,6 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import UserContext from '../../context/User/User';
+import ClearDataAlert from '../../components/ClearDataAlert/ClearDataAlert';
 
 export default function Settings(props) {
   const { user, setUser } = useContext(UserContext);
@@ -30,47 +32,50 @@ export default function Settings(props) {
       {...props}
     >
       <Heading>Settings</Heading>
-      <HStack marginTop={2} spacing="auto">
-        <Text fontSize="large">Badge Quality</Text>
-        <Select
-          onChange={event => {
-            options.badgeQuality = event.target.value;
-            updateOptions();
-          }}
-          value={user.userOptions.badgeQuality}
-          width="auto"
-        >
-          <option value={3}>High</option>
-          <option value={2}>Medium</option>
-          <option value={1}>Low</option>
-        </Select>
-      </HStack>
-      <HStack marginTop={2} spacing="auto">
-        <Text fontSize="large">Emote Quality</Text>
-        <Select
-          onChange={event => {
-            options.emoteQuality = event.target.value;
-            updateOptions();
-          }}
-          value={user.userOptions.emoteQuality}
-          width="auto"
-        >
-          <option value={3}>High</option>
-          <option value={2}>Medium</option>
-          <option value={1}>Low</option>
-        </Select>
-      </HStack>
-      <HStack marginTop={2} spacing="auto">
-        <Text fontSize="large">Username Colors</Text>
-        <Checkbox
-          onChange={event => {
-            options.usernameColors = event.target.checked;
-            updateOptions();
-          }}
-          size="lg"
-          isChecked={user.userOptions.usernameColors}
-        />
-      </HStack>
+      <Box marginTop={2} overflow="auto">
+        <HStack marginTop={4} spacing="auto">
+          <Text fontSize="large">Badge Quality</Text>
+          <Select
+            onChange={event => {
+              options.badgeQuality = event.target.value;
+              updateOptions();
+            }}
+            value={user.userOptions.badgeQuality}
+            width="auto"
+          >
+            <option value={3}>High</option>
+            <option value={2}>Medium</option>
+            <option value={1}>Low</option>
+          </Select>
+        </HStack>
+        <HStack marginTop={4} spacing="auto">
+          <Text fontSize="large">Emote Quality</Text>
+          <Select
+            onChange={event => {
+              options.emoteQuality = event.target.value;
+              updateOptions();
+            }}
+            value={user.userOptions.emoteQuality}
+            width="auto"
+          >
+            <option value={3}>High</option>
+            <option value={2}>Medium</option>
+            <option value={1}>Low</option>
+          </Select>
+        </HStack>
+        <HStack marginTop={4} spacing="auto">
+          <Text fontSize="large">Username Colors</Text>
+          <Checkbox
+            onChange={event => {
+              options.usernameColors = event.target.checked;
+              updateOptions();
+            }}
+            size="lg"
+            isChecked={user.userOptions.usernameColors}
+          />
+        </HStack>
+        <ClearDataAlert marginTop={4} />
+      </Box>
     </Container>
   );
 }
