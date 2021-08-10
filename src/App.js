@@ -21,6 +21,7 @@ const userInit = {
     badgeQuality: 3,
     emoteQuality: 3,
     usernameColors: true,
+    chatTextSize: 'md',
   },
   connected: false,
   authProvider: null,

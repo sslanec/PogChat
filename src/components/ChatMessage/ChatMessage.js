@@ -44,7 +44,11 @@ export default function ChatMessage({
   msgArray = insertEmotes(msgArray, bttvEmotes, emoteQuality);
 
   return (
-    <Text lineHeight={1.35} ref={reference}>
+    <Text
+      lineHeight={1.35}
+      ref={reference}
+      fontSize={user.userOptions.chatTextSize}
+    >
       {badges}
       <Text
         as="span"

@@ -74,6 +74,24 @@ export default function Settings(props) {
             isChecked={user.userOptions.usernameColors}
           />
         </HStack>
+        <HStack paddingTop={4} spacing="auto">
+          <Text fontSize="large">Chat Text Size</Text>
+          <Select
+            onChange={event => {
+              options.chatTextSize = event.target.value;
+              updateOptions();
+            }}
+            value={user.userOptions.chatTextSize}
+            width="auto"
+          >
+            <option value="2xl">2X-Large</option>
+            <option value="xl">X-Large</option>
+            <option value="lg">Large</option>
+            <option value="md">Medium</option>
+            <option value="sm">Small</option>
+            <option value="xs">X-Small</option>
+          </Select>
+        </HStack>
         <ClearDataAlert paddingTop={4} />
       </Box>
     </Container>
