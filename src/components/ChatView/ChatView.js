@@ -9,7 +9,7 @@ export default function ChatView(props) {
   return (
     <Flex flexDirection="column" {...props}>
       <ScrollableFeed>
-        {chats.map(({ msg }, index) => (
+        {chats.slice(-200).map(({ msg }, index) => (
           <Box key={index}>{msg}</Box>
         ))}
       </ScrollableFeed>

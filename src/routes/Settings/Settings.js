@@ -84,6 +84,10 @@ export default function Settings(props) {
             value={user.userOptions.chatTextSize}
             width="auto"
           >
+            <option value="6xl">6X-Large</option>
+            <option value="5xl">5X-Large</option>
+            <option value="4xl">4X-Large</option>
+            <option value="3xl">3X-Large</option>
             <option value="2xl">2X-Large</option>
             <option value="xl">X-Large</option>
             <option value="lg">Large</option>

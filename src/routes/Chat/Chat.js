@@ -16,8 +16,8 @@ export default function Chat(props) {
       {...props}
     >
       <ChannelForm />
-      <ChatView flex={[1, 1, '1px']} marginTop={2} overflow="auto" />
-      <ChatForm marginTop={2} />
+      <ChatView flex={[1, 1, '1px']} paddingTop={2} overflow="auto" />
+      <ChatForm paddingTop={2} />
     </Container>
   );
 }

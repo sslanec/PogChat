@@ -25,7 +25,7 @@ export default function Following(props) {
         setVisible(true);
         refreshFollows(user.userAccInfo.id).then(data => {
           setUser({ userFollows: data });
-          user.followRefresh = Date.now();
+          setUser({ followRefresh: Date.now() });
           setVisible(false);
         });
       }
