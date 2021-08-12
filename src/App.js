@@ -140,13 +140,15 @@ export default function App() {
         height: window.innerHeight,
         width: window.innerWidth,
       });
+      document.body.style.height = window.innerHeight;
+      document.body.style.width = window.innerWidth;
     }, 50);
 
     if (mounted) {
       document.body.style.overflow = 'hidden';
-      document.body.style.height = '100%';
-      document.body.style.width = '100%';
       document.body.style.position = 'fixed';
+      document.body.style.height = window.innerHeight;
+      document.body.style.width = window.innerWidth;
       window.addEventListener('resize', handleResize);
 
       let { accessToken, expiryTimestamp, userOptions } = getStorage();

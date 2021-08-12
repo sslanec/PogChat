@@ -12,7 +12,8 @@ const url =
 
 const handleClick = event => {
   event.preventDefault();
-  clearStorage();
+  localStorage.setItem('accessToken', null);
+  localStorage.setItem('expiryTimestamp', 0);
   window.open(url, '_self');
 };
 
