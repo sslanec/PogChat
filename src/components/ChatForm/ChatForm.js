@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { Input, Button, FormControl, HStack } from '@chakra-ui/react';
 import UserContext from '../../context/User/User';
+import EmotePicker from '../EmotePicker/EmotePicker';
 
 export default function ChatForm(props) {
   const { user } = useContext(UserContext);
@@ -27,9 +28,9 @@ export default function ChatForm(props) {
           onChange={handleChange}
           value={msg}
         />
+        <EmotePicker disabled={!user.loggedIn || !user.connected} />
         <Button
-          disabled={!user.loggedIn || !user.connected}
-          size="sm"
+          disabled={!user.loggedIn || !user.connected || msg === ''}
           type="submit"
         >
           Send

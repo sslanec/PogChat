@@ -8,9 +8,11 @@
     {
       "cloudFormationParameterName": "redirectUrl",
       "environmentVariableName": "REDIRECT_URL"
+    },
+    {
+      "cloudFormationParameterName": "clientSecret",
+      "environmentVariableName": "CLIENT_SECRET"
     }
   ],
-  "secretNames": [
-    "CLIENT_SECRET"
-  ]
+  "secretNames": []
 }

@@ -37,10 +37,11 @@
     "categories": {
       "function": {
         "TwitchLogin": {
+          "deploymentBucketName": "amplify-pogchat-dev-92526-deployment",
+          "s3Key": "amplify-builds/TwitchLogin-636a30357070456b6f61-build.zip",
           "clientId": "vxsss3v33fxl8v9fyckzc5z7gtdb48",
           "redirectUrl": "http://localhost:3000",
-          "deploymentBucketName": "amplify-pogchat-dev-92526-deployment",
-          "s3Key": "amplify-builds/TwitchLogin-50796149394d31325852-build.zip"
+          "clientSecret": "rykrun93sh5goqhkz3echcl1dsb3d6"
         }
       },
       "hosting": {

@@ -1,5 +1,6 @@
 import clearStorage from '../../utils/browser/clearStorage';
-import { Button } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
+import twitchLogo from './twitchLogo.svg';
 
 const url =
   'https://id.twitch.tv/oauth2/authorize?' +
@@ -20,7 +21,15 @@ export default function LoginButton(props) {
     <Button
       key={'LoginButton_' + props.text}
       onClick={handleClick}
+      iconSpacing={1.5}
       isLoading={props.isLoading}
+      leftIcon={
+        props.text === 'Login' ? (
+          <Box as="img" height={5} width={5} src={twitchLogo} />
+        ) : (
+          ''
+        )
+      }
       size="sm"
       {...props.rest}
     >

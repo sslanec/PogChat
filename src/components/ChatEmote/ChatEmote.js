@@ -5,7 +5,7 @@ export default function ChatEmote({ name, src }) {
     <Box
       as="img"
       display="inline-block"
-      height="24px"
+      height={6}
       width="auto"
       alt={name}
       title={name}

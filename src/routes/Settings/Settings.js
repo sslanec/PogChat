@@ -74,6 +74,7 @@ export default function Settings(props) {
             isChecked={user.userOptions.usernameColors}
           />
         </HStack>
+        {/* TODO Adjust emote sizes to match text sizes */}
         <HStack paddingTop={4} spacing="auto">
           <Text fontSize="large">Chat Text Size</Text>
           <Select

@@ -1,4 +1,4 @@
-const aws = require('aws-sdk');
+// const aws = require('aws-sdk');
 const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
@@ -7,17 +7,25 @@ exports.handler = async (event, context) => {
   const code = bodyParse.code;
   const redirectUrl = bodyParse.redirectUrl;
 
-  const { Parameters } = await new aws.SSM()
-    .getParameters({
-      Names: ['CLIENT_SECRET'].map(secretName => process.env[secretName]),
-      WithDecryption: true,
-    })
-    .promise();
+  // const { Parameters } = await new aws.SSM()
+  //   .getParameters({
+  //     Names: ['CLIENT_SECRET'].map(secretName => process.env[secretName]),
+  //     WithDecryption: true,
+  //   })
+  //   .promise();
+
+  // const url =
+  //   `https://id.twitch.tv/oauth2/token?` +
+  //   `client_id=${process.env.CLIENT_ID}&` +
+  //   `client_secret=${Parameters[0]['Value']}&` +
+  //   `code=${code}&` +
+  //   `grant_type=authorization_code&` +
+  //   `redirect_uri=${redirectUrl}`;
 
   const url =
     `https://id.twitch.tv/oauth2/token?` +
     `client_id=${process.env.CLIENT_ID}&` +
-    `client_secret=${Parameters[0]['Value']}&` +
+    `client_secret=${process.env.CLIENT_SECRET}&` +
     `code=${code}&` +
     `grant_type=authorization_code&` +
     `redirect_uri=${redirectUrl}`;
