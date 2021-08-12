@@ -456,8 +456,8 @@ export default function ChannelInput(props) {
         }
 
         user.roomstate = state;
-        // user.bttvEmotes = await getBTTVEmotes(state['room-id']);
-        setUser({ bttvEmotes: await getBTTVEmotes(state['room-id']) });
+        user.bttvEmotes = await getBTTVEmotes(state['room-id']);
+        setUser({ bttvEmotes: user.bttvEmotes });
         user.channelBadges = await getChannelBadges(
           user.apiClient,
           state['room-id']
@@ -474,8 +474,8 @@ export default function ChannelInput(props) {
         // console.log({ state, user });
       }
       if (emoteSets.length > 0) {
-        // user.userEmotes = await getUserEmotes(user.apiClient, emoteSets);
-        setUser({ userEmotes: await getUserEmotes(user.apiClient, emoteSets) });
+        user.userEmotes = await getUserEmotes(user.apiClient, emoteSets);
+        setUser({ userEmotes: user.userEmotes });
         // console.log({ userEmotes: user.userEmotes });
       }
       setLoading(false);
