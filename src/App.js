@@ -30,6 +30,7 @@ const userInit = {
   roomstate: null,
   userAccInfo: null,
   bttvEmotes: null,
+  emoteSets: null,
   userEmotes: null,
   channelBadges: null,
   globalBadges: null,

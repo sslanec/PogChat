@@ -6,11 +6,12 @@ export default async function getBTTVEmotes(channelId) {
     .then(response => response.json())
     .then(data => {
       for (var i = 0; i < data.length; i++) {
-        var ver = {};
-        ver['1x'] = `https://cdn.betterttv.net/emote/${data[i]['id']}/1x`;
-        ver['2x'] = `https://cdn.betterttv.net/emote/${data[i]['id']}/2x`;
-        ver['3x'] = `https://cdn.betterttv.net/emote/${data[i]['id']}/3x`;
-        emotes[data[i]['code']] = ver;
+        let key = {};
+        key['1x'] = `https://cdn.betterttv.net/emote/${data[i]['id']}/1x`;
+        key['2x'] = `https://cdn.betterttv.net/emote/${data[i]['id']}/2x`;
+        key['3x'] = `https://cdn.betterttv.net/emote/${data[i]['id']}/3x`;
+        key['category'] = 'bttv_global';
+        emotes[data[i]['code']] = key;
       }
     });
 
@@ -22,18 +23,20 @@ export default async function getBTTVEmotes(channelId) {
         const channel = data['channelEmotes'];
         const shared = data['sharedEmotes'];
         for (let i in channel) {
-          let ver = {};
-          ver['1x'] = `https://cdn.betterttv.net/emote/${channel[i]['id']}/1x`;
-          ver['2x'] = `https://cdn.betterttv.net/emote/${channel[i]['id']}/2x`;
-          ver['3x'] = `https://cdn.betterttv.net/emote/${channel[i]['id']}/3x`;
-          emotes[channel[i]['code']] = ver;
+          let key = {};
+          key['1x'] = `https://cdn.betterttv.net/emote/${channel[i]['id']}/1x`;
+          key['2x'] = `https://cdn.betterttv.net/emote/${channel[i]['id']}/2x`;
+          key['3x'] = `https://cdn.betterttv.net/emote/${channel[i]['id']}/3x`;
+          key['category'] = 'bttv_channel';
+          emotes[channel[i]['code']] = key;
         }
         for (let i in shared) {
-          let ver = {};
-          ver['1x'] = `https://cdn.betterttv.net/emote/${shared[i]['id']}/1x`;
-          ver['2x'] = `https://cdn.betterttv.net/emote/${shared[i]['id']}/2x`;
-          ver['3x'] = `https://cdn.betterttv.net/emote/${shared[i]['id']}/3x`;
-          emotes[shared[i]['code']] = ver;
+          let key = {};
+          key['1x'] = `https://cdn.betterttv.net/emote/${shared[i]['id']}/1x`;
+          key['2x'] = `https://cdn.betterttv.net/emote/${shared[i]['id']}/2x`;
+          key['3x'] = `https://cdn.betterttv.net/emote/${shared[i]['id']}/3x`;
+          key['category'] = 'bttv_shared';
+          emotes[shared[i]['code']] = key;
         }
       }
     });
@@ -47,11 +50,12 @@ export default async function getBTTVEmotes(channelId) {
     .then(data => {
       if (data.message !== 'user not found') {
         for (var i in data) {
-          let ver = {};
-          ver['1x'] = `https://cdn.frankerfacez.com/emote/${data[i]['id']}/1`;
-          ver['2x'] = `https://cdn.frankerfacez.com/emote/${data[i]['id']}/2`;
-          ver['3x'] = `https://cdn.frankerfacez.com/emote/${data[i]['id']}/2`;
-          emotes[data[i]['code']] = ver;
+          let key = {};
+          key['1x'] = `https://cdn.frankerfacez.com/emote/${data[i]['id']}/1`;
+          key['2x'] = `https://cdn.frankerfacez.com/emote/${data[i]['id']}/2`;
+          key['3x'] = `https://cdn.frankerfacez.com/emote/${data[i]['id']}/2`;
+          key['category'] = 'ffz_channel';
+          emotes[data[i]['code']] = key;
         }
       }
     });

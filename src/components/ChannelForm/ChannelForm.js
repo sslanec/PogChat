@@ -474,8 +474,10 @@ export default function ChannelInput(props) {
         // console.log({ state, user });
       }
       if (emoteSets.length > 0) {
-        user.userEmotes = await getUserEmotes(user.apiClient, emoteSets);
+        let { emotes, sets } = await getUserEmotes(user.apiClient, emoteSets);
+        user.userEmotes = emotes;
         setUser({ userEmotes: user.userEmotes });
+        setUser({ emoteSets: sets });
         // console.log({ userEmotes: user.userEmotes });
       }
       setLoading(false);

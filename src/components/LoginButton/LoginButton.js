@@ -1,4 +1,3 @@
-import clearStorage from '../../utils/browser/clearStorage';
 import { Box, Button } from '@chakra-ui/react';
 import twitchLogo from './twitchLogo.svg';
 

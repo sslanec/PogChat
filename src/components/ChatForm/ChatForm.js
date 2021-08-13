@@ -28,7 +28,11 @@ export default function ChatForm(props) {
           onChange={handleChange}
           value={msg}
         />
-        <EmotePicker disabled={!user.loggedIn || !user.connected} />
+        <EmotePicker
+          disabled={!user.loggedIn || !user.connected}
+          msg={msg}
+          setMsg={setMsg}
+        />
         <Button
           disabled={!user.loggedIn || !user.connected || msg === ''}
           type="submit"
