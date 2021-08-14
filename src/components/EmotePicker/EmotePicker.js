@@ -21,7 +21,7 @@ export default function EmotePicker(props) {
   const [showBTTVChannel, setShowBTTVChannel] = useState(false);
   const [showFFZChannel, setShowFFZChannel] = useState(false);
   const [showEmotes, setShowEmotes] = useState(false);
-  let emoteSets = useRef({});
+  let emoteSets = useRef();
 
   const onClickHandler = key => {
     if (props.msg.slice(-1) === ' ' || props.msg === '') {
@@ -203,34 +203,8 @@ export default function EmotePicker(props) {
             </>
           )}
 
-          <PopoverHeader>BTTV Global Emotes</PopoverHeader>
-          <PopoverBody>
-            <Flex flexWrap="wrap">
-              {user.bttvEmotes !== null &&
-                // eslint-disable-next-line array-callback-return
-                Object.keys(user.bttvEmotes).map((key, index) => {
-                  if (user.bttvEmotes[key]['category'] === 'bttv_global') {
-                    return (
-                      <ChatEmote
-                        key={index}
-                        name={key}
-                        src={
-                          user.bttvEmotes[key][
-                            user.userOptions.emoteQuality + 'x'
-                          ]
-                        }
-                        height={8}
-                        margin={1.5}
-                        onClick={() => onClickHandler(key)}
-                      />
-                    );
-                  }
-                })}
-            </Flex>
-          </PopoverBody>
-
           {showEmotes &&
-            Object.keys(emoteSets.current).map((key, index, array) => {
+            Object.keys(emoteSets.current).map(key => {
               // console.log({ key, index, array });
               return (
                 <>
@@ -261,6 +235,32 @@ export default function EmotePicker(props) {
                 </>
               );
             })}
+
+          <PopoverHeader>BTTV Global Emotes</PopoverHeader>
+          <PopoverBody>
+            <Flex flexWrap="wrap">
+              {user.bttvEmotes !== null &&
+                // eslint-disable-next-line array-callback-return
+                Object.keys(user.bttvEmotes).map((key, index) => {
+                  if (user.bttvEmotes[key]['category'] === 'bttv_global') {
+                    return (
+                      <ChatEmote
+                        key={index}
+                        name={key}
+                        src={
+                          user.bttvEmotes[key][
+                            user.userOptions.emoteQuality + 'x'
+                          ]
+                        }
+                        height={8}
+                        margin={1.5}
+                        onClick={() => onClickHandler(key)}
+                      />
+                    );
+                  }
+                })}
+            </Flex>
+          </PopoverBody>
 
           {/* <PopoverHeader>Twitch Emotes</PopoverHeader>
           <PopoverBody>

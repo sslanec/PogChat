@@ -6,7 +6,7 @@ export default function ChatEmote(props) {
       as="img"
       display="inline-block"
       height={props.height ? props.height : 6}
-      width={props.width ? props.height : 'auto'}
+      width={props.width ? props.width : 'auto'}
       alt={props.name}
       title={props.name}
       src={props.src}

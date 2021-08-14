@@ -14,6 +14,7 @@ import Footer from './components/Footer/Footer';
 import Following from './routes/Following/Following';
 import Settings from './routes/Settings/Settings';
 import clearStorage from './utils/browser/clearStorage';
+import Landing from './components/Landing/Landing';
 
 const userInit = {
   userOptions: {
@@ -223,7 +224,11 @@ export default function App() {
               </Route>
               <Route path="/">
                 <ChatContext.Provider value={{ chats, setChats }}>
-                  <Chat flexGrow={1} />
+                  {user.loggedIn || loginLoading ? (
+                    <Chat flexGrow={1} />
+                  ) : (
+                    <Landing flexGrow={1} />
+                  )}
                 </ChatContext.Provider>
               </Route>
             </Switch>
