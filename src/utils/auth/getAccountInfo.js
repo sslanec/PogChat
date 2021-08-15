@@ -6,7 +6,7 @@ export default async function getAccountInfo(href) {
   let accessToken = split[0];
   let refreshToken = null;
   let expiryTimestamp = 0;
-  window.history.replaceState(null, '', process.env.REACT_APP_REDIRECT_URL);
+  window.history.replaceState({}, document.title, '/');
 
   const apiName = 'TwitchLogin';
   const path = '/TwitchLogin';

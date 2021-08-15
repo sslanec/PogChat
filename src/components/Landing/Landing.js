@@ -2,6 +2,14 @@ import { Container, Heading, HStack, Text } from '@chakra-ui/react';
 import ChatEmote from '../ChatEmote/ChatEmote';
 
 export default function Landing(props) {
+  const url =
+    'https://id.twitch.tv/oauth2/authorize?' +
+    `client_id=${process.env.REACT_APP_CLIENT_ID}&` +
+    `redirect_uri=${process.env.REACT_APP_REDIRECT_URL}&` +
+    'response_type=id_token+code&' +
+    'scope=openid+chat:read+chat:edit+user:read:follows&' +
+    'force_verify=true';
+
   return (
     <Container
       display="flex"
@@ -69,7 +77,10 @@ export default function Landing(props) {
       </Text>
 
       <Heading size="md" paddingTop={6}>
-        Log in with your Twitch account to get started!
+        <Text as="a" href={url} textDecoration="underline">
+          Log in
+        </Text>{' '}
+        with your Twitch account to get started!
       </Heading>
     </Container>
   );
