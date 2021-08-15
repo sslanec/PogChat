@@ -10,10 +10,8 @@ export default function NavBarContainer(props) {
       width="100%"
       paddingTop={2}
       paddingBottom={1}
-      paddingLeft={2}
-      paddingRight={2}
-      background="transparent"
-      color="white"
+      paddingLeft={1}
+      paddingRight={3}
       {...props}
     >
       {props.children}

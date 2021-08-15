@@ -1,6 +1,12 @@
 import { useEffect, useReducer, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { ChakraProvider, Flex, Heading, theme } from '@chakra-ui/react';
+import {
+  Container,
+  ChakraProvider,
+  Flex,
+  Heading,
+  theme,
+} from '@chakra-ui/react';
 import UserContext from './context/User/User';
 import ChatContext from './context/Chat/Chat';
 import getAccountInfo from './utils/auth/getAccountInfo';
@@ -8,13 +14,13 @@ import getAuthProvider from './utils/auth/getAuthProvider';
 import connectApi from './utils/auth/connectApi';
 import getStorage from './utils/browser/getStorage';
 import NavBar from './components/NavBar/NavBar';
-import Chat from './routes/Chat/Chat';
+import Chat from './routes/root/Chat/Chat';
 import ChatMessage from './components/ChatMessage/ChatMessage';
 import Footer from './components/Footer/Footer';
 import Following from './routes/Following/Following';
 import Settings from './routes/Settings/Settings';
 import clearStorage from './utils/browser/clearStorage';
-import Landing from './components/Landing/Landing';
+import Landing from './routes/root/Landing/Landing';
 
 const userInit = {
   userOptions: {
@@ -142,15 +148,15 @@ export default function App() {
         height: window.innerHeight,
         width: window.innerWidth,
       });
-      document.body.style.height = window.innerHeight;
-      document.body.style.width = window.innerWidth;
+      document.body.style.height = '100%';
+      document.body.style.width = '100%';
     }, 50);
 
     if (mounted) {
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
-      document.body.style.height = window.innerHeight;
-      document.body.style.width = window.innerWidth;
+      document.body.style.height = '100%';
+      document.body.style.width = '100%';
       window.addEventListener('resize', handleResize);
 
       let { accessToken, expiryTimestamp, userOptions } = getStorage();
@@ -206,32 +212,38 @@ export default function App() {
               loggedIn={loggedIn}
               loginLoading={loginLoading}
             />
-            <Switch>
-              <Route path="/about-us">
-                <Heading>About Us</Heading>
-              </Route>
-              <Route path="/change-log">
-                <Heading>Changelog</Heading>
-              </Route>
-              <Route path="/privacy-policy">
-                <Heading>Privacy Policy</Heading>
-              </Route>
-              <Route path="/user-following">
-                <Following flexGrow={1} />
-              </Route>
-              <Route path="/user-settings">
-                <Settings flexGrow={1} />
-              </Route>
-              <Route path="/">
-                <ChatContext.Provider value={{ chats, setChats }}>
-                  {user.loggedIn || loginLoading ? (
-                    <Chat flexGrow={1} />
-                  ) : (
-                    <Landing flexGrow={1} />
-                  )}
-                </ChatContext.Provider>
-              </Route>
-            </Switch>
+            <Container
+              display="flex"
+              flexDirection="column"
+              minHeight={0}
+              paddingTop={2}
+              paddingLeft={[2, 2, 0, 0]}
+              paddingRight={[2, 2, 0, 0]}
+              flexGrow={1}
+            >
+              <Switch>
+                <Route path="/about-us">
+                  <Heading>About Us</Heading>
+                </Route>
+                <Route path="/change-log">
+                  <Heading>Changelog</Heading>
+                </Route>
+                <Route path="/privacy-policy">
+                  <Heading>Privacy Policy</Heading>
+                </Route>
+                <Route path="/user-following">
+                  <Following />
+                </Route>
+                <Route path="/user-settings">
+                  <Settings />
+                </Route>
+                <Route path="/">
+                  <ChatContext.Provider value={{ chats, setChats }}>
+                    {user.loggedIn || loginLoading ? <Chat /> : <Landing />}
+                  </ChatContext.Provider>
+                </Route>
+              </Switch>
+            </Container>
             <Footer />
           </Flex>
         </ChakraProvider>

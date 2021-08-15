@@ -17,11 +17,11 @@ export default function MenuLinks(props) {
         <MenuItem toggle={props.toggle} to="/">
           Chat
         </MenuItem>
-        {props.loggedIn && (
-          <MenuItem toggle={props.toggle} to="/user-following">
-            Following
-          </MenuItem>
-        )}
+
+        <MenuItem toggle={props.toggle} to="/user-following">
+          Following
+        </MenuItem>
+
         <MenuItem toggle={props.toggle} to="/user-settings">
           Settings
         </MenuItem>

@@ -1,13 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Container,
-  Heading,
-  HStack,
-  Spinner,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import UserContext from '../../context/User/User';
 
 export default function Following(props) {
@@ -37,16 +30,7 @@ export default function Following(props) {
   }, []);
 
   return (
-    <Container
-      display="flex"
-      flexDirection="column"
-      minHeight={0}
-      paddingTop={2}
-      // paddingBottom={1}
-      paddingLeft={2}
-      paddingRight={2}
-      {...props}
-    >
+    <>
       <HStack spacing="auto">
         <Heading paddingBottom={4}>Following</Heading>
         <Spinner visibility={visible ? '' : 'hidden'} />
@@ -75,6 +59,6 @@ export default function Following(props) {
             )
           )}
       </VStack>
-    </Container>
+    </>
   );
 }

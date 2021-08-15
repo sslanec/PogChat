@@ -1,5 +1,5 @@
-import { Container, Heading, HStack, Text } from '@chakra-ui/react';
-import ChatEmote from '../ChatEmote/ChatEmote';
+import { Heading, HStack, Text } from '@chakra-ui/react';
+import ChatEmote from '../../../components/ChatEmote/ChatEmote';
 
 export default function Landing(props) {
   const url =
@@ -11,15 +11,7 @@ export default function Landing(props) {
     'force_verify=true';
 
   return (
-    <Container
-      display="flex"
-      flexDirection="column"
-      minHeight={0}
-      paddingTop={2}
-      paddingLeft={2}
-      paddingRight={2}
-      {...props}
-    >
+    <>
       <Heading>Welcome to PogChat</Heading>
       <Heading size="md">A web-based Twitch chat alternative</Heading>
 
@@ -82,6 +74,6 @@ export default function Landing(props) {
         </Text>{' '}
         with your Twitch account to get started!
       </Heading>
-    </Container>
+    </>
   );
 }

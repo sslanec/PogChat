@@ -1,13 +1,5 @@
 import { useContext } from 'react';
-import {
-  Box,
-  Checkbox,
-  Container,
-  Heading,
-  HStack,
-  Select,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Checkbox, Heading, HStack, Select, Text } from '@chakra-ui/react';
 import UserContext from '../../context/User/User';
 import ClearDataAlert from '../../components/ClearDataAlert/ClearDataAlert';
 
@@ -21,16 +13,7 @@ export default function Settings(props) {
   };
 
   return (
-    <Container
-      display="flex"
-      flexDirection="column"
-      minHeight={0}
-      paddingTop={2}
-      // paddingBottom={1}
-      paddingLeft={2}
-      paddingRight={2}
-      {...props}
-    >
+    <>
       <Heading>Settings</Heading>
       <Box paddingTop={4} overflow="auto">
         <HStack spacing="auto">
@@ -99,6 +82,6 @@ export default function Settings(props) {
         </HStack>
         <ClearDataAlert paddingTop={4} />
       </Box>
-    </Container>
+    </>
   );
 }
