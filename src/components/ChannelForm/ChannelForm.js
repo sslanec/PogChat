@@ -3,7 +3,7 @@ import {
   Input,
   Button,
   FormControl,
-  FormLabel,
+  // FormLabel,
   HStack,
 } from '@chakra-ui/react';
 import chatConnect from '../../utils/chat/chatConnect';
@@ -660,11 +660,11 @@ export default function ChannelInput(props) {
   return (
     <FormControl as="form" onSubmit={handleSubmit} {...props}>
       <HStack>
-        <FormLabel>Channel:</FormLabel>
+        {/* <FormLabel>Channel:</FormLabel> */}
         <Input
           disabled={!user.loggedIn || user.connected || loading}
           onChange={handleChange}
-          placeholder={placeholder}
+          placeholder={'Channel (Ex: ' + placeholder + ')'}
           value={value}
         />
         <Button

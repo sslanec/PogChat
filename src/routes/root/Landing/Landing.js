@@ -16,7 +16,15 @@ export default function Landing(props) {
       <Heading size="md">A web-based Twitch chat alternative</Heading>
 
       <Heading size="sm" paddingTop={6}>
-        Popular community features included
+        Optimized for Mobile Use
+      </Heading>
+      <Text paddingTop={2}>
+        Chat anywhere. PogChat is built mobile-first to enhance your Twitch
+        chatting experience no matter where you watch.
+      </Text>
+
+      <Heading size="sm" paddingTop={6}>
+        Third-Party Emote Support
       </Heading>
       <Text paddingTop={2}>
         Show your hype however you like with BetterTTV and FrankerFaceZ emotes.
@@ -59,14 +67,6 @@ export default function Landing(props) {
           height={7}
         />
       </HStack>
-
-      <Heading size="sm" paddingTop={6}>
-        Optimized for mobile use
-      </Heading>
-      <Text paddingTop={2}>
-        Chat anywhere. PogChat is built mobile-first to enhance your Twitch
-        chatting experience wherever you go.
-      </Text>
 
       <Heading size="md" paddingTop={6}>
         <Text as="a" href={url} textDecoration="underline">
