@@ -21,14 +21,10 @@ export default function EmotePicker(props) {
   const [showBTTVChannel, setShowBTTVChannel] = useState(false);
   const [showFFZChannel, setShowFFZChannel] = useState(false);
   const [showEmotes, setShowEmotes] = useState(false);
-  let emoteSets = useRef();
+  const emoteSets = useRef();
 
   const onClickHandler = key => {
-    if (props.msg.slice(-1) === ' ' || props.msg === '') {
-      props.setMsg(`${props.msg}${key} `);
-    } else {
-      props.setMsg(`${props.msg} ${key} `);
-    }
+    props.insertEmote(key);
   };
 
   useEffect(() => {

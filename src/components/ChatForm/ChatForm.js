@@ -19,6 +19,14 @@ export default function ChatForm(props) {
     }
   };
 
+  const insertEmote = emote => {
+    if (msg.slice(-1) === ' ' || props.msg === '') {
+      setMsg(`${msg}${emote} `);
+    } else {
+      setMsg(`${msg} ${emote} `);
+    }
+  };
+
   return (
     <FormControl as="form" onSubmit={handleSubmit} {...props}>
       <HStack>
@@ -30,8 +38,7 @@ export default function ChatForm(props) {
         />
         <EmotePicker
           disabled={!user.loggedIn || !user.connected}
-          msg={msg}
-          setMsg={setMsg}
+          insertEmote={insertEmote}
         />
         <Button
           disabled={!user.loggedIn || !user.connected || msg === ''}
