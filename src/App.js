@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import {
   Container,
   ChakraProvider,
@@ -19,7 +19,7 @@ import ChatMessage from './components/ChatMessage/ChatMessage';
 import Footer from './components/Footer/Footer';
 import Following from './routes/Following/Following';
 import Settings from './routes/Settings/Settings';
-import clearStorage from './utils/browser/clearStorage';
+// import clearStorage from './utils/browser/clearStorage';
 import Landing from './routes/root/Landing/Landing';
 
 const userInit = {
@@ -118,17 +118,22 @@ export default function App() {
     height: window.innerHeight,
     width: window.innerWidth,
   });
+  const history = useHistory();
+  const location = useLocation();
 
   const init = ({ apiClient, userAccInfo, globalBadges, userFollows }) => {
+    if (location.pathname === '/') {
+      history.push('/user-following');
+    }
     user.apiClient = apiClient;
     user.userAccInfo = userAccInfo;
-    user.globalBadges = globalBadges;
     user.userFollows = userFollows;
+    user.globalBadges = globalBadges;
     setUser({ followRefresh: Date.now() });
     setUser({ loggedIn: true });
     setDisplayName(user.userAccInfo.displayName);
-    setLoginLoading(false);
     setAvatarUrl(user.userAccInfo.profilePictureUrl);
+    setLoginLoading(false);
     setLoggedIn(true);
   };
 
@@ -186,7 +191,8 @@ export default function App() {
           init(data);
         });
       } else if (expiryTimestamp < Date.now()) {
-        clearStorage();
+        localStorage.setItem('accessToken', null);
+        localStorage.setItem('expiryTimestamp', 0);
       }
       // console.log(user);
     }
@@ -198,56 +204,54 @@ export default function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <UserContext.Provider value={{ user, setUser }}>
-        <ChakraProvider theme={theme}>
-          <Flex
+    <UserContext.Provider value={{ user, setUser }}>
+      <ChakraProvider theme={theme}>
+        <Flex
+          flexDirection="column"
+          height={dimensions.height}
+          width={dimensions.width}
+        >
+          <NavBar
+            avatarUrl={avatarUrl}
+            displayName={displayName}
+            loggedIn={loggedIn}
+            loginLoading={loginLoading}
+          />
+          <Container
+            display="flex"
             flexDirection="column"
-            height={dimensions.height}
-            width={dimensions.width}
+            minHeight={0}
+            paddingTop={2}
+            paddingLeft={[2, 2, 0, 0]}
+            paddingRight={[2, 2, 0, 0]}
+            flexGrow={1}
           >
-            <NavBar
-              avatarUrl={avatarUrl}
-              displayName={displayName}
-              loggedIn={loggedIn}
-              loginLoading={loginLoading}
-            />
-            <Container
-              display="flex"
-              flexDirection="column"
-              minHeight={0}
-              paddingTop={2}
-              paddingLeft={[2, 2, 0, 0]}
-              paddingRight={[2, 2, 0, 0]}
-              flexGrow={1}
-            >
-              <Switch>
-                <Route path="/about-us">
-                  <Heading>About Us</Heading>
-                </Route>
-                <Route path="/change-log">
-                  <Heading>Changelog</Heading>
-                </Route>
-                <Route path="/privacy-policy">
-                  <Heading>Privacy Policy</Heading>
-                </Route>
-                <Route path="/user-following">
-                  <Following />
-                </Route>
-                <Route path="/user-settings">
-                  <Settings />
-                </Route>
-                <Route path="/">
-                  <ChatContext.Provider value={{ chats, setChats }}>
-                    {user.loggedIn || loginLoading ? <Chat /> : <Landing />}
-                  </ChatContext.Provider>
-                </Route>
-              </Switch>
-            </Container>
-            <Footer />
-          </Flex>
-        </ChakraProvider>
-      </UserContext.Provider>
-    </BrowserRouter>
+            <Switch>
+              <Route path="/about-us">
+                <Heading>About Us</Heading>
+              </Route>
+              <Route path="/change-log">
+                <Heading>Changelog</Heading>
+              </Route>
+              <Route path="/privacy-policy">
+                <Heading>Privacy Policy</Heading>
+              </Route>
+              <Route path="/user-following">
+                <Following loginLoading={loginLoading} />
+              </Route>
+              <Route path="/user-settings">
+                <Settings />
+              </Route>
+              <Route path="/">
+                <ChatContext.Provider value={{ chats, setChats }}>
+                  {user.loggedIn || loginLoading ? <Chat /> : <Landing />}
+                </ChatContext.Provider>
+              </Route>
+            </Switch>
+          </Container>
+          <Footer />
+        </Flex>
+      </ChakraProvider>
+    </UserContext.Provider>
   );
 }

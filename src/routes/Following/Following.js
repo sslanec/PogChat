@@ -14,7 +14,7 @@ export default function Following(props) {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      if (Date.now() > user.followRefresh + 10000) {
+      if (Date.now() > user.followRefresh + 10000 && user.loggedIn === true) {
         setVisible(true);
         refreshFollows(user.userAccInfo.id).then(data => {
           setUser({ userFollows: data });
@@ -33,7 +33,7 @@ export default function Following(props) {
     <>
       <HStack spacing="auto">
         <Heading paddingBottom={4}>Following</Heading>
-        <Spinner visibility={visible ? '' : 'hidden'} />
+        <Spinner visibility={visible || props.loginLoading ? '' : 'hidden'} />
       </HStack>
       <VStack align="flex-start" overflow="auto">
         {user.userFollows &&

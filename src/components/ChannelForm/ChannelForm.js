@@ -649,9 +649,11 @@ export default function ChannelInput(props) {
     if (user.connected) {
       user.chatClient.disconnect();
       setUser({ connected: false });
+      window.history.replaceState({}, document.title, '/');
     } else {
       setLoading(true);
       user.chatClient = chatConnect(user.authProvider, value);
+      window.history.replaceState({}, document.title, '/' + value);
       // user.chatChannel = value;
       setChatEvents();
     }
