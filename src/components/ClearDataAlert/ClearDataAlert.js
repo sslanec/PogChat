@@ -9,7 +9,7 @@ import {
   Box,
   Button,
 } from '@chakra-ui/react';
-import clearStorage from '../../utils/browser/clearStorage';
+import clearStorage from 'utils/browser/clearStorage';
 
 export default function ClearDataAlert(props) {
   const [isOpen, setIsOpen] = useState(false);

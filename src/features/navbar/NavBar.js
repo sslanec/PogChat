@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import NavBarContainer from './NavBarContainer';
-import MenuToggle from '../MenuToggle/MenuToggle';
-import MenuLinks from '../MenuLinks/MenuLinks';
+import NavBarContainer from 'features/navbar/NavBarContainer';
+import MenuToggle from 'features/navbar/MenuToggle';
+import MenuLinks from 'features/navbar/MenuLinks';
 import { Avatar, HStack } from '@chakra-ui/react';
-import LoginButton from '../LoginButton/LoginButton';
+import LoginButton from 'features/navbar/LoginButton';
 
 export default function NavBar(props) {
   const [isOpen, setIsOpen] = useState(false);

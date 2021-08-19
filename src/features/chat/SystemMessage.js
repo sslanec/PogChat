@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Text } from '@chakra-ui/react';
-import UserContext from '../../context/User/User';
+import UserContext from 'context/User/User';
 
 export default function SystemMessage(props) {
   const { user } = useContext(UserContext);

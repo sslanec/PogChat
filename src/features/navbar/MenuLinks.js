@@ -1,5 +1,5 @@
 import { Box, Stack } from '@chakra-ui/react';
-import MenuItem from '../MenuItem/MenuItem';
+import MenuItem from 'features/navbar/MenuItem';
 // import { ColorModeSwitcher } from '../ColorModeSwitcher/ColorModeSwitcher';
 
 export default function MenuLinks(props) {

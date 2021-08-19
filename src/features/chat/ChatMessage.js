@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { Text } from '@chakra-ui/react';
-import detectEmotes from '../../utils/chat/detectEmotes';
-import insertEmotes from '../../utils/chat/insertEmotes';
-import insertSpaces from '../../utils/chat/insertSpaces';
-import getBadges from '../../utils/chat/getBadges';
-import UserContext from '../../context/User/User';
+import detectEmotes from 'utils/chat/detectEmotes';
+import insertEmotes from 'utils/chat/insertEmotes';
+import insertSpaces from 'utils/chat/insertSpaces';
+import getBadges from 'utils/chat/getBadges';
+import UserContext from 'context/User/User';
 
 export default function ChatMessage({
   bits,

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Box, Checkbox, Heading, HStack, Select, Text } from '@chakra-ui/react';
-import UserContext from '../../context/User/User';
-import ClearDataAlert from '../../components/ClearDataAlert/ClearDataAlert';
+import UserContext from 'context/User/User';
+import ClearDataAlert from 'components/ClearDataAlert/ClearDataAlert';
 
 export default function Settings(props) {
   const { user, setUser } = useContext(UserContext);

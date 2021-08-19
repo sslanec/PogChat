@@ -1,4 +1,4 @@
-import ChatBadge from '../../components/ChatBadge/ChatBadge';
+import ChatBadge from 'features/chat/ChatBadge';
 import { v4 as uuid } from 'uuid';
 
 export default function getBadges(

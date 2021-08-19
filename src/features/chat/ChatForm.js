@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Input, Button, FormControl, HStack } from '@chakra-ui/react';
-import UserContext from '../../context/User/User';
-import EmotePicker from '../EmotePicker/EmotePicker';
+import UserContext from 'context/User/User';
+import EmotePicker from 'features/chat/EmotePicker';
 
 export default function ChatForm(props) {
   const { user } = useContext(UserContext);

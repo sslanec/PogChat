@@ -1,5 +1,5 @@
 import { Box, Button } from '@chakra-ui/react';
-import twitchLogo from './twitchLogo.svg';
+import twitchLogo from 'assets/twitchLogo.svg';
 
 const url =
   'https://id.twitch.tv/oauth2/authorize?' +

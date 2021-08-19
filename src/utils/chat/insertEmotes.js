@@ -1,4 +1,4 @@
-import ChatEmote from '../../components/ChatEmote/ChatEmote';
+import ChatEmote from 'features/chat/ChatEmote';
 import { v4 as uuid } from 'uuid';
 
 export default function insertEmotes(

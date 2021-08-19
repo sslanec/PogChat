@@ -7,20 +7,20 @@ import {
   Heading,
   theme,
 } from '@chakra-ui/react';
-import UserContext from './context/User/User';
-import ChatContext from './context/Chat/Chat';
-import getAccountInfo from './utils/auth/getAccountInfo';
-import getAuthProvider from './utils/auth/getAuthProvider';
-import connectApi from './utils/auth/connectApi';
-import getStorage from './utils/browser/getStorage';
-import NavBar from './components/NavBar/NavBar';
-import Chat from './routes/root/Chat/Chat';
-import ChatMessage from './components/ChatMessage/ChatMessage';
-import Footer from './components/Footer/Footer';
-import Following from './routes/Following/Following';
-import Settings from './routes/Settings/Settings';
-// import clearStorage from './utils/browser/clearStorage';
-import Landing from './routes/root/Landing/Landing';
+import UserContext from 'context/User/User';
+import ChatContext from 'context/Chat/Chat';
+import getAccountInfo from 'utils/auth/getAccountInfo';
+import getAuthProvider from 'utils/auth/getAuthProvider';
+import connectApi from 'utils/auth/connectApi';
+import getStorage from 'utils/browser/getStorage';
+import NavBar from 'features/navbar/NavBar';
+import Chat from 'routes/root/Chat/Chat';
+import ChatMessage from 'features/chat/ChatMessage';
+import Footer from 'components/Footer/Footer';
+import Following from 'routes/Following/Following';
+import Settings from 'routes/Settings/Settings';
+// import clearStorage from 'utils/browser/clearStorage';
+import Landing from 'routes/root/Landing/Landing';
 
 const userInit = {
   userOptions: {

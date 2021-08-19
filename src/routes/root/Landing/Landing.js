@@ -1,5 +1,5 @@
 import { Heading, HStack, Text } from '@chakra-ui/react';
-import ChatEmote from '../../../components/ChatEmote/ChatEmote';
+import ChatEmote from 'features/chat/ChatEmote';
 
 export default function Landing(props) {
   const url =

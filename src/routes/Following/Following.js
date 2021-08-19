@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
-import UserContext from '../../context/User/User';
+import UserContext from 'context/User/User';
 
 export default function Following(props) {
   const { user, setUser } = useContext(UserContext);

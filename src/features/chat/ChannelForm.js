@@ -6,30 +6,30 @@ import {
   // FormLabel,
   HStack,
 } from '@chakra-ui/react';
-import chatConnect from '../../utils/chat/chatConnect';
-import UserContext from '../../context/User/User';
-import ChatContext from '../../context/Chat/Chat';
-import ChatMessage from '../ChatMessage/ChatMessage';
-import SystemMessage from '../SystemMessage/SystemMessage';
-import EventMessage from '../EventMessage/EventMessage';
-import GiftMessage from '../GiftMessage/GiftMessage';
-import getChannelBadges from '../../utils/api/getChannelBadges';
-import getBTTVEmotes from '../../utils/api/getBTTVEmotes';
-import getCheermotes from '../../utils/api/getCheermotes';
-import getUserEmotes from '../../utils/api/getUserEmotes';
-import followersOnly from '../../utils/chat/events/followersOnly';
-import slowMode from '../../utils/chat/events/slowMode';
-import emoteOnly from '../../utils/chat/events/emoteOnly';
-import subsOnly from '../../utils/chat/events/subsOnly';
-import timeoutHandler from '../../utils/chat/events/timeoutHandler';
-import subHandler from '../../utils/chat/events/subHandler';
-import subMysteryGift from '../../utils/chat/events/subMysteryGift';
-import subGift from '../../utils/chat/events/subGift';
-import resubHandler from '../../utils/chat/events/resubHandler';
-import raidedHandler from '../../utils/chat/events/raidedHandler';
-import hostingHandler from '../../utils/chat/events/hostingHandler';
-import hostedHandler from '../../utils/chat/events/hostedHandler';
-import getCheerList from '../../utils/chat/getCheerList';
+import chatConnect from 'utils/chat/chatConnect';
+import UserContext from 'context/User/User';
+import ChatContext from 'context/Chat/Chat';
+import ChatMessage from 'features/chat/ChatMessage';
+import SystemMessage from 'features/chat/SystemMessage';
+import EventMessage from 'features/chat/EventMessage';
+import GiftMessage from 'features/chat/GiftMessage';
+import getChannelBadges from 'utils/api/getChannelBadges';
+import getBTTVEmotes from 'utils/api/getBTTVEmotes';
+import getCheermotes from 'utils/api/getCheermotes';
+import getUserEmotes from 'utils/api/getUserEmotes';
+import followersOnly from 'utils/chat/events/followersOnly';
+import slowMode from 'utils/chat/events/slowMode';
+import emoteOnly from 'utils/chat/events/emoteOnly';
+import subsOnly from 'utils/chat/events/subsOnly';
+import timeoutHandler from 'utils/chat/events/timeoutHandler';
+import subHandler from 'utils/chat/events/subHandler';
+import subMysteryGift from 'utils/chat/events/subMysteryGift';
+import subGift from 'utils/chat/events/subGift';
+import resubHandler from 'utils/chat/events/resubHandler';
+import raidedHandler from 'utils/chat/events/raidedHandler';
+import hostingHandler from 'utils/chat/events/hostingHandler';
+import hostedHandler from 'utils/chat/events/hostedHandler';
+import getCheerList from 'utils/chat/getCheerList';
 
 const names = [
   'Kitboga',

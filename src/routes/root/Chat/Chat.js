@@ -1,6 +1,6 @@
-import ChannelForm from '../../../components/ChannelForm/ChannelForm';
-import ChatView from '../../../components/ChatView/ChatView';
-import ChatForm from '../../../components/ChatForm/ChatForm';
+import ChannelForm from 'features/chat/ChannelForm';
+import ChatView from 'features/chat/ChatView';
+import ChatForm from 'features/chat/ChatForm';
 
 export default function Chat(props) {
   return (

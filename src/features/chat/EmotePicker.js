@@ -12,8 +12,8 @@ import {
   PopoverArrow,
   PopoverCloseButton,
 } from '@chakra-ui/react';
-import UserContext from '../../context/User/User';
-import ChatEmote from '../ChatEmote/ChatEmote';
+import UserContext from 'context/User/User';
+import ChatEmote from 'features/chat/ChatEmote';
 
 export default function EmotePicker(props) {
   const { user } = useContext(UserContext);
