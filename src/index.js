@@ -2,20 +2,24 @@ import { ColorModeScript } from '@chakra-ui/react';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import store from 'store';
+import { Provider } from 'react-redux';
+import App from 'App';
 // import reportWebVitals from './reportWebVitals';
-import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from 'serviceWorker';
 import Amplify from 'aws-amplify';
-import awsExports from './aws-exports';
+import awsExports from 'aws-exports';
 
 Amplify.configure(awsExports);
 
 ReactDOM.render(
   <StrictMode>
-    <ColorModeScript />
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <ColorModeScript />
+        <App />
+      </BrowserRouter>
+    </Provider>
   </StrictMode>,
   document.getElementById('root')
 );

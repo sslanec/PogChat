@@ -1,11 +1,6 @@
 import { createRef, useContext, useEffect, useState } from 'react';
-import {
-  Input,
-  Button,
-  FormControl,
-  // FormLabel,
-  HStack,
-} from '@chakra-ui/react';
+import { Input, Button, FormControl, HStack } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
 import chatConnect from 'utils/chat/chatConnect';
 import UserContext from 'context/User/User';
 import ChatContext from 'context/Chat/Chat';
@@ -30,6 +25,11 @@ import raidedHandler from 'utils/chat/events/raidedHandler';
 import hostingHandler from 'utils/chat/events/hostingHandler';
 import hostedHandler from 'utils/chat/events/hostedHandler';
 import getCheerList from 'utils/chat/getCheerList';
+import {
+  addMessage,
+  clearMessages,
+  deleteMessage,
+} from 'features/chat/chatSlice';
 
 const names = [
   'Kitboga',
@@ -62,6 +62,7 @@ export default function ChannelInput(props) {
   const [value, setValue] = useState('');
   const [emoteSets, setEmoteSets] = useState([]);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const setChatEvents = async () => {
     user.chatClient.on(
@@ -153,12 +154,20 @@ export default function ChannelInput(props) {
 
     user.chatClient.on('clearchat', channel => {
       setChats({ type: 'CLEAR', item: channel });
+      dispatch(clearMessages(channel));
+
       setChats({
         type: 'ADD',
         item: {
           msg: <SystemMessage msg="Chat was cleared by a moderator." />,
         },
       });
+      dispatch(
+        addMessage({
+          msg: 'Chat was cleared by a moderator.',
+          msgType: 'system',
+        })
+      );
     });
 
     user.chatClient.on('disconnected', reason => {
@@ -288,6 +297,18 @@ export default function ChannelInput(props) {
             channel: channel,
           },
         });
+        dispatch(
+          addMessage({
+            channel: channel,
+            id: id,
+            isAction,
+            msg: message,
+            msgType: 'chat',
+            // ref: ref,
+            self,
+            userstate,
+          })
+        );
         // console.log({ userstate, message, self, ref });
       }
     });
@@ -305,11 +326,13 @@ export default function ChannelInput(props) {
         // ]);
         if (username !== user.userAccInfo.name) {
           setChats({ type: 'DELETE', item: userstate['target-msg-id'] });
+          dispatch(deleteMessage(userstate['target-msg-id']));
         } else {
           setChats({
             type: 'DELETE',
             item: deletedMessage.split(' ').join('_'),
           });
+          dispatch(deleteMessage(deletedMessage.split(' ').join('_')));
         }
       }
     );

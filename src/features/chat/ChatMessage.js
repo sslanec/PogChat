@@ -32,16 +32,18 @@ export default function ChatMessage({
     );
   }
   let msgArray = msg.split(' ');
-  if (self) {
-    msgArray = insertEmotes(msgArray, userEmotes, emoteQuality);
-  } else {
-    let msgEmotes = detectEmotes(msgArray, userstate.emotes);
-    msgArray = insertEmotes(msgArray, msgEmotes, emoteQuality);
+  if (msg !== '< message deleted >') {
+    if (self) {
+      msgArray = insertEmotes(msgArray, userEmotes, emoteQuality);
+    } else {
+      let msgEmotes = detectEmotes(msgArray, userstate.emotes);
+      msgArray = insertEmotes(msgArray, msgEmotes, emoteQuality);
+    }
+    if (bits !== false) {
+      msgArray = insertEmotes(msgArray, cheerList, emoteQuality, true);
+    }
+    msgArray = insertEmotes(msgArray, bttvEmotes, emoteQuality);
   }
-  if (bits !== false) {
-    msgArray = insertEmotes(msgArray, cheerList, emoteQuality, true);
-  }
-  msgArray = insertEmotes(msgArray, bttvEmotes, emoteQuality);
 
   return (
     <Text

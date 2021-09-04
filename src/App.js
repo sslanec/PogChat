@@ -70,7 +70,7 @@ function chatReducer(state, { type, item }) {
       let clrState = state;
       for (let i = clrState.length - 1; i > 0; i--) {
         if (clrState[i]['channel'] === item) {
-          clrState[i]['ref'].current.remove();
+          // clrState[i]['ref'].current.remove();
           clrState.splice(i, 1);
         }
       }
