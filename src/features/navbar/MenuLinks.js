@@ -15,16 +15,21 @@ export default function MenuLinks(props) {
         direction={['column', 'column', 'row', 'row']}
       >
         <MenuItem toggle={props.toggle} to="/">
-          Chat
+          {props.loggedIn ? 'Chat' : 'Home'}
         </MenuItem>
 
-        <MenuItem toggle={props.toggle} to="/user-following">
-          Following
-        </MenuItem>
+        {props.loggedIn && (
+          <MenuItem toggle={props.toggle} to="/user-following">
+            Following
+          </MenuItem>
+        )}
 
-        <MenuItem toggle={props.toggle} to="/user-settings">
-          Settings
-        </MenuItem>
+        {props.loggedIn && (
+          <MenuItem toggle={props.toggle} to="/user-settings">
+            Settings
+          </MenuItem>
+        )}
+
         {/* <ColorModeSwitcher /> */}
       </Stack>
     </Box>

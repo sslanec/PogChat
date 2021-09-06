@@ -3,6 +3,13 @@ export default function getStorage() {
   const refreshToken = localStorage.getItem('refreshToken');
   const expiryTimestamp = localStorage.getItem('expiryTimestamp');
   const userOptions = localStorage.getItem('userOptions');
+  const analyticsConsent = localStorage.getItem('analyticsConsent');
 
-  return { accessToken, refreshToken, expiryTimestamp, userOptions };
+  return {
+    accessToken,
+    refreshToken,
+    expiryTimestamp,
+    userOptions,
+    analyticsConsent,
+  };
 }

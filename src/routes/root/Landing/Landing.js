@@ -1,4 +1,4 @@
-import { Heading, HStack, Text } from '@chakra-ui/react';
+import { Flex, Heading, HStack, Text } from '@chakra-ui/react';
 import ChatEmote from 'features/chat/ChatEmote';
 
 export default function Landing(props) {
@@ -11,7 +11,7 @@ export default function Landing(props) {
     'force_verify=true';
 
   return (
-    <>
+    <Flex flex={[1, 1, '1px']} flexDirection="column" overflow="auto">
       <Heading>Welcome to PogChat</Heading>
       <Heading size="md">A web-based Twitch chat alternative</Heading>
 
@@ -74,6 +74,6 @@ export default function Landing(props) {
         </Text>{' '}
         with your Twitch account to get started!
       </Heading>
-    </>
+    </Flex>
   );
 }

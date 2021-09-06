@@ -8,19 +8,21 @@ import {
   theme,
 } from '@chakra-ui/react';
 import UserContext from 'context/User/User';
-import ChatContext from 'context/Chat/Chat';
 import getAccountInfo from 'utils/auth/getAccountInfo';
 import getAuthProvider from 'utils/auth/getAuthProvider';
 import connectApi from 'utils/auth/connectApi';
 import getStorage from 'utils/browser/getStorage';
 import NavBar from 'features/navbar/NavBar';
 import Chat from 'routes/root/Chat/Chat';
-import ChatMessage from 'features/chat/ChatMessage';
 import Footer from 'components/Footer/Footer';
 import Following from 'routes/Following/Following';
 import Settings from 'routes/Settings/Settings';
 // import clearStorage from 'utils/browser/clearStorage';
 import Landing from 'routes/root/Landing/Landing';
+import AboutUs from 'routes/AboutUs/AboutUs';
+import PrivacyPolicy from 'routes/PrivacyPolicy/PrivacyPolicy';
+import ReactGA from 'react-ga4';
+import CookieConsentForm from 'components/CookieConsentForm/CookieConsentForm';
 
 const userInit = {
   userOptions: {
@@ -62,54 +64,8 @@ function userReducer(state, item) {
   return { ...state, ...item };
 }
 
-function chatReducer(state, { type, item }) {
-  switch (type) {
-    case 'ADD':
-      return [...state, item];
-    case 'CLEAR':
-      let clrState = state;
-      for (let i = clrState.length - 1; i > 0; i--) {
-        if (clrState[i]['channel'] === item) {
-          // clrState[i]['ref'].current.remove();
-          clrState.splice(i, 1);
-        }
-      }
-      return clrState;
-    case 'DELETE':
-      let delState = state;
-      let deleted = false;
-      let i = delState.length - 1;
-      while (!deleted) {
-        if (delState[i]['id'] === item) {
-          let delMsg = delState[i]['ref'].current.innerHTML.split(': ');
-          delMsg[1] = '< message deleted >';
-          delState[i]['ref'].current.innerHTML = delMsg.join(': ');
-          delState[i] = {
-            msg: (
-              <ChatMessage
-                displayName={delState[i]['msg']['props']['displayName']}
-                msg="< message deleted >"
-                userstate={delState[i]['msg']['props']['userstate']}
-                reference={delState[i]['msg']['props']['reference']}
-              />
-            ),
-            id: delState[i]['id'],
-            ref: delState[i]['ref'],
-            channel: delState[i]['channel'],
-          };
-          deleted = true;
-        }
-        i--;
-      }
-      return delState;
-    default:
-      return state;
-  }
-}
-
 export default function App() {
   const [user, setUser] = useReducer(userReducer, userInit);
-  const [chats, setChats] = useReducer(chatReducer, []);
   const [displayName, setDisplayName] = useState('Login');
   const [loginLoading, setLoginLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -158,19 +114,25 @@ export default function App() {
     }, 50);
 
     if (mounted) {
+      const colorMode = localStorage.getItem('chakra-ui-color-mode');
+      if (!colorMode || colorMode !== 'dark') {
+        localStorage.setItem('chakra-ui-color-mode', 'dark');
+        window.location.reload();
+      }
+
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.height = '100%';
       document.body.style.width = '100%';
       window.addEventListener('resize', handleResize);
 
-      let { accessToken, expiryTimestamp, userOptions } = getStorage();
+      let { accessToken, expiryTimestamp, userOptions, analyticsConsent } =
+        getStorage();
       getUserOptions(userOptions);
 
-      const colorMode = localStorage.getItem('chakra-ui-color-mode');
-      if (!colorMode || colorMode !== 'dark') {
-        localStorage.setItem('chakra-ui-color-mode', 'dark');
-        window.location.reload();
+      if (analyticsConsent === 'true') {
+        ReactGA.initialize('G-NW3TF8XST3');
+        ReactGA.send({ hitType: 'pageview' });
       }
 
       const href = document.location.href;
@@ -228,13 +190,13 @@ export default function App() {
           >
             <Switch>
               <Route path="/about-us">
-                <Heading>About Us</Heading>
+                <AboutUs />
               </Route>
               <Route path="/change-log">
                 <Heading>Changelog</Heading>
               </Route>
               <Route path="/privacy-policy">
-                <Heading>Privacy Policy</Heading>
+                <PrivacyPolicy />
               </Route>
               <Route path="/user-following">
                 <Following loginLoading={loginLoading} />
@@ -243,13 +205,12 @@ export default function App() {
                 <Settings />
               </Route>
               <Route path="/">
-                <ChatContext.Provider value={{ chats, setChats }}>
-                  {user.loggedIn || loginLoading ? <Chat /> : <Landing />}
-                </ChatContext.Provider>
+                {user.loggedIn || loginLoading ? <Chat /> : <Landing />}
               </Route>
             </Switch>
           </Container>
           <Footer />
+          <CookieConsentForm />
         </Flex>
       </ChakraProvider>
     </UserContext.Provider>

@@ -22,19 +22,15 @@ export default function NavBar(props) {
           visibility={props.loggedIn ? '' : 'hidden'}
         ></Avatar>
       </HStack>
-      {props.loggedIn && (
-        <>
-          <MenuToggle toggle={toggle} isOpen={isOpen} />
-          <MenuLinks
-            avatarUrl={props.avatarUrl}
-            displayName={props.displayName}
-            isOpen={isOpen}
-            loggedIn={props.loggedIn}
-            loginLoading={props.loginLoading}
-            toggle={toggle}
-          />
-        </>
-      )}
+      <MenuToggle toggle={toggle} isOpen={isOpen} />
+      <MenuLinks
+        avatarUrl={props.avatarUrl}
+        displayName={props.displayName}
+        isOpen={isOpen}
+        loggedIn={props.loggedIn}
+        loginLoading={props.loginLoading}
+        toggle={toggle}
+      />
     </NavBarContainer>
   );
 }

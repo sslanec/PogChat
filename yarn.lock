@@ -11652,6 +11652,14 @@ react-clientside-effect@^1.2.2:
   dependencies:
     "@babel/runtime" "^7.12.13"
 
+react-cookie-consent@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/react-cookie-consent/-/react-cookie-consent-6.3.0.tgz#d305c121e883840d7623c03e9f1dd83db8b43f16"
+  integrity sha512-ynDLIJwedf0btR3sHsrRdcng6KWi9lJKLOUxo7BCof0F3DAFPxBRlAgUy4u1UdiPYR0gcjYHGVu5hE+22IWKmg==
+  dependencies:
+    js-cookie "^2.2.1"
+    prop-types "^15.7.2"
+
 react-dev-utils@^11.0.3:
   version "11.0.4"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-11.0.4.tgz#a7ccb60257a1ca2e0efe7a83e38e6700d17aa37a"
@@ -11712,6 +11720,11 @@ react-focus-lock@2.5.0:
     react-clientside-effect "^1.2.2"
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
+
+react-ga4@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-ga4/-/react-ga4-1.0.6.tgz#35d3da353b8107da005de1cd2f616a6549762c05"
+  integrity sha512-sOMMBjIgf5/xzsBEZHUu1/x2155oPKhOKwibpLbkdT+4yLNOfcpqVF5CE4M5neB+7y56nqKHXt7Jv0HFYv1QTg==
 
 react-icons@^3.0.0:
   version "3.11.0"
