@@ -13,7 +13,7 @@ export default function PrivacyPolicy(props) {
         storage and is cleared upon expiration (up to four hours after receipt).
       </Text>
       <Text paddingTop={2}>
-        This site uses Google Analytics for user count and basic demographic
+        PogChat uses Google Analytics for user count and basic demographic
         information. Your IP address is not collected. Users are free to decline
         this usage if desired and will be prompted once every 30 days for their
         continued consent or dissent. More information can be found in the{' '}

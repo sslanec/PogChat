@@ -166,28 +166,28 @@ export default function App() {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <ChakraProvider theme={theme}>
-        <Flex
+    <ChakraProvider theme={theme}>
+      <Flex
+        flexDirection="column"
+        height={dimensions.height}
+        width={dimensions.width}
+      >
+        <NavBar
+          avatarUrl={avatarUrl}
+          displayName={displayName}
+          loggedIn={loggedIn}
+          loginLoading={loginLoading}
+        />
+        <Container
+          display="flex"
           flexDirection="column"
-          height={dimensions.height}
-          width={dimensions.width}
+          minHeight={0}
+          paddingTop={2}
+          paddingLeft={[2, 2, 0, 0]}
+          paddingRight={[2, 2, 0, 0]}
+          flexGrow={1}
         >
-          <NavBar
-            avatarUrl={avatarUrl}
-            displayName={displayName}
-            loggedIn={loggedIn}
-            loginLoading={loginLoading}
-          />
-          <Container
-            display="flex"
-            flexDirection="column"
-            minHeight={0}
-            paddingTop={2}
-            paddingLeft={[2, 2, 0, 0]}
-            paddingRight={[2, 2, 0, 0]}
-            flexGrow={1}
-          >
+          <UserContext.Provider value={{ user, setUser }}>
             <Switch>
               <Route path="/about-us">
                 <AboutUs />
@@ -208,11 +208,11 @@ export default function App() {
                 {user.loggedIn || loginLoading ? <Chat /> : <Landing />}
               </Route>
             </Switch>
-          </Container>
-          <Footer />
-          <CookieConsentForm />
-        </Flex>
-      </ChakraProvider>
-    </UserContext.Provider>
+          </UserContext.Provider>
+        </Container>
+        <Footer />
+        <CookieConsentForm />
+      </Flex>
+    </ChakraProvider>
   );
 }
