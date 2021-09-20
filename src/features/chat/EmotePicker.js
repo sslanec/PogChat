@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import ChatEmote from 'features/chat/ChatEmote';
 
-export default function EmotePicker(props) {
+export default function EmotePicker({ insertEmote }) {
   const [showBTTVShared, setShowBTTVShared] = useState(false);
   const [showBTTVChannel, setShowBTTVChannel] = useState(false);
   const [showFFZChannel, setShowFFZChannel] = useState(false);
@@ -23,12 +23,14 @@ export default function EmotePicker(props) {
   const emoteSets = useRef();
 
   const bttvEmotes = useSelector(state => state.user.bttvEmotes);
-  const userEmoteSets = useSelector(state => state.user.userEmoteSets);
+  const userEmoteSets = useSelector(state => state.user.emoteSets);
   const userOptions = useSelector(state => state.user.userOptions);
   const userEmotes = useSelector(state => state.user.userEmotes);
+  const connected = useSelector(state => state.user.connected);
+  const loggedIn = useSelector(state => state.user.loggedIn);
 
   const onClickHandler = key => {
-    props.insertEmote(key);
+    insertEmote(key);
   };
 
   useEffect(() => {
@@ -87,7 +89,7 @@ export default function EmotePicker(props) {
         }
         setShowEmotes(true);
       }
-      // console.log(emoteSets.current);
+      console.log(emoteSets.current);
     }
     return () => (mounted = false);
   }, [userEmoteSets]);
@@ -95,7 +97,7 @@ export default function EmotePicker(props) {
   return (
     <Popover placement="top">
       <PopoverTrigger>
-        <Button disabled={props.disabled}>
+        <Button disabled={!loggedIn || !connected}>
           {
             <Box
               as="img"

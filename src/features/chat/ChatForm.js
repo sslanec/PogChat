@@ -41,7 +41,6 @@ export default function ChatForm(props) {
           value={msg}
         />
         <EmotePicker
-          disabled={!loggedIn || !connected}
           insertEmote={insertEmote}
         />
         <Button disabled={!loggedIn || !connected || msg === ''} type="submit">
