@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import {
   Container,
@@ -17,36 +18,19 @@ import Chat from 'routes/root/Chat/Chat';
 import Footer from 'components/Footer/Footer';
 import Following from 'routes/Following/Following';
 import Settings from 'routes/Settings/Settings';
-// import clearStorage from 'utils/browser/clearStorage';
 import Landing from 'routes/root/Landing/Landing';
 import AboutUs from 'routes/AboutUs/AboutUs';
 import PrivacyPolicy from 'routes/PrivacyPolicy/PrivacyPolicy';
-import ReactGA from 'react-ga4';
+import ReactGA4 from 'react-ga4';
+import ReactGA from 'react-ga';
 import CookieConsentForm from 'components/CookieConsentForm/CookieConsentForm';
+import { updateUser } from 'features/userSlice';
 
 const userInit = {
-  userOptions: {
-    badgeQuality: 3,
-    emoteQuality: 3,
-    usernameColors: true,
-    chatTextSize: 'md',
-  },
-  connected: false,
   authProvider: null,
   apiClient: null,
   chatClient: null,
-  chatChannel: null,
-  roomstate: null,
-  userAccInfo: null,
-  bttvEmotes: null,
-  emoteSets: null,
-  userEmotes: null,
-  channelBadges: null,
-  globalBadges: null,
   cheermotes: null,
-  loggedIn: false,
-  userFollows: null,
-  followRefresh: null,
 };
 
 function debounce(func, ms) {
@@ -64,11 +48,55 @@ function userReducer(state, item) {
   return { ...state, ...item };
 }
 
+// function chatReducer(state, { type, item }) {
+//   switch (type) {
+//     case 'ADD':
+//       return [...state, item];
+//     case 'CLEAR':
+//       let clrState = state;
+//       for (let i = clrState.length - 1; i > 0; i--) {
+//         if (clrState[i]['channel'] === item) {
+//           // clrState[i]['ref'].current.remove();
+//           clrState.splice(i, 1);
+//         }
+//       }
+//       return clrState;
+//     case 'DELETE':
+//       let delState = state;
+//       let deleted = false;
+//       let i = delState.length - 1;
+//       while (!deleted) {
+//         if (delState[i]['id'] === item) {
+//           let delMsg = delState[i]['ref'].current.innerHTML.split(': ');
+//           delMsg[1] = '< message deleted >';
+//           delState[i]['ref'].current.innerHTML = delMsg.join(': ');
+//           delState[i] = {
+//             msg: (
+//               <ChatMessage
+//                 displayName={delState[i]['msg']['props']['displayName']}
+//                 msg="< message deleted >"
+//                 userstate={delState[i]['msg']['props']['userstate']}
+//                 reference={delState[i]['msg']['props']['reference']}
+//               />
+//             ),
+//             id: delState[i]['id'],
+//             ref: delState[i]['ref'],
+//             channel: delState[i]['channel'],
+//           };
+//           deleted = true;
+//         }
+//         i--;
+//       }
+//       return delState;
+//     default:
+//       return state;
+//   }
+// }
+
 export default function App() {
   const [user, setUser] = useReducer(userReducer, userInit);
   const [displayName, setDisplayName] = useState('Login');
   const [loginLoading, setLoginLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState('');
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
@@ -76,29 +104,39 @@ export default function App() {
   });
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const loggedIn = useSelector(state => state.user.loggedIn);
+  const userOptions = useSelector(state => state.user.userOptions);
 
   const init = ({ apiClient, userAccInfo, globalBadges, userFollows }) => {
     if (location.pathname === '/') {
       history.push('/user-following');
     }
+
     user.apiClient = apiClient;
-    user.userAccInfo = userAccInfo;
-    user.userFollows = userFollows;
-    user.globalBadges = globalBadges;
-    setUser({ followRefresh: Date.now() });
-    setUser({ loggedIn: true });
-    setDisplayName(user.userAccInfo.displayName);
-    setAvatarUrl(user.userAccInfo.profilePictureUrl);
+    setUser({ apiClient });
+
+    dispatch(
+      updateUser({
+        userAccInfo,
+        userFollows,
+        globalBadges,
+        followRefresh: Date.now(),
+        loggedIn: true,
+      })
+    );
+
+    setDisplayName(userAccInfo.displayName);
+    setAvatarUrl(userAccInfo.profilePictureUrl);
     setLoginLoading(false);
-    setLoggedIn(true);
   };
 
   const getUserOptions = async options => {
     if (options === null) {
-      localStorage.setItem('userOptions', JSON.stringify(user.userOptions));
+      localStorage.setItem('userOptions', JSON.stringify(userOptions));
     } else {
       options = await JSON.parse(options);
-      user.userOptions = options;
+      dispatch(updateUser({ userOptions: options }));
     }
   };
 
@@ -114,12 +152,14 @@ export default function App() {
     }, 50);
 
     if (mounted) {
+      // Switch to dark mode automatically
       const colorMode = localStorage.getItem('chakra-ui-color-mode');
       if (!colorMode || colorMode !== 'dark') {
         localStorage.setItem('chakra-ui-color-mode', 'dark');
         window.location.reload();
       }
 
+      // Styling to prevent page scrolling
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.height = '100%';
@@ -131,10 +171,13 @@ export default function App() {
       getUserOptions(userOptions);
 
       if (analyticsConsent === 'true') {
-        ReactGA.initialize('G-NW3TF8XST3');
-        ReactGA.send({ hitType: 'pageview' });
+        ReactGA4.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_GA4);
+        ReactGA4.send({ hitType: 'pageview' });
+        ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_UA);
+        ReactGA.pageview(window.location.pathname);
       }
 
+      // Check for OAuth login code
       const href = document.location.href;
       const findToken = href.indexOf('code=');
 
@@ -148,7 +191,9 @@ export default function App() {
         });
       } else if (expiryTimestamp > Date.now()) {
         setLoginLoading(true);
+
         user.authProvider = getAuthProvider(accessToken);
+
         connectApi(user.authProvider).then(data => {
           init(data);
         });
@@ -205,7 +250,7 @@ export default function App() {
                 <Settings />
               </Route>
               <Route path="/">
-                {user.loggedIn || loginLoading ? <Chat /> : <Landing />}
+                {loggedIn || loginLoading ? <Chat /> : <Landing />}
               </Route>
             </Switch>
           </UserContext.Provider>

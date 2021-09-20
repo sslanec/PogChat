@@ -18,7 +18,10 @@ export const chatSlice = createSlice({
       let deleted = false;
       let i = state.length - 1;
       while (!deleted) {
-        if (state[i]['id'] === action.payload) {
+        if (
+          state[i]['id'] === action.payload &&
+          state[i]['msgType'] === 'chat'
+        ) {
           state[i]['msg'] = '< message deleted >';
           deleted = true;
         }

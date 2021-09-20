@@ -1,14 +1,18 @@
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Checkbox, Heading, HStack, Select, Text } from '@chakra-ui/react';
-import UserContext from 'context/User/User';
 import ClearDataAlert from 'components/ClearDataAlert/ClearDataAlert';
+import { updateUser } from 'features/userSlice';
 
 export default function Settings(props) {
-  const { user, setUser } = useContext(UserContext);
-  let options = user.userOptions;
+  const dispatch = useDispatch();
+  const userOptions = useSelector(state => state.user.userOptions);
+  let options = {};
+  for (let i in userOptions) {
+    options[i] = userOptions[i];
+  }
 
   const updateOptions = () => {
-    setUser({ userOptions: options });
+    dispatch(updateUser({ userOptions: options }));
     localStorage.setItem('userOptions', JSON.stringify(options));
   };
 
@@ -23,7 +27,7 @@ export default function Settings(props) {
               options.badgeQuality = event.target.value;
               updateOptions();
             }}
-            value={user.userOptions.badgeQuality}
+            value={userOptions.badgeQuality}
             width="auto"
           >
             <option value={3}>High</option>
@@ -38,7 +42,7 @@ export default function Settings(props) {
               options.emoteQuality = event.target.value;
               updateOptions();
             }}
-            value={user.userOptions.emoteQuality}
+            value={userOptions.emoteQuality}
             width="auto"
           >
             <option value={3}>High</option>
@@ -54,7 +58,7 @@ export default function Settings(props) {
               updateOptions();
             }}
             size="lg"
-            isChecked={user.userOptions.usernameColors}
+            isChecked={userOptions.usernameColors}
           />
         </HStack>
         {/* TODO Adjust emote sizes to match text sizes */}
@@ -65,7 +69,7 @@ export default function Settings(props) {
               options.chatTextSize = event.target.value;
               updateOptions();
             }}
-            value={user.userOptions.chatTextSize}
+            value={userOptions.chatTextSize}
             width="auto"
           >
             <option value="6xl">6X-Large</option>

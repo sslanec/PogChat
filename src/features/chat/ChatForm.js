@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Input, Button, FormControl, HStack } from '@chakra-ui/react';
 import UserContext from 'context/User/User';
 import EmotePicker from 'features/chat/EmotePicker';
@@ -6,6 +7,9 @@ import EmotePicker from 'features/chat/EmotePicker';
 export default function ChatForm(props) {
   const { user } = useContext(UserContext);
   const [msg, setMsg] = useState('');
+  const connected = useSelector(state => state.user.connected);
+  const loggedIn = useSelector(state => state.user.loggedIn);
+  const chatChannel = useSelector(state => state.user.chatChannel);
 
   const handleChange = event => {
     setMsg(event.target.value);
@@ -14,7 +18,7 @@ export default function ChatForm(props) {
   const handleSubmit = event => {
     event.preventDefault();
     if (msg.trim() !== '') {
-      user.chatClient.say(user.chatChannel, msg.trim());
+      user.chatClient.say(chatChannel, msg.trim());
       setMsg('');
     }
   };
@@ -31,19 +35,16 @@ export default function ChatForm(props) {
     <FormControl as="form" onSubmit={handleSubmit} {...props}>
       <HStack>
         <Input
-          disabled={!user.loggedIn || !user.connected}
+          disabled={!loggedIn || !connected}
           fontSize
           onChange={handleChange}
           value={msg}
         />
         <EmotePicker
-          disabled={!user.loggedIn || !user.connected}
+          disabled={!loggedIn || !connected}
           insertEmote={insertEmote}
         />
-        <Button
-          disabled={!user.loggedIn || !user.connected || msg === ''}
-          type="submit"
-        >
+        <Button disabled={!loggedIn || !connected || msg === ''} type="submit">
           Send
         </Button>
       </HStack>

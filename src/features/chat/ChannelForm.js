@@ -1,16 +1,10 @@
-import { createRef, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Input, Button, FormControl, HStack } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import chatConnect from 'utils/chat/chatConnect';
 import UserContext from 'context/User/User';
-import ChatContext from 'context/Chat/Chat';
-import ChatMessage from 'features/chat/ChatMessage';
-import SystemMessage from 'features/chat/SystemMessage';
-import EventMessage from 'features/chat/EventMessage';
-import GiftMessage from 'features/chat/GiftMessage';
 import getChannelBadges from 'utils/api/getChannelBadges';
 import getBTTVEmotes from 'utils/api/getBTTVEmotes';
-import getCheermotes from 'utils/api/getCheermotes';
 import getUserEmotes from 'utils/api/getUserEmotes';
 import followersOnly from 'utils/chat/events/followersOnly';
 import slowMode from 'utils/chat/events/slowMode';
@@ -30,6 +24,8 @@ import {
   clearMessages,
   deleteMessage,
 } from 'features/chat/chatSlice';
+import { updateUser } from 'features/userSlice';
+import store from 'store';
 
 const names = [
   'Kitboga',
@@ -55,61 +51,58 @@ const names = [
   'BlastBitMetalDrumming',
 ];
 
-export default function ChannelInput(props) {
+export default function ChannelInput() {
   const { user, setUser } = useContext(UserContext);
-  const { setChats } = useContext(ChatContext);
   const [placeholder, setPlaceholder] = useState('');
   const [value, setValue] = useState('');
   const [emoteSets, setEmoteSets] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
+  const connected = useSelector(state => state.user.connected);
+  const loggedIn = useSelector(state => state.user.loggedIn);
+  const chatChannel = useSelector(state => state.user.chatChannel);
+  const userAccInfo = useSelector(state => state.user.userAccInfo);
 
   const setChatEvents = async () => {
     user.chatClient.on(
       'anongiftpaidupgrade',
       (channel, username, userstate) => {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: (
-              <EventMessage
-                displayName={userstate['display-name']}
-                msg=" is continuing their Gift Sub!"
-                userstate={userstate}
-              />
-            ),
-            channel: channel,
-          },
-        });
+        dispatch(
+          addMessage({
+            msg: ' is continuing their Gift Sub!',
+            msgType: 'event',
+            userstate,
+            displayName: userstate['display-name'],
+            channel,
+          })
+        );
       }
     );
 
-    // TODO: Figure this out
+    // TODO: Test, implement if useful.
     user.chatClient.on('automod', (channel, msgid, message) => {
       // console.log(['automod', { msgid, message }]);
     });
 
     user.chatClient.on('ban', (channel, username, reason, userstate) => {
-      setChats({
-        type: 'ADD',
-        item: {
-          msg: <SystemMessage msg={`${username} has been banned.`} />,
-        },
-      });
+      dispatch(
+        addMessage({
+          msg: `${username} has been banned.`,
+          msgType: 'system',
+          userstate,
+          reason,
+          channel,
+        })
+      );
     });
 
-    // TODO: Fix this.
+    // TODO: Test, fix if needed.
     user.chatClient.on('cheer', (channel, userstate, message) => {
       if (userstate['id']) {
         var id = userstate['id'];
       } else {
         id = message.split(' ').join('_');
-      }
-
-      if (userstate['message-type'] === 'action') {
-        var isAction = true;
-      } else {
-        isAction = false;
       }
 
       if (userstate.bits > 1) {
@@ -118,34 +111,20 @@ export default function ChannelInput(props) {
         bits = '(1 bit)';
       }
 
-      const ref = createRef();
       const cheerParse = user.cheermotes.parseMessage(message);
       const cheerList = getCheerList(cheerParse);
 
-      setChats({
-        type: 'ADD',
-        item: {
-          msg: (
-            <ChatMessage
-              bits={bits}
-              bttvEmotes={user.bttvEmotes}
-              channelBadges={user.channelBadges}
-              cheerList={cheerList}
-              displayName={userstate['display-name']}
-              emoteQuality={user.userOptions.emoteQuality}
-              globalBadges={user.globalBadges}
-              isAction={isAction}
-              msg={message}
-              reference={ref}
-              self={false}
-              userstate={userstate}
-            />
-          ),
-          id: id,
-          ref: ref,
-          channel: channel,
-        },
-      });
+      dispatch(
+        addMessage({
+          msg: message,
+          msgType: 'chat',
+          id,
+          bits,
+          userstate,
+          channel,
+          cheerList,
+        })
+      );
       // console.log([
       //   'cheerHandler',
       //   { userstate, message, cheerParse, cheerList },
@@ -153,39 +132,26 @@ export default function ChannelInput(props) {
     });
 
     user.chatClient.on('clearchat', channel => {
-      setChats({ type: 'CLEAR', item: channel });
       dispatch(clearMessages(channel));
-
-      setChats({
-        type: 'ADD',
-        item: {
-          msg: <SystemMessage msg="Chat was cleared by a moderator." />,
-        },
-      });
       dispatch(
         addMessage({
           msg: 'Chat was cleared by a moderator.',
           msgType: 'system',
+          channel,
         })
       );
     });
 
     user.chatClient.on('disconnected', reason => {
       if (reason) {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: <SystemMessage msg={reason} />,
-          },
-        });
+        dispatch(addMessage({ msg: reason, msgType: 'system' }));
       }
     });
 
     user.chatClient.on('emoteonly', (channel, enabled) => {
-      setChats({
-        type: 'ADD',
-        item: { msg: <SystemMessage msg={emoteOnly(enabled)} /> },
-      });
+      dispatch(
+        addMessage({ msg: emoteOnly(enabled), msgType: 'system', channel })
+      );
     });
 
     user.chatClient.on('emotesets', (sets, obj) => {
@@ -202,30 +168,27 @@ export default function ChannelInput(props) {
     });
 
     user.chatClient.on('followersonly', (channel, enabled, length) => {
-      setChats({
-        type: 'ADD',
-        item: {
-          msg: <SystemMessage msg={followersOnly(enabled, length)} />,
-        },
-      });
+      dispatch(
+        addMessage({
+          msg: followersOnly(enabled, length),
+          msgType: 'system',
+          channel,
+        })
+      );
     });
 
     user.chatClient.on(
       'giftpaidupgrade',
       (channel, username, sender, userstate) => {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: (
-              <GiftMessage
-                displayName={userstate['display-name']}
-                msg=" is continuing their Gift Sub from "
-                recipient={sender}
-              />
-            ),
-            channel: channel,
-          },
-        });
+        dispatch(
+          addMessage({
+            msg: ' is continuing their Gift Sub from ',
+            msgType: 'gift',
+            displayName: userstate['display-name'],
+            recipient: sender,
+            channel,
+          })
+        );
       }
     );
 
@@ -234,82 +197,42 @@ export default function ChannelInput(props) {
     });
 
     user.chatClient.on('hosted', (channel, username, viewers, autohost) => {
-      setChats({
-        type: 'ADD',
-        item: {
-          msg: (
-            <EventMessage
-              displayName={username}
-              msg={hostedHandler(viewers, autohost)}
-            />
-          ),
-          channel: channel,
-        },
-      });
+      dispatch(
+        addMessage({
+          msg: hostedHandler(viewers, autohost),
+          displayName: username,
+          channel,
+        })
+      );
     });
 
     user.chatClient.on('hosting', (channel, target, viewers) => {
-      setChats({
-        type: 'ADD',
-        item: {
-          msg: <SystemMessage msg={hostingHandler(target, viewers)} />,
-        },
-      });
+      dispatch(
+        addMessage({ msg: hostingHandler(target, viewers), msgType: 'system' })
+      );
     });
 
     user.chatClient.on('message', (channel, userstate, message, self) => {
-      const ref = createRef();
+      // console.log({ userstate });
+      const state = store.getState();
+      if (state.user.connected === true) {
+        if (userstate['id']) {
+          var id = userstate['id'];
+        } else {
+          id = message.split(' ').join('_');
+        }
 
-      if (userstate['id']) {
-        var id = userstate['id'];
-      } else {
-        id = message.split(' ').join('_');
-      }
-
-      if (userstate['message-type'] === 'action') {
-        var isAction = true;
-      } else {
-        isAction = false;
-      }
-
-      if (user.connected) {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: (
-              <ChatMessage
-                bits={false}
-                bttvEmotes={user.bttvEmotes}
-                channelBadges={user.channelBadges}
-                displayName={userstate['display-name']}
-                emoteQuality={user.userOptions.emoteQuality}
-                globalBadges={user.globalBadges}
-                isAction={isAction}
-                msg={message}
-                reference={ref}
-                self={self}
-                userstate={userstate}
-                userEmotes={self ? user.userEmotes : ''}
-              />
-            ),
-            id: id,
-            ref: ref,
-            channel: channel,
-          },
-        });
         dispatch(
           addMessage({
-            channel: channel,
-            id: id,
-            isAction,
+            bits: false,
+            channel,
+            id,
             msg: message,
             msgType: 'chat',
-            // ref: ref,
             self,
             userstate,
           })
         );
-        // console.log({ userstate, message, self, ref });
       }
     });
 
@@ -324,24 +247,16 @@ export default function ChannelInput(props) {
         //     userstate,
         //   },
         // ]);
-        if (username !== user.userAccInfo.name) {
-          setChats({ type: 'DELETE', item: userstate['target-msg-id'] });
+        if (username !== userAccInfo.name) {
           dispatch(deleteMessage(userstate['target-msg-id']));
         } else {
-          setChats({
-            type: 'DELETE',
-            item: deletedMessage.split(' ').join('_'),
-          });
           dispatch(deleteMessage(deletedMessage.split(' ').join('_')));
         }
       }
     );
 
     user.chatClient.on('notice', (channel, msgid, message) => {
-      setChats({
-        type: 'ADD',
-        item: { msg: <SystemMessage msg={message} /> },
-      });
+      dispatch(addMessage({ msg: message, msgid, msgType: 'system', channel }));
     });
 
     //TODO: Finish this
@@ -353,16 +268,14 @@ export default function ChannelInput(props) {
     );
 
     user.chatClient.on('raided', (channel, username, viewers, tags) => {
-      // console.log(['raided', { username, viewers, tags }]);
-      setChats({
-        type: 'ADD',
-        item: {
-          msg: (
-            <EventMessage displayName={username} msg={raidedHandler(viewers)} />
-          ),
-          channel: channel,
-        },
-      });
+      dispatch(
+        addMessage({
+          msg: raidedHandler(viewers),
+          msgType: 'event',
+          displayName: username,
+          channel,
+        })
+      );
     });
 
     // TODO: Finish this
@@ -373,163 +286,153 @@ export default function ChannelInput(props) {
     user.chatClient.on(
       'resub',
       (channel, username, streakMonths, message, userstate, methods) => {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: (
-              <EventMessage
-                displayName={userstate['display-name']}
-                msg={resubHandler(streakMonths, userstate, methods)}
-                userstate={userstate}
-              />
-            ),
-            channel: channel,
-          },
-        });
+        dispatch(
+          addMessage({
+            msg: resubHandler(streakMonths, userstate, methods),
+            msgType: 'event',
+            displayName: userstate['display-name'],
+            userstate,
+            channel,
+          })
+        );
+
         if (message) {
           if (userstate['id']) {
             var id = userstate['id'];
           } else {
             id = message.split(' ').join('_');
           }
-          const ref = createRef();
-          setChats({
-            type: 'ADD',
-            item: {
-              msg: (
-                <ChatMessage
-                  bits={false}
-                  bttvEmotes={user.bttvEmotes}
-                  channelBadges={user.channelBadges}
-                  displayName={userstate['display-name']}
-                  emoteQuality={user.userOptions.emoteQuality}
-                  globalBadges={user.globalBadges}
-                  isAction={false}
-                  msg={message}
-                  reference={ref}
-                  self={false}
-                  userstate={userstate}
-                />
-              ),
-              id: id,
-              ref: ref,
-              channel: channel,
-            },
-          });
+
+          dispatch(
+            addMessage({
+              msg: message,
+              msgType: 'chat',
+              userstate,
+              channel,
+              id,
+            })
+          );
         }
       }
     );
 
     user.chatClient.on('roomstate', async (channel, state) => {
-      if (user.connected === false) {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: (
-              <SystemMessage msg={`Connected to ${user.chatChannel}'s chat.`} />
-            ),
-          },
-        });
+      if (connected === false) {
+        dispatch(
+          addMessage({
+            msg: `Connected to ${chatChannel}'s chat.`,
+            msgType: 'system',
+          })
+        );
         if (state['emote-only']) {
-          setChats({
-            type: 'ADD',
-            item: { msg: <SystemMessage message={emoteOnly(true)} /> },
-          });
+          dispatch(
+            addMessage({
+              msg: emoteOnly(true),
+              msgType: 'system',
+            })
+          );
         }
         if (state['followers-only'] === false) {
-          setChats({
-            type: 'ADD',
-            item: { msg: <SystemMessage msg={followersOnly(true, 0)} /> },
-          });
+          dispatch(
+            addMessage({
+              msg: followersOnly(true, 0),
+              msgType: 'system',
+            })
+          );
         } else if (state['followers-only'] === true) {
-          setChats({
-            type: 'ADD',
-            item: { msg: <SystemMessage msg={followersOnly(true, 1)} /> },
-          });
+          dispatch(
+            addMessage({
+              msg: followersOnly(true, 1),
+              msgType: 'system',
+            })
+          );
         } else if (state['followers-only'] > -1) {
-          setChats({
-            type: 'ADD',
-            item: {
-              msg: (
-                <SystemMessage
-                  msg={followersOnly(true, state['followers-only'])}
-                />
-              ),
-            },
-          });
+          dispatch(
+            addMessage({
+              msg: followersOnly(true, state['followers-only']),
+              msgType: 'system',
+            })
+          );
         }
         if (state['slow'] === true) {
-          setChats({
-            type: 'ADD',
-            item: { msg: <SystemMessage msg={slowMode(true, 1)} /> },
-          });
+          dispatch(
+            addMessage({
+              msg: slowMode(true, 1),
+              msgType: 'system',
+            })
+          );
         } else if (state['slow'] > 1) {
-          setChats({
-            type: 'ADD',
-            item: {
-              msg: <SystemMessage msg={slowMode(true, state['slow'])} />,
-            },
-          });
+          dispatch(
+            addMessage({
+              msg: slowMode(true, state['slow']),
+              msgType: 'system',
+            })
+          );
         }
         if (state['subs-only']) {
-          setChats({
-            type: 'ADD',
-            item: { msg: <SystemMessage msg={subsOnly(true)} /> },
-          });
+          dispatch(
+            addMessage({
+              msg: subsOnly(true),
+              msgType: 'system',
+            })
+          );
         }
 
-        user.roomstate = state;
-        user.bttvEmotes = await getBTTVEmotes(state['room-id']);
-        setUser({ bttvEmotes: user.bttvEmotes });
-        user.channelBadges = await getChannelBadges(
+        const bttvEmotes = await getBTTVEmotes(state['room-id']);
+        const channelBadges = await getChannelBadges(
           user.apiClient,
           state['room-id']
         );
-        user.cheermotes = await getCheermotes(user.apiClient, state['room-id']);
-        setUser({ connected: true });
-        user.connected = true;
+        const newCheermotes = await user.apiClient.helix.bits.getCheermotes(
+          state['room-id']
+        );
+        user.cheermotes = newCheermotes;
+        setUser({ cheermotes: newCheermotes });
 
-        localStorage.setItem('lastChannel', [
-          user.chatChannel,
-          state['room-id'],
-        ]);
+        localStorage.setItem('lastChannel', [chatChannel, state['room-id']]);
 
-        // console.log({ state, user });
+        dispatch(
+          updateUser({
+            connected: true,
+            roomstate: state,
+            bttvEmotes,
+            channelBadges,
+          })
+        );
       }
+
       if (emoteSets.length > 0) {
         let { emotes, sets } = await getUserEmotes(user.apiClient, emoteSets);
-        user.userEmotes = emotes;
-        setUser({ userEmotes: user.userEmotes });
-        setUser({ emoteSets: sets });
-        // console.log({ userEmotes: user.userEmotes });
+
+        dispatch(updateUser({ userEmotes: emotes, emoteSets: sets }));
       }
       setLoading(false);
     });
 
     user.chatClient.on('slowmode', (channel, enabled, length) => {
-      setChats({
-        type: 'ADD',
-        item: { msg: <SystemMessage msg={slowMode(enabled, length)} /> },
-      });
+      dispatch(
+        addMessage({
+          msg: slowMode(enabled, length),
+          msgType: 'system',
+          channel,
+        })
+      );
     });
 
     // TODO: Finish this
     user.chatClient.on(
       'subgift',
       (channel, username, streakMonths, recipient, methods, userstate) => {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: (
-              <GiftMessage
-                displayName={userstate['display-name']}
-                msg={subGift(streakMonths, methods)}
-                recipient={recipient}
-              />
-            ),
-            channel: channel,
-          },
-        });
+        dispatch(
+          addMessage({
+            msg: subGift(streakMonths, methods),
+            msgType: 'gift',
+            displayName: userstate['display-name'],
+            recipient,
+            userstate,
+            channel,
+          })
+        );
         // console.log([
         //   'subGift',
         //   { username, streakMonths, recipient, methods, userstate },
@@ -540,75 +443,59 @@ export default function ChannelInput(props) {
     user.chatClient.on(
       'submysterygift',
       (channel, username, numOfSubs, methods, userstate) => {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: (
-              <EventMessage
-                displayName={userstate['display-name']}
-                msg={subMysteryGift(numOfSubs, methods, userstate)}
-                userstate={userstate}
-              />
-            ),
-            channel: channel,
-          },
-        });
+        dispatch(
+          addMessage({
+            msg: subMysteryGift(numOfSubs, methods, userstate),
+            msgType: 'event',
+            displayName: userstate['display-name'],
+            userstate,
+            channel,
+          })
+        );
       }
     );
 
     user.chatClient.on('subscribers', (channel, enabled) => {
-      setChats({
-        type: 'ADD',
-        item: { msg: <SystemMessage msg={subsOnly(enabled)} /> },
-      });
+      dispatch(
+        addMessage({
+          msg: subsOnly(enabled),
+          msgType: 'system',
+          channel,
+        })
+      );
     });
 
     user.chatClient.on(
       'subscription',
       (channel, username, method, message, userstate) => {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: (
-              <EventMessage
-                displayName={userstate['display-name']}
-                msg={subHandler(method)}
-                userstate={userstate}
-              />
-            ),
-            channel: channel,
-          },
-        });
+        dispatch(
+          addMessage({
+            msg: subHandler(method),
+            msgType: 'event',
+            displayName: userstate['display-name'],
+            userstate,
+            channel,
+          })
+        );
+
         if (message) {
           if (userstate['id']) {
             var id = userstate['id'];
           } else {
             id = message.split(' ').join('_');
           }
-          const ref = createRef();
-          setChats({
-            type: 'ADD',
-            item: {
-              msg: (
-                <ChatMessage
-                  bits={false}
-                  bttvEmotes={user.bttvEmotes}
-                  channelBadges={user.channelBadges}
-                  displayName={userstate['display-name']}
-                  emoteQuality={user.userOptions.emoteQuality}
-                  globalBadges={user.globalBadges}
-                  isAction={false}
-                  msg={message}
-                  reference={ref}
-                  self={false}
-                  userstate={userstate}
-                />
-              ),
-              id: id,
-              ref: ref,
-              channel: channel,
-            },
-          });
+
+          dispatch(
+            addMessage({
+              bits: false,
+              channel,
+              id,
+              msg: message,
+              msgType: 'chat',
+              self: false,
+              userstate,
+            })
+          );
         }
       }
     );
@@ -616,19 +503,16 @@ export default function ChannelInput(props) {
     user.chatClient.on(
       'timeout',
       (channel, username, reason, duration, userstate) => {
-        setChats({
-          type: 'ADD',
-          item: {
-            msg: (
-              <EventMessage
-                displayName={username}
-                msg={timeoutHandler(duration)}
-                userstate={userstate}
-              />
-            ),
-            channel: channel,
-          },
-        });
+        dispatch(
+          addMessage({
+            msg: timeoutHandler(duration),
+            msgType: 'event',
+            displayName: username,
+            userstate,
+            channel,
+            reason,
+          })
+        );
       }
     );
   };
@@ -636,69 +520,70 @@ export default function ChannelInput(props) {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      if (user.chatChannel) {
-        setValue(user.chatChannel);
+      if (chatChannel) {
+        setValue(chatChannel);
       }
       setPlaceholder(`${names[Math.floor(Math.random() * names.length)]}`);
-      if (window.location.pathname !== '/' && user.loggedIn) {
-        if (user.connected) {
+      if (window.location.pathname !== '/' && loggedIn) {
+        if (connected === true) {
           user.chatClient.disconnect().then(() => {
-            setUser({ connected: false });
-            user.connected = false;
+            dispatch(updateUser({ connected: false }));
           });
         }
         setLoading(true);
-        user.chatChannel = window.location.pathname.substring(1);
         setValue(window.location.pathname.substring(1));
+        dispatch(
+          updateUser({ chatChannel: window.location.pathname.substring(1) })
+        );
+
         user.chatClient = chatConnect(
           user.authProvider,
           window.location.pathname.substring(1)
         );
-        user.chatChannel = window.location.pathname.substring(1);
+
         setChatEvents();
       }
     }
     return () => (mounted = false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.loggedIn]);
+  }, [loggedIn]);
 
   const handleChange = event => {
-    user.chatChannel = event.target.value;
     setValue(event.target.value);
   };
 
   const handleSubmit = async event => {
     event.preventDefault();
-    if (user.connected) {
+    if (connected === true) {
       user.chatClient.disconnect();
-      setUser({ connected: false });
+      dispatch(updateUser({ connected: false }));
       window.history.replaceState({}, document.title, '/');
     } else {
       setLoading(true);
       user.chatClient = chatConnect(user.authProvider, value);
       window.history.replaceState({}, document.title, '/' + value);
-      // user.chatChannel = value;
+      dispatch(updateUser({ chatChannel: value }));
       setChatEvents();
     }
   };
 
   return (
-    <FormControl as="form" onSubmit={handleSubmit} {...props}>
+    <FormControl as="form" onSubmit={handleSubmit}>
       <HStack>
         {/* <FormLabel>Channel:</FormLabel> */}
         <Input
-          disabled={!user.loggedIn || user.connected || loading}
+          disabled={!loggedIn || connected || loading}
           onChange={handleChange}
           placeholder={'Channel (Ex: ' + placeholder + ')'}
           value={value}
         />
         <Button
-          disabled={!user.loggedIn || loading || value === ''}
+          disabled={!loggedIn || loading || value === ''}
           isLoading={loading}
           type="submit"
           variant="outline"
         >
-          {user.connected ? 'Disconnect' : 'Connect'}
+          {connected ? 'Disconnect' : 'Connect'}
         </Button>
       </HStack>
     </FormControl>

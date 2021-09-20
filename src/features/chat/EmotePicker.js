@@ -1,4 +1,5 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -12,16 +13,19 @@ import {
   PopoverArrow,
   PopoverCloseButton,
 } from '@chakra-ui/react';
-import UserContext from 'context/User/User';
 import ChatEmote from 'features/chat/ChatEmote';
 
 export default function EmotePicker(props) {
-  const { user } = useContext(UserContext);
   const [showBTTVShared, setShowBTTVShared] = useState(false);
   const [showBTTVChannel, setShowBTTVChannel] = useState(false);
   const [showFFZChannel, setShowFFZChannel] = useState(false);
   const [showEmotes, setShowEmotes] = useState(false);
   const emoteSets = useRef();
+
+  const bttvEmotes = useSelector(state => state.user.bttvEmotes);
+  const userEmoteSets = useSelector(state => state.user.userEmoteSets);
+  const userOptions = useSelector(state => state.user.userOptions);
+  const userEmotes = useSelector(state => state.user.userEmotes);
 
   const onClickHandler = key => {
     props.insertEmote(key);
@@ -31,9 +35,9 @@ export default function EmotePicker(props) {
     let mounted = true;
 
     if (mounted) {
-      if (user.bttvEmotes) {
-        let i = Object.keys(user.bttvEmotes).findIndex(
-          key => user.bttvEmotes[key]['category'] === 'bttv_shared'
+      if (bttvEmotes) {
+        let i = Object.keys(bttvEmotes).findIndex(
+          key => bttvEmotes[key]['category'] === 'bttv_shared'
         );
         if (i > -1) {
           setShowBTTVShared(true);
@@ -41,8 +45,8 @@ export default function EmotePicker(props) {
           setShowBTTVShared(false);
         }
 
-        let j = Object.keys(user.bttvEmotes).findIndex(
-          key => user.bttvEmotes[key]['category'] === 'bttv_channel'
+        let j = Object.keys(bttvEmotes).findIndex(
+          key => bttvEmotes[key]['category'] === 'bttv_channel'
         );
         if (j > -1) {
           setShowBTTVChannel(true);
@@ -50,8 +54,8 @@ export default function EmotePicker(props) {
           setShowBTTVChannel(false);
         }
 
-        let k = Object.keys(user.bttvEmotes).findIndex(
-          key => user.bttvEmotes[key]['category'] === 'ffz_channel'
+        let k = Object.keys(bttvEmotes).findIndex(
+          key => bttvEmotes[key]['category'] === 'ffz_channel'
         );
         if (k > -1) {
           setShowFFZChannel(true);
@@ -61,22 +65,22 @@ export default function EmotePicker(props) {
       }
     }
     return () => (mounted = false);
-  }, [user.bttvEmotes]);
+  }, [bttvEmotes]);
 
   useEffect(() => {
     let mounted = true;
 
     if (mounted) {
-      if (user.emoteSets) {
+      if (userEmoteSets) {
         emoteSets.current = {};
-        let sets = Object.keys(user.emoteSets);
+        let sets = Object.keys(userEmoteSets);
         for (let i in sets) {
-          if (!emoteSets.current[user.emoteSets[sets[i]]['displayName']]) {
+          if (!emoteSets.current[userEmoteSets[sets[i]]['displayName']]) {
             emoteSets.current = {
               ...emoteSets.current,
-              [user.emoteSets[sets[i]]['displayName']]: {
-                emotes: user.emoteSets[sets[i]]['emotes'],
-                profilePictureUrl: user.emoteSets[sets[i]]['profilePictureUrl'],
+              [userEmoteSets[sets[i]]['displayName']]: {
+                emotes: userEmoteSets[sets[i]]['emotes'],
+                profilePictureUrl: userEmoteSets[sets[i]]['profilePictureUrl'],
               },
             };
           }
@@ -86,7 +90,7 @@ export default function EmotePicker(props) {
       // console.log(emoteSets.current);
     }
     return () => (mounted = false);
-  }, [user.emoteSets]);
+  }, [userEmoteSets]);
 
   return (
     <Popover placement="top">
@@ -114,18 +118,16 @@ export default function EmotePicker(props) {
               <PopoverHeader>BTTV Channel Emotes</PopoverHeader>
               <PopoverBody>
                 <Flex flexWrap="wrap">
-                  {user.bttvEmotes !== null &&
+                  {bttvEmotes !== null &&
                     // eslint-disable-next-line array-callback-return
-                    Object.keys(user.bttvEmotes).map((key, index) => {
-                      if (user.bttvEmotes[key]['category'] === 'bttv_channel') {
+                    Object.keys(bttvEmotes).map((key, index) => {
+                      if (bttvEmotes[key]['category'] === 'bttv_channel') {
                         return (
                           <ChatEmote
                             key={index}
                             name={key}
                             src={
-                              user.bttvEmotes[key][
-                                user.userOptions.emoteQuality + 'x'
-                              ]
+                              bttvEmotes[key][userOptions.emoteQuality + 'x']
                             }
                             height={8}
                             margin={1.5}
@@ -144,18 +146,16 @@ export default function EmotePicker(props) {
               <PopoverHeader>FFZ Channel Emotes</PopoverHeader>
               <PopoverBody>
                 <Flex flexWrap="wrap">
-                  {user.bttvEmotes !== null &&
+                  {bttvEmotes !== null &&
                     // eslint-disable-next-line array-callback-return
-                    Object.keys(user.bttvEmotes).map((key, index) => {
-                      if (user.bttvEmotes[key]['category'] === 'ffz_channel') {
+                    Object.keys(bttvEmotes).map((key, index) => {
+                      if (bttvEmotes[key]['category'] === 'ffz_channel') {
                         return (
                           <ChatEmote
                             key={index}
                             name={key}
                             src={
-                              user.bttvEmotes[key][
-                                user.userOptions.emoteQuality + 'x'
-                              ]
+                              bttvEmotes[key][userOptions.emoteQuality + 'x']
                             }
                             height={8}
                             margin={1.5}
@@ -174,18 +174,16 @@ export default function EmotePicker(props) {
               <PopoverHeader>BTTV Shared Emotes</PopoverHeader>
               <PopoverBody>
                 <Flex flexWrap="wrap">
-                  {user.bttvEmotes !== null &&
+                  {bttvEmotes !== null &&
                     // eslint-disable-next-line array-callback-return
-                    Object.keys(user.bttvEmotes).map((key, index) => {
-                      if (user.bttvEmotes[key]['category'] === 'bttv_shared') {
+                    Object.keys(bttvEmotes).map((key, index) => {
+                      if (bttvEmotes[key]['category'] === 'bttv_shared') {
                         return (
                           <ChatEmote
                             key={index}
                             name={key}
                             src={
-                              user.bttvEmotes[key][
-                                user.userOptions.emoteQuality + 'x'
-                              ]
+                              bttvEmotes[key][userOptions.emoteQuality + 'x']
                             }
                             height={8}
                             margin={1.5}
@@ -215,8 +213,8 @@ export default function EmotePicker(props) {
                                 key={index}
                                 name={key}
                                 src={
-                                  user.userEmotes[key][
-                                    user.userOptions.emoteQuality + 'x'
+                                  userEmotes[key][
+                                    userOptions.emoteQuality + 'x'
                                   ]
                                 }
                                 height={8}
@@ -235,19 +233,15 @@ export default function EmotePicker(props) {
           <PopoverHeader>BTTV Global Emotes</PopoverHeader>
           <PopoverBody>
             <Flex flexWrap="wrap">
-              {user.bttvEmotes !== null &&
+              {bttvEmotes !== null &&
                 // eslint-disable-next-line array-callback-return
-                Object.keys(user.bttvEmotes).map((key, index) => {
-                  if (user.bttvEmotes[key]['category'] === 'bttv_global') {
+                Object.keys(bttvEmotes).map((key, index) => {
+                  if (bttvEmotes[key]['category'] === 'bttv_global') {
                     return (
                       <ChatEmote
                         key={index}
                         name={key}
-                        src={
-                          user.bttvEmotes[key][
-                            user.userOptions.emoteQuality + 'x'
-                          ]
-                        }
+                        src={bttvEmotes[key][userOptions.emoteQuality + 'x']}
                         height={8}
                         margin={1.5}
                         onClick={() => onClickHandler(key)}
@@ -261,15 +255,15 @@ export default function EmotePicker(props) {
           {/* <PopoverHeader>Twitch Emotes</PopoverHeader>
           <PopoverBody>
             <Flex flexWrap="wrap">
-              {user.userEmotes !== null &&
-                Object.keys(user.userEmotes).map((key, index) => {
+              {userEmotes !== null &&
+                Object.keys(userEmotes).map((key, index) => {
                   return (
                     <ChatEmote
                       key={index}
                       name={key}
                       src={
-                        user.userEmotes[key][
-                          user.userOptions.emoteQuality + 'x'
+                        userEmotes[key][
+                          userOptions.emoteQuality + 'x'
                         ]
                       }
                       height={8}

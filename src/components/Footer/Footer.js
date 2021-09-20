@@ -29,7 +29,7 @@ export default function Footer(props) {
           paddingBottom={1}
           paddingRight={2}
         >
-          &#169; 2021 Sean S.
+          &#169; 2021 Sean S. & Zoey T.
         </Text>
       </Flex>
     </HStack>

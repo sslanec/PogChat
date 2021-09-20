@@ -1,17 +1,16 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Text } from '@chakra-ui/react';
-import UserContext from 'context/User/User';
 
-export default function SystemMessage(props) {
-  const { user } = useContext(UserContext);
+export default function SystemMessage({ msg }) {
+  const userOptions = useSelector(state => state.user.userOptions);
 
   return (
     <Text
-      fontSize={user.userOptions.chatTextSize}
+      fontSize={userOptions.chatTextSize}
       fontWeight="bold"
       lineHeight={1.35}
     >
-      {props.msg}
+      {msg}
     </Text>
   );
 }

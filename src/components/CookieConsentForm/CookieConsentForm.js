@@ -1,7 +1,8 @@
 import { Button, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import CookieConsent from 'react-cookie-consent';
-import ReactGA from 'react-ga4';
+import ReactGA4 from 'react-ga4';
+import ReactGA from 'react-ga';
 
 export default function CookieConsentForm(props) {
   return (
@@ -35,17 +36,19 @@ export default function CookieConsentForm(props) {
       }}
       onAccept={() => {
         localStorage.setItem('analyticsConsent', 'true');
-        ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_ID);
-        ReactGA.send({ hitType: 'pageview' });
+        ReactGA4.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_GA4);
+        ReactGA4.send({ hitType: 'pageview' });
+        ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_UA);
+        ReactGA.pageview(window.location.pathname);
       }}
       onDecline={() => {
         localStorage.setItem('analyticsConsent', 'false');
       }}
     >
       <Text>
-        Do you consent to the use of non-essential cookies and analytics?
-        Doing so helps with the continued development of PogChat 😊 More
-        information can be found in our{' '}
+        Do you consent to the use of non-essential cookies and analytics? Doing
+        so helps with the continued development of PogChat 😊 More information
+        can be found in our{' '}
         <Link to="/privacy-policy">
           <Text as="span" decoration="underline">
             Privacy Policy

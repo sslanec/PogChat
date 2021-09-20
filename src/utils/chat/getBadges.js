@@ -1,5 +1,5 @@
 import ChatBadge from 'features/chat/ChatBadge';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 
 export default function getBadges(
   msgBadges,
@@ -22,9 +22,9 @@ export default function getBadges(
       } else if (keys[i] in globalBadges) {
         src = globalBadges[keys[i]][msgBadges[keys[i]]][qual];
       }
-      badges.push(<ChatBadge name={keys[i]} src={src} key={uuid()} />);
+      badges.push(<ChatBadge name={keys[i]} src={src} key={i} />);
     } catch {
-      console.warn([
+      console.log([
         'Broken badge',
         {
           msgBadges,

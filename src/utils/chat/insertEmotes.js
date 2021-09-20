@@ -1,5 +1,5 @@
 import ChatEmote from 'features/chat/ChatEmote';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 
 export default function insertEmotes(
   msgArray,
@@ -23,7 +23,7 @@ export default function insertEmotes(
           <ChatEmote
             name={msgArray[i]}
             src={emoteList[msgArray[i]][qual]}
-            key={uuid()}
+            key={i}
           />
         );
       }
@@ -33,7 +33,7 @@ export default function insertEmotes(
           <ChatEmote
             name={msgArray[i]}
             src={emoteList[tempMsg[i]][qual]}
-            key={uuid()}
+            key={i}
           />
         );
       }

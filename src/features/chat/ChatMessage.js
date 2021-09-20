@@ -1,66 +1,66 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Text } from '@chakra-ui/react';
 import detectEmotes from 'utils/chat/detectEmotes';
 import insertEmotes from 'utils/chat/insertEmotes';
 import insertSpaces from 'utils/chat/insertSpaces';
 import getBadges from 'utils/chat/getBadges';
-import UserContext from 'context/User/User';
 
-export default function ChatMessage({
+export default function ChatMessage2({
   bits,
-  bttvEmotes,
-  channelBadges,
   cheerList,
-  displayName,
-  emoteQuality,
-  globalBadges,
-  isAction,
   msg,
-  reference,
   self,
-  userEmotes,
   userstate,
 }) {
-  const { user } = useContext(UserContext);
+  const userOptions = useSelector(state => state.user.userOptions);
+  const userEmotes = useSelector(state => state.user.userEmotes);
+  const bttvEmotes = useSelector(state => state.user.bttvEmotes);
+  const globalBadges = useSelector(state => state.user.globalBadges);
+  const channelBadges = useSelector(state => state.user.channelBadges);
 
   if (userstate['badges']) {
     var badges = getBadges(
       userstate['badges'],
       channelBadges,
       globalBadges,
-      emoteQuality
+      userOptions.emoteQuality
     );
   }
+
   let msgArray = msg.split(' ');
   if (msg !== '< message deleted >') {
     if (self) {
-      msgArray = insertEmotes(msgArray, userEmotes, emoteQuality);
+      msgArray = insertEmotes(msgArray, userEmotes, userOptions.emoteQuality);
     } else {
       let msgEmotes = detectEmotes(msgArray, userstate.emotes);
-      msgArray = insertEmotes(msgArray, msgEmotes, emoteQuality);
+      msgArray = insertEmotes(msgArray, msgEmotes, userOptions.emoteQuality);
     }
-    if (bits !== false) {
-      msgArray = insertEmotes(msgArray, cheerList, emoteQuality, true);
+    if (bits) {
+      msgArray = insertEmotes(
+        msgArray,
+        cheerList,
+        userOptions.emoteQuality,
+        true
+      );
     }
-    msgArray = insertEmotes(msgArray, bttvEmotes, emoteQuality);
+    msgArray = insertEmotes(msgArray, bttvEmotes, userOptions.emoteQuality);
   }
 
   return (
-    <Text
-      lineHeight={1.35}
-      ref={reference}
-      fontSize={user.userOptions.chatTextSize}
-    >
+    <Text lineHeight={1.35} fontSize={userOptions.chatTextSize}>
       {badges}
       <Text
         as="span"
         fontWeight="bold"
-        color={user.userOptions.usernameColors ? userstate.color : 'white'}
+        color={userOptions.usernameColors ? userstate.color : 'white'}
       >
-        {displayName}
+        {userstate['display-name']}
       </Text>
       {bits ? ` ${bits}: ` : ': '}
-      <Text as="span" fontStyle={isAction ? 'italic' : 'normal'}>
+      <Text
+        as="span"
+        fontStyle={userstate['message-type'] === 'action' ? 'italic' : 'normal'}
+      >
         {insertSpaces(msgArray)}
       </Text>
     </Text>
