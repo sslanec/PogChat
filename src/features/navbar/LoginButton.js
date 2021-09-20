@@ -1,4 +1,5 @@
 import { Box, Button } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 import twitchLogo from 'assets/twitchLogo.svg';
 
 const url =
@@ -16,24 +17,26 @@ const handleClick = event => {
   window.open(url, '_self');
 };
 
-export default function LoginButton(props) {
+export default function LoginButton() {
+  const loginLoading = useSelector(state => state.user.loginLoading);
+  const userAccInfo = useSelector(state => state.user.userAccInfo);
+
   return (
     <Button
-      key={'LoginButton_' + props.text}
+      key={'LoginButton_' + userAccInfo.displayName}
       onClick={handleClick}
       iconSpacing={1.5}
-      isLoading={props.isLoading}
+      isLoading={loginLoading}
       leftIcon={
-        props.text === 'Login' ? (
+        userAccInfo.displayName === 'Login' ? (
           <Box as="img" height={5} width={5} src={twitchLogo} />
         ) : (
           ''
         )
       }
       size="sm"
-      {...props.rest}
     >
-      {props.text}
+      {userAccInfo.displayName}
     </Button>
   );
 }

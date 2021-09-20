@@ -48,56 +48,8 @@ function userReducer(state, item) {
   return { ...state, ...item };
 }
 
-// function chatReducer(state, { type, item }) {
-//   switch (type) {
-//     case 'ADD':
-//       return [...state, item];
-//     case 'CLEAR':
-//       let clrState = state;
-//       for (let i = clrState.length - 1; i > 0; i--) {
-//         if (clrState[i]['channel'] === item) {
-//           // clrState[i]['ref'].current.remove();
-//           clrState.splice(i, 1);
-//         }
-//       }
-//       return clrState;
-//     case 'DELETE':
-//       let delState = state;
-//       let deleted = false;
-//       let i = delState.length - 1;
-//       while (!deleted) {
-//         if (delState[i]['id'] === item) {
-//           let delMsg = delState[i]['ref'].current.innerHTML.split(': ');
-//           delMsg[1] = '< message deleted >';
-//           delState[i]['ref'].current.innerHTML = delMsg.join(': ');
-//           delState[i] = {
-//             msg: (
-//               <ChatMessage
-//                 displayName={delState[i]['msg']['props']['displayName']}
-//                 msg="< message deleted >"
-//                 userstate={delState[i]['msg']['props']['userstate']}
-//                 reference={delState[i]['msg']['props']['reference']}
-//               />
-//             ),
-//             id: delState[i]['id'],
-//             ref: delState[i]['ref'],
-//             channel: delState[i]['channel'],
-//           };
-//           deleted = true;
-//         }
-//         i--;
-//       }
-//       return delState;
-//     default:
-//       return state;
-//   }
-// }
-
 export default function App() {
   const [user, setUser] = useReducer(userReducer, userInit);
-  const [displayName, setDisplayName] = useState('Login');
-  const [loginLoading, setLoginLoading] = useState(false);
-  const [avatarUrl, setAvatarUrl] = useState('');
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
@@ -105,6 +57,7 @@ export default function App() {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
+  const loginLoading = useSelector(state => state.user.loginLoading);
   const loggedIn = useSelector(state => state.user.loggedIn);
   const userOptions = useSelector(state => state.user.userOptions);
 
@@ -112,10 +65,7 @@ export default function App() {
     if (location.pathname === '/') {
       history.push('/user-following');
     }
-
-    user.apiClient = apiClient;
     setUser({ apiClient });
-
     dispatch(
       updateUser({
         userAccInfo,
@@ -123,12 +73,9 @@ export default function App() {
         globalBadges,
         followRefresh: Date.now(),
         loggedIn: true,
+        loginLoading: false,
       })
     );
-
-    setDisplayName(userAccInfo.displayName);
-    setAvatarUrl(userAccInfo.profilePictureUrl);
-    setLoginLoading(false);
   };
 
   const getUserOptions = async options => {
@@ -182,7 +129,7 @@ export default function App() {
       const findToken = href.indexOf('code=');
 
       if (findToken > -1 && expiryTimestamp === '0') {
-        setLoginLoading(true);
+        dispatch(updateUser({ loginLoading: true }));
         getAccountInfo(href).then(data => {
           user.authProvider = getAuthProvider(data['accessToken']);
           connectApi(user.authProvider).then(data => {
@@ -190,8 +137,7 @@ export default function App() {
           });
         });
       } else if (expiryTimestamp > Date.now()) {
-        setLoginLoading(true);
-
+        dispatch(updateUser({ loginLoading: true }));
         user.authProvider = getAuthProvider(accessToken);
 
         connectApi(user.authProvider).then(data => {
@@ -217,12 +163,7 @@ export default function App() {
         height={dimensions.height}
         width={dimensions.width}
       >
-        <NavBar
-          avatarUrl={avatarUrl}
-          displayName={displayName}
-          loggedIn={loggedIn}
-          loginLoading={loginLoading}
-        />
+        <NavBar />
         <Container
           display="flex"
           flexDirection="column"
@@ -244,7 +185,7 @@ export default function App() {
                 <PrivacyPolicy />
               </Route>
               <Route path="/user-following">
-                <Following loginLoading={loginLoading} />
+                <Following />
               </Route>
               <Route path="/user-settings">
                 <Settings />

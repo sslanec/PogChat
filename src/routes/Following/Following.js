@@ -6,13 +6,14 @@ import getUserFollows from 'utils/api/getUserFollows';
 import { updateUser } from 'features/userSlice';
 import UserContext from 'context/User/User';
 
-export default function Following({ loginLoading }) {
+export default function Following() {
   const [visible, setVisible] = useState(false);
   const { user } = useContext(UserContext);
   const dispatch = useDispatch();
   const follows = useSelector(state => state.user.userFollows);
   const followRefresh = useSelector(state => state.user.followRefresh);
   const loggedIn = useSelector(state => state.user.loggedIn);
+  const loginLoading = useSelector(state => state.user.loginLoading);
   const userAccInfo = useSelector(state => state.user.userAccInfo);
 
   useEffect(() => {

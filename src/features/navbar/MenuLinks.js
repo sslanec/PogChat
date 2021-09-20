@@ -1,11 +1,14 @@
 import { Box, Stack } from '@chakra-ui/react';
 import MenuItem from 'features/navbar/MenuItem';
+import { useSelector } from 'react-redux';
 // import { ColorModeSwitcher } from '../ColorModeSwitcher/ColorModeSwitcher';
 
-export default function MenuLinks(props) {
+export default function MenuLinks({ isOpen, toggle }) {
+  const loggedIn = useSelector(state => state.user.loggedIn);
+
   return (
     <Box
-      display={{ base: props.isOpen ? 'block' : 'none', md: 'block' }}
+      display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
       flexBasis={{ base: '100%', md: 'auto' }}
     >
       <Stack
@@ -14,18 +17,18 @@ export default function MenuLinks(props) {
         justify={['center', 'center', 'flex-end', 'flex-end']}
         direction={['column', 'column', 'row', 'row']}
       >
-        <MenuItem toggle={props.toggle} to="/">
-          {props.loggedIn ? 'Chat' : 'Home'}
+        <MenuItem toggle={toggle} to="/">
+          {loggedIn ? 'Chat' : 'Home'}
         </MenuItem>
 
-        {props.loggedIn && (
-          <MenuItem toggle={props.toggle} to="/user-following">
+        {loggedIn && (
+          <MenuItem toggle={toggle} to="/user-following">
             Following
           </MenuItem>
         )}
 
-        {props.loggedIn && (
-          <MenuItem toggle={props.toggle} to="/user-settings">
+        {loggedIn && (
+          <MenuItem toggle={toggle} to="/user-settings">
             Settings
           </MenuItem>
         )}
