@@ -1,4 +1,4 @@
-import { StaticAuthProvider } from 'twitch-auth';
+import { StaticAuthProvider } from '@twurple/auth';
 
 export default function getAuthProvider(accessToken) {
   const authProvider = new StaticAuthProvider(

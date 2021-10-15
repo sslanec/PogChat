@@ -1,4 +1,4 @@
-const tmi = require('twitch-auth-tmi');
+const tmi = require('@twurple/auth-tmi');
 
 export default function chatConnect(authProvider, channel) {
   const chatClient = new tmi.Client({

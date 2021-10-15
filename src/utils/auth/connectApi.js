@@ -1,4 +1,4 @@
-import { ApiClient } from 'twitch';
+import { ApiClient } from '@twurple/api';
 import getGlobalBadges from 'utils/api/getGlobalBadges';
 import getUserFollows from 'utils/api/getUserFollows';
 import getUserAccInfo from 'utils/api/getUserAccInfo';
