@@ -35,7 +35,6 @@ export default function EmotePicker({ insertEmote }) {
 
   useEffect(() => {
     let mounted = true;
-
     if (mounted) {
       if (bttvEmotes) {
         let i = Object.keys(bttvEmotes).findIndex(
@@ -71,7 +70,6 @@ export default function EmotePicker({ insertEmote }) {
 
   useEffect(() => {
     let mounted = true;
-
     if (mounted) {
       if (userEmoteSets) {
         emoteSets.current = {};
@@ -89,7 +87,6 @@ export default function EmotePicker({ insertEmote }) {
         }
         setShowEmotes(true);
       }
-      console.log(emoteSets.current);
     }
     return () => (mounted = false);
   }, [userEmoteSets]);
@@ -201,7 +198,6 @@ export default function EmotePicker({ insertEmote }) {
 
           {showEmotes &&
             Object.keys(emoteSets.current).map(key => {
-              // console.log({ key, index, array });
               return (
                 <>
                   <PopoverHeader>{key}</PopoverHeader>
@@ -253,29 +249,6 @@ export default function EmotePicker({ insertEmote }) {
                 })}
             </Flex>
           </PopoverBody>
-
-          {/* <PopoverHeader>Twitch Emotes</PopoverHeader>
-          <PopoverBody>
-            <Flex flexWrap="wrap">
-              {userEmotes !== null &&
-                Object.keys(userEmotes).map((key, index) => {
-                  return (
-                    <ChatEmote
-                      key={index}
-                      name={key}
-                      src={
-                        userEmotes[key][
-                          userOptions.emoteQuality + 'x'
-                        ]
-                      }
-                      height={8}
-                      margin={1.5}
-                      onClick={() => onClickHandler(key)}
-                    />
-                  );
-                })}
-            </Flex>
-          </PopoverBody> */}
         </Flex>
       </PopoverContent>
     </Popover>

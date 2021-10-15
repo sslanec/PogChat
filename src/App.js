@@ -50,10 +50,7 @@ function userReducer(state, item) {
 
 export default function App() {
   const [user, setUser] = useReducer(userReducer, userInit);
-  const [dimensions, setDimensions] = useState({
-    height: window.innerHeight,
-    width: window.innerWidth,
-  });
+  const [viewHeight, setViewHeight] = useState(window.innerHeight);
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -90,12 +87,7 @@ export default function App() {
   useEffect(() => {
     let mounted = true;
     const handleResize = debounce(() => {
-      setDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      });
-      document.body.style.height = '100%';
-      document.body.style.width = '100%';
+      setViewHeight(window.innerHeight);
     }, 50);
 
     if (mounted) {
@@ -139,7 +131,6 @@ export default function App() {
       } else if (expiryTimestamp > Date.now()) {
         dispatch(updateUser({ loginLoading: true }));
         user.authProvider = getAuthProvider(accessToken);
-
         connectApi(user.authProvider).then(data => {
           init(data);
         });
@@ -158,11 +149,7 @@ export default function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Flex
-        flexDirection="column"
-        height={dimensions.height}
-        width={dimensions.width}
-      >
+      <Flex flexDirection="column" height={viewHeight}>
         <NavBar />
         <Container
           display="flex"
