@@ -50,6 +50,27 @@ export default function AboutUs(props) {
         and make PogChat a service streamers and chat moderators would want to
         use with different customization options. We look forward to adding more
         as our users grow, so please visit again soon!
+      </Text>{' '}
+      <Text paddingTop={2}>
+        The source code for PogChat is released under the{' '}
+        <Text
+          as="a"
+          href="https://www.gnu.org/licenses/"
+          target="_blank"
+          textDecoration="underline"
+        >
+          GNU AGPL license
+        </Text>{' '}
+        and can be downloaded from{' '}
+        <Text
+          as="a"
+          href="https://www.github.com/sslanec/PogChat"
+          target="_blank"
+          textDecoration="underline"
+        >
+          GitHub
+        </Text>
+        .
       </Text>
     </Flex>
   );
