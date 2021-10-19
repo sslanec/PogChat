@@ -58,9 +58,9 @@ export default async function getUserEmotes(apiClient, sets) {
       }
 
       let ver = {};
-      ver['1x'] = emote['_data']['images']['url_1x'];
-      ver['2x'] = emote['_data']['images']['url_2x'];
-      ver['3x'] = emote['_data']['images']['url_4x'];
+      ver['1x'] = emote.getImageUrl(1);
+      ver['2x'] = emote.getImageUrl(2);
+      ver['3x'] = emote.getImageUrl(4);
 
       emotes[emote['name']] = ver;
       emoteSets[emote['emoteSetId']]['emotes'] = {
