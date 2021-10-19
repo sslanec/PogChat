@@ -117,7 +117,8 @@ export default function EmotePicker({ insertEmote }) {
               height={6}
               width={7}
               alt="Emote Picker"
-              src="https://static-cdn.jtvnw.net/emoticons/v2/305954156/static/light/3.0"
+              // src="https://static-cdn.jtvnw.net/emoticons/v2/305954156/static/light/3.0" // PogChamp
+              src="https://static-cdn.jtvnw.net/emoticons/v2/307445021/static/light/3.0" // Orangie
               title="Emote Picker"
             />
           }
