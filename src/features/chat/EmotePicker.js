@@ -114,8 +114,7 @@ export default function EmotePicker({ insertEmote }) {
           {
             <Box
               as="img"
-              height={7}
-              width={8}
+              width={[12, 10, 10, 8]}
               alt="Emote Picker"
               // src="https://static-cdn.jtvnw.net/emoticons/v2/305954156/static/light/3.0" // PogChamp
               src="https://static-cdn.jtvnw.net/emoticons/v2/307445021/static/light/3.0" // Orangie
