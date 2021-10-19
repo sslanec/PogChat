@@ -6,17 +6,15 @@
       "environmentVariableName": "CLIENT_SECRET"
     },
     {
-      "cloudFormationParameterName": "clientId",
-      "environmentVariableName": "CLIENT_ID"
-    },
-    {
-      "cloudFormationParameterName": "redirectUrl",
-      "environmentVariableName": "REDIRECT_URL"
-    },
-    {
       "cloudFormationParameterName": "clientSecret",
       "environmentVariableName": "CLIENT_SECRET"
+    },
+    {
+      "cloudFormationParameterName": "clientId",
+      "environmentVariableName": "CLIENT_ID"
     }
   ],
-  "secretNames": []
+  "secretNames": [
+    "CLIENT_SECRET"
+  ]
 }
