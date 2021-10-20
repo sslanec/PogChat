@@ -50,7 +50,7 @@ export default function MenuLinks({ isOpen, toggle }) {
         )}
 
         <MenuItem toggle={toggle} to="/about-us">
-          About
+          About Us
         </MenuItem>
 
         <MenuItem toggle={toggle} to="/privacy-policy">

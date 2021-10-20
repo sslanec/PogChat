@@ -62,9 +62,9 @@ export default function CookieConsentForm(props) {
       }}
     >
       <Text>
-        Do you consent to the use of non-essential cookies and analytics? Doing
-        so helps with the continued development of PogChat 😊 More information
-        can be found in our{' '}
+        Allow non-essential cookies and anonymous analytics? Doing so helps with
+        the continued development of PogChat 😊 More information can be found in
+        our{' '}
         <Link to="/privacy-policy">
           <Text as="span" decoration="underline">
             Privacy Policy

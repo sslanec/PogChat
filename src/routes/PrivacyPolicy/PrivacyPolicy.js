@@ -30,9 +30,10 @@ export default function PrivacyPolicy(props) {
       </Text>
       <Text paddingTop={2}>
         PogChat uses Google Analytics for user count and basic demographic
-        information. Your IP address is not collected. Users are free to decline
-        this usage if desired and will be prompted once every 30 days for their
-        continued consent or dissent. More information can be found in the{' '}
+        information. This information is completely anonymous and your IP
+        address is not collected. Users are free to decline this usage if
+        desired and will be prompted once every 30 days for their continued
+        consent or dissent. More information can be found in the{' '}
         <Text
           as="a"
           target="_blank"
