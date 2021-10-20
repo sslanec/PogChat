@@ -54,7 +54,7 @@ const names = [
   'Glostik_Willy',
   'MarysMilkMonsters',
   'BobRoss',
-  'mikemenza_',
+  'MikemMenza',
   'GrantTruesdellUTA',
   'TheSushiDragon',
   'moshtalks',
@@ -65,6 +65,7 @@ const names = [
   'Chainbrain',
   'tomthinks',
   'BlastBitMetalDrumming',
+  'Apoinsettia'
 ];
 
 export default function ChannelInput() {
