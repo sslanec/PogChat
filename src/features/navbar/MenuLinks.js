@@ -49,6 +49,14 @@ export default function MenuLinks({ isOpen, toggle }) {
           </MenuItem>
         )}
 
+        <MenuItem toggle={toggle} to="/about-us">
+          About
+        </MenuItem>
+
+        <MenuItem toggle={toggle} to="/privacy-policy">
+          Privacy
+        </MenuItem>
+
         {/* <ColorModeSwitcher /> */}
       </Stack>
     </Box>

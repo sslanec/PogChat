@@ -174,6 +174,7 @@ export default function App() {
           paddingTop={2}
           paddingLeft={[2, 2, 0, 0]}
           paddingRight={[2, 2, 0, 0]}
+          paddingBottom={2}
           flexGrow={1}
         >
           <UserContext.Provider value={{ user, setUser }}>
@@ -199,7 +200,7 @@ export default function App() {
             </Switch>
           </UserContext.Provider>
         </Container>
-        <Footer />
+        {/* <Footer /> */}
         <CookieConsentForm />
       </Flex>
     </ChakraProvider>
