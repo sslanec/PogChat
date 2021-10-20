@@ -106,7 +106,7 @@ export default function ChannelInput() {
         addMessage({
           msg: `${username} has been banned.`,
           msgType: 'system',
-          userstate,
+          userstate,  
           reason,
           channel,
         })
@@ -336,7 +336,7 @@ export default function ChannelInput() {
       if (connected === false) {
         dispatch(
           addMessage({
-            msg: `Connected to ${chatChannel}'s chat.`,
+            msg: `Connected to ${channel.substring(1)}'s chat.`,
             msgType: 'system',
           })
         );
