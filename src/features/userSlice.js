@@ -48,9 +48,13 @@ export const userSlice = createSlice({
         state[i] = action.payload[i];
       }
     },
+    clearBttvAndBadges(state) {
+      state.bttvEmotes = null;
+      state.channelBadges = null;
+    },
   },
 });
 
-export const { updateUser } = userSlice.actions;
+export const { updateUser, clearBttvAndBadges } = userSlice.actions;
 
 export default userSlice.reducer;

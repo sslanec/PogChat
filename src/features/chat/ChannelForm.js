@@ -39,8 +39,9 @@ import {
   addMessage,
   clearMessages,
   deleteMessage,
+  emptyChat,
 } from 'features/chat/chatSlice';
-import { updateUser } from 'features/userSlice';
+import { updateUser, clearBttvAndBadges } from 'features/userSlice';
 import store from 'store';
 
 const names = [
@@ -65,7 +66,7 @@ const names = [
   'Chainbrain',
   'tomthinks',
   'BlastBitMetalDrumming',
-  'Apoinsettia'
+  'Apoinsettia',
 ];
 
 export default function ChannelInput() {
@@ -107,7 +108,7 @@ export default function ChannelInput() {
         addMessage({
           msg: `${username} has been banned.`,
           msgType: 'system',
-          userstate,  
+          userstate,
           reason,
           channel,
         })
@@ -408,6 +409,7 @@ export default function ChannelInput() {
 
         localStorage.setItem('lastChannel', [chatChannel, state['room-id']]);
 
+        dispatch(clearBttvAndBadges());
         dispatch(
           updateUser({
             connected: true,
@@ -549,6 +551,7 @@ export default function ChannelInput() {
         }
         setLoading(true);
         setValue(window.location.pathname.substring(1));
+        dispatch(emptyChat());
         dispatch(
           updateUser({ chatChannel: window.location.pathname.substring(1) })
         );
@@ -579,6 +582,7 @@ export default function ChannelInput() {
       setLoading(true);
       user.chatClient = chatConnect(user.authProvider, value);
       window.history.replaceState({}, document.title, '/' + value);
+      dispatch(emptyChat());
       dispatch(updateUser({ chatChannel: value }));
       setChatEvents();
     }

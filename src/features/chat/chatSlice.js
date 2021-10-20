@@ -44,9 +44,13 @@ export const chatSlice = createSlice({
         i = i - 1;
       }
     },
+    emptyChat(state) {
+      state.splice(0, state.length);
+    },
   },
 });
 
-export const { addMessage, clearMessages, deleteMessage } = chatSlice.actions;
+export const { addMessage, clearMessages, deleteMessage, emptyChat } =
+  chatSlice.actions;
 
 export default chatSlice.reducer;
