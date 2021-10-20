@@ -269,26 +269,30 @@ export default function EmotePicker({ insertEmote }) {
             </Flex>
           </PopoverBody>
 
-          <PopoverHeader>Twitch Global</PopoverHeader>
-          <PopoverBody>
-            <Flex flexWrap="wrap">
-              {emoteSets.current !== null &&
-                Object.keys(emoteSets.current['Twitch Global']['emotes']).map(
-                  (key, index) => {
-                    return (
-                      <ChatEmote
-                        key={index}
-                        name={key}
-                        src={userEmotes[key][userOptions.emoteQuality + 'x']}
-                        height={8}
-                        margin={1.5}
-                        onClick={() => onClickHandler(key)}
-                      />
-                    );
-                  }
-                )}
-            </Flex>
-          </PopoverBody>
+          {showEmotes && (
+            <>
+              <PopoverHeader>Twitch Global</PopoverHeader>
+              <PopoverBody>
+                <Flex flexWrap="wrap">
+                  {emoteSets.current !== null &&
+                    Object.keys(
+                      emoteSets.current['Twitch Global']['emotes']
+                    ).map((key, index) => {
+                      return (
+                        <ChatEmote
+                          key={index}
+                          name={key}
+                          src={userEmotes[key][userOptions.emoteQuality + 'x']}
+                          height={8}
+                          margin={1.5}
+                          onClick={() => onClickHandler(key)}
+                        />
+                      );
+                    })}
+                </Flex>
+              </PopoverBody>
+            </>
+          )}
         </Flex>
       </PopoverContent>
     </Popover>
