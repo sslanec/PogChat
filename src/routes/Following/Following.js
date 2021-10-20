@@ -31,10 +31,17 @@ export default function Following() {
   const loggedIn = useSelector(state => state.user.loggedIn);
   const loginLoading = useSelector(state => state.user.loginLoading);
   const userAccInfo = useSelector(state => state.user.userAccInfo);
+  const connected = useSelector(state => state.user.connected);
 
   useEffect(() => {
     let mounted = true;
     if (mounted) {
+      if (connected === true) {
+        user.chatClient.disconnect().then(() => {
+          dispatch(updateUser({ connected: false }));
+        });
+      }
+
       if (Date.now() > followRefresh + 10000 && loggedIn === true) {
         setVisible(true);
         getUserFollows(user.apiClient, userAccInfo.id).then(data => {
