@@ -31,7 +31,7 @@ import connectApi from 'utils/auth/connectApi';
 import getStorage from 'utils/browser/getStorage';
 import NavBar from 'features/navbar/NavBar';
 import Chat from 'routes/root/Chat/Chat';
-import Footer from 'components/Footer/Footer';
+// import Footer from 'components/Footer/Footer';
 import Following from 'routes/Following/Following';
 import Settings from 'routes/Settings/Settings';
 import Landing from 'routes/root/Landing/Landing';

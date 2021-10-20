@@ -213,35 +213,38 @@ export default function EmotePicker({ insertEmote }) {
           )}
 
           {showEmotes &&
+            // eslint-disable-next-line array-callback-return
             Object.keys(emoteSets.current).map(key => {
-              return (
-                <>
-                  <PopoverHeader>{key}</PopoverHeader>
-                  <PopoverBody>
-                    <Flex flexWrap="wrap">
-                      {emoteSets.current !== null &&
-                        Object.keys(emoteSets.current[key]['emotes']).map(
-                          (key, index) => {
-                            return (
-                              <ChatEmote
-                                key={index}
-                                name={key}
-                                src={
-                                  userEmotes[key][
-                                    userOptions.emoteQuality + 'x'
-                                  ]
-                                }
-                                height={8}
-                                margin={1.5}
-                                onClick={() => onClickHandler(key)}
-                              />
-                            );
-                          }
-                        )}
-                    </Flex>
-                  </PopoverBody>
-                </>
-              );
+              if (key !== 'Twitch Global') {
+                return (
+                  <>
+                    <PopoverHeader>{key}</PopoverHeader>
+                    <PopoverBody>
+                      <Flex flexWrap="wrap">
+                        {emoteSets.current !== null &&
+                          Object.keys(emoteSets.current[key]['emotes']).map(
+                            (key, index) => {
+                              return (
+                                <ChatEmote
+                                  key={index}
+                                  name={key}
+                                  src={
+                                    userEmotes[key][
+                                      userOptions.emoteQuality + 'x'
+                                    ]
+                                  }
+                                  height={8}
+                                  margin={1.5}
+                                  onClick={() => onClickHandler(key)}
+                                />
+                              );
+                            }
+                          )}
+                      </Flex>
+                    </PopoverBody>
+                  </>
+                );
+              }
             })}
 
           <PopoverHeader>BTTV Global Emotes</PopoverHeader>
@@ -263,6 +266,27 @@ export default function EmotePicker({ insertEmote }) {
                     );
                   }
                 })}
+            </Flex>
+          </PopoverBody>
+
+          <PopoverHeader>Twitch Global</PopoverHeader>
+          <PopoverBody>
+            <Flex flexWrap="wrap">
+              {emoteSets.current !== null &&
+                Object.keys(emoteSets.current['Twitch Global']['emotes']).map(
+                  (key, index) => {
+                    return (
+                      <ChatEmote
+                        key={index}
+                        name={key}
+                        src={userEmotes[key][userOptions.emoteQuality + 'x']}
+                        height={8}
+                        margin={1.5}
+                        onClick={() => onClickHandler(key)}
+                      />
+                    );
+                  }
+                )}
             </Flex>
           </PopoverBody>
         </Flex>
