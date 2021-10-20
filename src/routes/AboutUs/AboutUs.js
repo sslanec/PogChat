@@ -50,7 +50,7 @@ export default function AboutUs(props) {
         and make PogChat a service streamers and chat moderators would want to
         use with different customization options. We look forward to adding more
         as our users grow, so please visit again soon!
-      </Text>{' '}
+      </Text>
       <Text paddingTop={2}>
         The source code for PogChat is released under the{' '}
         <Text
@@ -72,6 +72,7 @@ export default function AboutUs(props) {
         </Text>
         .
       </Text>
+      <Text paddingTop={2}>&#169; 2021 Sean Slanec & Zoey Taylor</Text>
     </Flex>
   );
 }
