@@ -17,13 +17,7 @@
 import { useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import {
-  Container,
-  ChakraProvider,
-  Flex,
-  Heading,
-  theme,
-} from '@chakra-ui/react';
+import { Container, ChakraProvider, Flex, Heading } from '@chakra-ui/react';
 import UserContext from 'context/User/User';
 import getAccountInfo from 'utils/auth/getAccountInfo';
 import getAuthProvider from 'utils/auth/getAuthProvider';
@@ -41,6 +35,7 @@ import ReactGA4 from 'react-ga4';
 import ReactGA from 'react-ga';
 import CookieConsentForm from 'components/CookieConsentForm/CookieConsentForm';
 import { updateUser } from 'features/userSlice';
+import theme from './theme';
 
 const userInit = {
   authProvider: null,
@@ -107,13 +102,6 @@ export default function App() {
     }, 50);
 
     if (mounted) {
-      // Switch to dark mode automatically
-      const colorMode = localStorage.getItem('chakra-ui-color-mode');
-      if (!colorMode || colorMode !== 'dark') {
-        localStorage.setItem('chakra-ui-color-mode', 'dark');
-        window.location.reload();
-      }
-
       // Styling to prevent page scrolling
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
