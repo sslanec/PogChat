@@ -14,9 +14,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with PogChat.  If not, see <https://www.gnu.org/licenses/>.
 
-import { Box, Button } from '@chakra-ui/react';
+import { Button, useColorModeValue } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import twitchLogo from 'assets/twitchLogo.svg';
+import { ReactComponent as TwitchLogo } from 'assets/twitchLogo.svg';
 
 const url =
   'https://id.twitch.tv/oauth2/authorize?' +
@@ -33,9 +33,16 @@ const handleClick = event => {
   window.open(url, '_self');
 };
 
+const lightModeColor = '#1A202C';
+const lightModeAlpha = '1';
+const darkModeColor = 'white';
+const darkModeAlpha = '0.92';
+
 export default function LoginButton() {
   const loginLoading = useSelector(state => state.user.loginLoading);
   const userAccInfo = useSelector(state => state.user.userAccInfo);
+  const iconColor = useColorModeValue(lightModeColor, darkModeColor);
+  const iconAlpha = useColorModeValue(lightModeAlpha, darkModeAlpha);
 
   return (
     <Button
@@ -45,7 +52,7 @@ export default function LoginButton() {
       isLoading={loginLoading}
       leftIcon={
         userAccInfo.displayName === 'Login' ? (
-          <Box as="img" height={5} width={5} src={twitchLogo} />
+          <TwitchLogo fill={iconColor} fillOpacity={iconAlpha} />
         ) : (
           ''
         )
