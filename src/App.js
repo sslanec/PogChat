@@ -91,12 +91,6 @@ export default function App() {
       localStorage.setItem('userOptions', JSON.stringify(userOptions));
     } else {
       options = await JSON.parse(options);
-
-      const colorMode = localStorage.getItem('chakra-ui-color-mode');
-      if (!colorMode || colorMode !== 'dark') {
-        options.theme = 'light';
-      }
-
       dispatch(updateUser({ userOptions: options }));
     }
   };

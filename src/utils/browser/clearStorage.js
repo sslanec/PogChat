@@ -20,4 +20,5 @@ export default function clearStorage() {
   localStorage.setItem('expiryTimestamp', 0);
   localStorage.removeItem('userOptions');
   localStorage.removeItem('lastChannel');
+  localStorage.removeItem('chakra-ui-color-mode');
 }
