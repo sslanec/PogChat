@@ -15,13 +15,22 @@
 // along with PogChat.  If not, see <https://www.gnu.org/licenses/>.
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Checkbox, Heading, HStack, Select, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Checkbox,
+  Heading,
+  HStack,
+  Select,
+  Text,
+  useColorMode,
+} from '@chakra-ui/react';
 import ClearDataAlert from 'components/ClearDataAlert/ClearDataAlert';
 import { updateUser } from 'features/userSlice';
 
 export default function Settings(props) {
   const dispatch = useDispatch();
   const userOptions = useSelector(state => state.user.userOptions);
+  const { toggleColorMode } = useColorMode();
   let options = {};
   for (let i in userOptions) {
     options[i] = userOptions[i];
@@ -51,6 +60,7 @@ export default function Settings(props) {
             <option value={1}>Low</option>
           </Select>
         </HStack>
+
         <HStack paddingTop={4} spacing="auto">
           <Text fontSize="large">Emote Quality</Text>
           <Select
@@ -66,6 +76,7 @@ export default function Settings(props) {
             <option value={1}>Low</option>
           </Select>
         </HStack>
+
         <HStack paddingTop={4} spacing="auto">
           <Text fontSize="large">Username Colors</Text>
           <Checkbox
@@ -77,6 +88,7 @@ export default function Settings(props) {
             isChecked={userOptions.usernameColors}
           />
         </HStack>
+
         {/* TODO Adjust emote sizes to match text sizes */}
         <HStack paddingTop={4} spacing="auto">
           <Text fontSize="large">Chat Text Size</Text>
@@ -100,6 +112,23 @@ export default function Settings(props) {
             <option value="xs">X-Small</option>
           </Select>
         </HStack>
+
+        <HStack paddingTop={4} spacing="auto">
+          <Text fontSize="large">Theme</Text>
+          <Select
+            onChange={event => {
+              options.theme = event.target.value;
+              toggleColorMode();
+              updateOptions();
+            }}
+            value={userOptions.theme}
+            width="auto"
+          >
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </Select>
+        </HStack>
+
         <ClearDataAlert paddingTop={4} />
       </Box>
     </>
