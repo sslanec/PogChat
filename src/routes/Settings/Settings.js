@@ -54,6 +54,7 @@ export default function Settings(props) {
             }}
             value={userOptions.badgeQuality}
             width="auto"
+            variant="filled"
           >
             <option value={3}>High</option>
             <option value={2}>Medium</option>
@@ -70,6 +71,7 @@ export default function Settings(props) {
             }}
             value={userOptions.emoteQuality}
             width="auto"
+            variant="filled"
           >
             <option value={3}>High</option>
             <option value={2}>Medium</option>
@@ -99,6 +101,7 @@ export default function Settings(props) {
             }}
             value={userOptions.chatTextSize}
             width="auto"
+            variant="filled"
           >
             <option value="6xl">6X-Large</option>
             <option value="5xl">5X-Large</option>
@@ -123,6 +126,7 @@ export default function Settings(props) {
             }}
             value={userOptions.theme}
             width="auto"
+            variant="filled"
           >
             <option value="dark">Dark</option>
             <option value="light">Light</option>

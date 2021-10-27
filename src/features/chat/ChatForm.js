@@ -55,10 +55,9 @@ export default function ChatForm(props) {
           fontSize
           onChange={handleChange}
           value={msg}
+          variant="filled"
         />
-        <EmotePicker
-          insertEmote={insertEmote}
-        />
+        <EmotePicker insertEmote={insertEmote} />
         <Button disabled={!loggedIn || !connected || msg === ''} type="submit">
           Send
         </Button>

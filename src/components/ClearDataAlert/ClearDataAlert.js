@@ -24,6 +24,7 @@ import {
   AlertDialogOverlay,
   Box,
   Button,
+  LightMode,
 } from '@chakra-ui/react';
 import clearStorage from 'utils/browser/clearStorage';
 
@@ -39,14 +40,16 @@ export default function ClearDataAlert(props) {
 
   return (
     <Box {...props}>
-      <Button
-        colorScheme="red"
-        onClick={() => setIsOpen(true)}
-        variant="outline"
-        width="100%"
-      >
-        Clear Data
-      </Button>
+      <LightMode>
+        <Button
+          colorScheme="red"
+          onClick={() => setIsOpen(true)}
+          // variant="outline"
+          width="100%"
+        >
+          Clear Data
+        </Button>
+      </LightMode>
 
       <AlertDialog
         isOpen={isOpen}
@@ -67,9 +70,11 @@ export default function ClearDataAlert(props) {
               <Button ref={cancelRef} onClick={onClose}>
                 No, Take Me Back
               </Button>
-              <Button colorScheme="red" onClick={onClear} ml={3}>
-                Yes, Clear My Data
-              </Button>
+              <LightMode>
+                <Button colorScheme="red" onClick={onClear} ml={3}>
+                  Yes, Clear My Data
+                </Button>
+              </LightMode>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>

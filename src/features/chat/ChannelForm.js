@@ -597,12 +597,13 @@ export default function ChannelInput() {
           onChange={handleChange}
           placeholder={'Channel (Ex: ' + placeholder + ')'}
           value={value}
+          variant="filled"
         />
         <Button
           disabled={!loggedIn || loading || value === ''}
           isLoading={loading}
           type="submit"
-          variant="outline"
+          // variant="outline"
         >
           {connected ? 'Disconnect' : 'Connect'}
         </Button>
