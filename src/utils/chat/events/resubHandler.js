@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with PogChat.  If not, see <https://www.gnu.org/licenses/>.
 
-import getSubTier from '../../getSubTier';
+import getSubTier from './getSubTier';
 
 export default function resubHandler(streakMonths, userstate, methods) {
   const tier = getSubTier(methods);

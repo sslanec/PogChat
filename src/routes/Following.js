@@ -19,8 +19,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import getUserFollows from 'utils/api/getUserFollows';
-import { updateUser } from 'features/userSlice';
-import UserContext from 'context/User/User';
+import { updateUser } from 'context/userSlice';
+import UserContext from 'context/User';
 
 export default function Following() {
   const [visible, setVisible] = useState(false);

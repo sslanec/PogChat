@@ -24,8 +24,8 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
-import ClearDataAlert from 'components/ClearDataAlert/ClearDataAlert';
-import { updateUser } from 'features/userSlice';
+import ClearDataAlert from 'components/ClearDataAlert';
+import { updateUser } from 'context/userSlice';
 
 export default function Settings(props) {
   const dispatch = useDispatch();

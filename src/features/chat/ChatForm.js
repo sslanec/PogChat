@@ -17,7 +17,7 @@
 import { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Input, Button, FormControl, HStack } from '@chakra-ui/react';
-import UserContext from 'context/User/User';
+import UserContext from 'context/User';
 import EmotePicker from 'features/chat/EmotePicker';
 
 export default function ChatForm(props) {

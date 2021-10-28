@@ -16,7 +16,7 @@
 
 import { Button, useColorModeValue } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import { ReactComponent as TwitchLogo } from 'assets/twitchLogo.svg';
+import { ReactComponent as TwitchLogo } from 'assets/twitch-logo.svg';
 
 const url =
   'https://id.twitch.tv/oauth2/authorize?' +

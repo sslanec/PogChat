@@ -18,7 +18,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Input, Button, FormControl, HStack } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import chatConnect from 'utils/chat/chatConnect';
-import UserContext from 'context/User/User';
+import UserContext from 'context/User';
 import getChannelBadges from 'utils/api/getChannelBadges';
 import getBTTVEmotes from 'utils/api/getBTTVEmotes';
 import getUserEmotes from 'utils/api/getUserEmotes';
@@ -41,7 +41,7 @@ import {
   deleteMessage,
   emptyChat,
 } from 'features/chat/chatSlice';
-import { updateUser, clearBttvAndBadges } from 'features/userSlice';
+import { updateUser, clearBttvAndBadges } from 'context/userSlice';
 import store from 'store';
 
 const names = [
