@@ -128,7 +128,7 @@ export default function EmotePicker({ insertEmote }) {
         <PopoverArrow />
         <PopoverCloseButton />
         <Flex height={400} overflow="auto" direction="column">
-          {showBTTVChannel && (
+          {showBTTVChannel && connected && (
             <>
               <PopoverHeader>BTTV Channel Emotes</PopoverHeader>
               <PopoverBody>
@@ -156,7 +156,7 @@ export default function EmotePicker({ insertEmote }) {
             </>
           )}
 
-          {showFFZChannel && (
+          {showFFZChannel && connected && (
             <>
               <PopoverHeader>FFZ Channel Emotes</PopoverHeader>
               <PopoverBody>
@@ -184,7 +184,7 @@ export default function EmotePicker({ insertEmote }) {
             </>
           )}
 
-          {showBTTVShared && (
+          {showBTTVShared && connected && (
             <>
               <PopoverHeader>BTTV Shared Emotes</PopoverHeader>
               <PopoverBody>
@@ -213,6 +213,7 @@ export default function EmotePicker({ insertEmote }) {
           )}
 
           {showEmotes &&
+            connected &&
             // eslint-disable-next-line array-callback-return
             Object.keys(emoteSets.current).map((key, index) => {
               if (key !== 'Twitch Global') {
@@ -247,29 +248,35 @@ export default function EmotePicker({ insertEmote }) {
               }
             })}
 
-          <PopoverHeader>BTTV Global Emotes</PopoverHeader>
-          <PopoverBody>
-            <Flex flexWrap="wrap">
-              {bttvEmotes !== null &&
-                // eslint-disable-next-line array-callback-return
-                Object.keys(bttvEmotes).map((key, index) => {
-                  if (bttvEmotes[key]['category'] === 'bttv_global') {
-                    return (
-                      <ChatEmote
-                        key={index}
-                        name={key}
-                        src={bttvEmotes[key][userOptions.emoteQuality + 'x']}
-                        height={8}
-                        margin={1.5}
-                        onClick={() => onClickHandler(key)}
-                      />
-                    );
-                  }
-                })}
-            </Flex>
-          </PopoverBody>
+          {connected && (
+            <>
+              <PopoverHeader>BTTV Global Emotes</PopoverHeader>
+              <PopoverBody>
+                <Flex flexWrap="wrap">
+                  {bttvEmotes !== null &&
+                    // eslint-disable-next-line array-callback-return
+                    Object.keys(bttvEmotes).map((key, index) => {
+                      if (bttvEmotes[key]['category'] === 'bttv_global') {
+                        return (
+                          <ChatEmote
+                            key={index}
+                            name={key}
+                            src={
+                              bttvEmotes[key][userOptions.emoteQuality + 'x']
+                            }
+                            height={8}
+                            margin={1.5}
+                            onClick={() => onClickHandler(key)}
+                          />
+                        );
+                      }
+                    })}
+                </Flex>
+              </PopoverBody>
+            </>
+          )}
 
-          {showEmotes && (
+          {showEmotes && connected && (
             <>
               <PopoverHeader>Twitch Global</PopoverHeader>
               <PopoverBody>
