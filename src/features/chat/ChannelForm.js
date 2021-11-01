@@ -55,7 +55,7 @@ const names = [
   'Glostik_Willy',
   'MarysMilkMonsters',
   'BobRoss',
-  'MikemMenza',
+  'MikeMenza',
   'GrantTruesdellUTA',
   'TheSushiDragon',
   'moshtalks',
