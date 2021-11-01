@@ -214,10 +214,10 @@ export default function EmotePicker({ insertEmote }) {
 
           {showEmotes &&
             // eslint-disable-next-line array-callback-return
-            Object.keys(emoteSets.current).map(key => {
+            Object.keys(emoteSets.current).map((key, index) => {
               if (key !== 'Twitch Global') {
                 return (
-                  <>
+                  <Box key={index}>
                     <PopoverHeader>{key}</PopoverHeader>
                     <PopoverBody>
                       <Flex flexWrap="wrap">
@@ -242,7 +242,7 @@ export default function EmotePicker({ insertEmote }) {
                           )}
                       </Flex>
                     </PopoverBody>
-                  </>
+                  </Box>
                 );
               }
             })}
