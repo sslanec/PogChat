@@ -1,0 +1,13 @@
+/* TEAM */
+	Lead Developer: Sean Slanec
+	Twitter: @SeanSlanec
+	From:Michigan, United States
+
+  Copywriting & SEO: Zoey Taylor
+  Twitter: @wowitszoey
+  From:Ontario, Canada
+		
+
+/* SITE */
+	Last update:2021/11/08
+	Language: English
