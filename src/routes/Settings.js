@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with PogChat.  If not, see <https://www.gnu.org/licenses/>.
 
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
@@ -31,6 +33,9 @@ export default function Settings(props) {
   const dispatch = useDispatch();
   const userOptions = useSelector(state => state.user.userOptions);
   const { toggleColorMode } = useColorMode();
+  const history = useHistory();
+  const loggedIn = useSelector(state => state.user.loggedIn);
+
   let options = {};
   for (let i in userOptions) {
     options[i] = userOptions[i];
@@ -40,6 +45,16 @@ export default function Settings(props) {
     dispatch(updateUser({ userOptions: options }));
     localStorage.setItem('userOptions', JSON.stringify(options));
   };
+
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      if (loggedIn === false) {
+        history.push('/');
+      }
+    }
+    return () => (mounted = false);
+  });
 
   return (
     <>
