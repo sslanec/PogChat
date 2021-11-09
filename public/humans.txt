@@ -1,9 +1,11 @@
 /* TEAM */
 	Lead Developer: Sean Slanec
+	Website: seanslanec.com
 	Twitter: @SeanSlanec
 	From: Michigan, United States
 
 	Copywriting & SEO: Zoey Taylor
+	Website: zoey.contact
 	Twitter: @wowitszoey
 	From: Ontario, Canada
 
