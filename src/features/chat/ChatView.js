@@ -16,16 +16,16 @@
 
 import { useSelector } from 'react-redux';
 import { Box, Flex } from '@chakra-ui/react';
-import ScrollableFeed from 'react-scrollable-feed';
 import ChatMessage from 'features/chat/ChatMessage';
 import SystemMessage from 'features/chat/SystemMessage';
 import GiftMessage from 'features/chat/GiftMessage';
 import EventMessage from 'features/chat/EventMessage';
+import { Virtuoso } from 'react-virtuoso';
 
 export default function ChatView(props) {
   const chats = useSelector(state => state.chat);
 
-  const renderedChats = chats.slice(-200).map((chat, index) => {
+  const renderedChats = chats.map((chat, index) => {
     var newChat;
     switch (chat.msgType) {
       case 'chat':
@@ -69,7 +69,11 @@ export default function ChatView(props) {
 
   return (
     <Flex flexDirection="column" {...props}>
-      <ScrollableFeed>{renderedChats}</ScrollableFeed>
+      <Virtuoso
+        totalCount={renderedChats.length}
+        itemContent={index => renderedChats[index]}
+        followOutput={true}
+      />
     </Flex>
   );
 }
