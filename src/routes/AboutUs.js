@@ -21,11 +21,28 @@ export default function AboutUs(props) {
     <Flex flex={[1, 1, '1px']} flexDirection="column" overflow="auto">
       <Heading>About Us</Heading>
       <Text paddingTop={2}>
-        PogChat was made by Sean and Zoey, a soon-to-be-married couple living in
-        Ontario, Canada. We’ve both grown up with the internet from the days of
-        GeoCities, Coke Music, and five-star ratings on YouTube. Now, we are
-        avid Twitch viewers, often having streams on in the background while
-        reading or playing games.
+        PogChat was made by{' '}
+        <Text
+          as="a"
+          href="https://seanslanec.com/"
+          target="_blank"
+          textDecoration="underline"
+        >
+          Sean Slanec
+        </Text>{' '}
+        and{' '}
+        <Text
+          as="a"
+          href="https://zoey.contact/"
+          target="_blank"
+          textDecoration="underline"
+        >
+          Zoey Taylor
+        </Text>
+        . We both grew up with the internet from the days of GeoCities, Coke
+        Music, and five-star ratings on YouTube. Now, we are avid Twitch
+        viewers, often having streams on in the background while reading or
+        playing games.
       </Text>
       <Text paddingTop={2}>
         While we often watch music streamers on our TV, we found the experience
@@ -61,7 +78,7 @@ export default function AboutUs(props) {
         >
           GNU AGPL license
         </Text>{' '}
-        and can be downloaded from{' '}
+        and can be found on{' '}
         <Text
           as="a"
           href="https://www.github.com/sslanec/PogChat"
