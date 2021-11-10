@@ -37,12 +37,14 @@ import hostedHandler from 'utils/chat/events/hostedHandler';
 import getCheerList from 'utils/chat/getCheerList';
 import {
   addMessage,
+  addMessages,
   clearMessages,
   deleteMessage,
   emptyChat,
 } from 'features/chat/chatSlice';
 import { updateUser, clearBttvAndBadges } from 'context/userSlice';
 import store from 'store';
+import getRecentMessages from 'utils/api/getRecentMessages';
 
 const names = [
   'Kitboga',
@@ -75,12 +77,12 @@ export default function ChannelInput() {
   const [value, setValue] = useState('');
   const [emoteSets, setEmoteSets] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const dispatch = useDispatch();
   const connected = useSelector(state => state.user.connected);
   const loggedIn = useSelector(state => state.user.loggedIn);
   const chatChannel = useSelector(state => state.user.chatChannel);
   const userAccInfo = useSelector(state => state.user.userAccInfo);
+  const userOptions = useSelector(state => state.user.userOptions);
 
   const setChatEvents = async () => {
     user.chatClient.on(
@@ -412,10 +414,19 @@ export default function ChannelInput() {
         dispatch(clearBttvAndBadges());
         dispatch(
           updateUser({
-            connected: true,
             roomstate: state,
             bttvEmotes,
             channelBadges,
+          })
+        );
+        if (userOptions.loadRecent === true) {
+          await getRecentMessages(state['channel'], userOptions.msgAmount).then(
+            data => dispatch(addMessages(data))
+          );
+        }
+        dispatch(
+          updateUser({
+            connected: true,
           })
         );
       }

@@ -25,6 +25,8 @@ export const userSlice = createSlice({
       usernameColors: true,
       chatTextSize: 'md',
       theme: 'dark',
+      loadRecent: true,
+      msgAmount: 30,
     },
     connected: false,
     chatChannel: null,

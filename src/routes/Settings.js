@@ -59,6 +59,7 @@ export default function Settings(props) {
   return (
     <>
       <Heading>Settings</Heading>
+      {/* TODO Replace Boxes and Stacks with Flex */}
       <Box paddingTop={4} overflow="auto">
         <HStack spacing="auto">
           <Text fontSize="large">Badge Quality</Text>
@@ -148,7 +149,61 @@ export default function Settings(props) {
           </Select>
         </HStack>
 
-        <ClearDataAlert paddingTop={4} />
+        {/* TODO Make opt-in with dialog on first login */}
+        <HStack paddingTop={4} spacing="auto">
+          <Text fontSize="large">Load Recent Messages</Text>
+          <Checkbox
+            onChange={event => {
+              options.loadRecent = event.target.checked;
+              updateOptions();
+            }}
+            size="lg"
+            isChecked={userOptions.loadRecent}
+          />
+        </HStack>
+
+        <HStack paddingTop={4} spacing="auto">
+          <Text fontSize="large">Recent message limit</Text>
+          <Select
+            width="auto"
+            variant="filled"
+            disabled={options.loadRecent ? false : true}
+            onChange={event => {
+              options.msgAmount = event.target.value;
+              updateOptions();
+            }}
+            value={userOptions.msgAmount}
+          >
+            <option value={100}>100</option>
+            <option value={90}>90</option>
+            <option value={80}>80</option>
+            <option value={70}>70</option>
+            <option value={60}>60</option>
+            <option value={50}>50</option>
+            <option value={40}>40</option>
+            <option value={30}>30</option>
+            <option value={20}>20</option>
+            <option value={10}>10</option>
+          </Select>
+        </HStack>
+
+        <HStack paddingTop={1}>
+          <Text>
+            Recent messages are loaded via a third-party API that requires
+            sending the names of the channels you are joining.{' '}
+            <Text
+              as="a"
+              href="https://recent-messages.robotty.de/"
+              target="_blank"
+              textDecoration="underline"
+            >
+              Learn more
+            </Text>
+            .
+          </Text>
+        </HStack>
+
+        <ClearDataAlert paddingTop={4} paddingBottom={1} />
       </Box>
     </>
   );

@@ -23,6 +23,11 @@ export const chatSlice = createSlice({
     addMessage(state, action) {
       state.push({ ...action.payload, key: nanoid() });
     },
+    addMessages(state, action) {
+      for (var i in action.payload) {
+        state.push({ ...action.payload[i], key: nanoid() });
+      }
+    },
     clearMessages(state, action) {
       for (let i = 0; i < state.length; i + 1) {
         if (state[i]['channel'] === action.payload) {
@@ -50,7 +55,12 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { addMessage, clearMessages, deleteMessage, emptyChat } =
-  chatSlice.actions;
+export const {
+  addMessage,
+  addMessages,
+  clearMessages,
+  deleteMessage,
+  emptyChat,
+} = chatSlice.actions;
 
 export default chatSlice.reducer;
