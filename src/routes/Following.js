@@ -37,7 +37,7 @@ export default function Following() {
   useEffect(() => {
     let mounted = true;
     if (mounted) {
-      if (loggedIn === false) {
+      if (loggedIn === false && loginLoading === false) {
         navigate('/');
       }
 
