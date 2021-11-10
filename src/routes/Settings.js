@@ -25,6 +25,7 @@ import {
   Select,
   Text,
   useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import ClearDataAlert from 'components/ClearDataAlert';
 import { updateUser } from 'context/userSlice';
@@ -133,20 +134,14 @@ export default function Settings(props) {
         </HStack>
 
         <HStack paddingTop={4} spacing="auto">
-          <Text fontSize="large">Theme</Text>
-          <Select
-            onChange={event => {
-              options.theme = event.target.value;
+          <Text fontSize="large">Dark Mode</Text>
+          <Checkbox
+            onChange={() => {
               toggleColorMode();
-              updateOptions();
             }}
-            value={userOptions.theme}
-            width="auto"
-            variant="filled"
-          >
-            <option value="dark">Dark</option>
-            <option value="light">Light</option>
-          </Select>
+            isChecked={useColorModeValue(false, true)}
+            size="lg"
+          ></Checkbox>
         </HStack>
 
         {/* TODO Make opt-in with dialog on first login */}
@@ -187,7 +182,7 @@ export default function Settings(props) {
           </Select>
         </HStack>
 
-        <HStack paddingTop={1}>
+        <HStack paddingTop={2}>
           <Text>
             Recent messages are loaded via a third-party API that requires
             sending the names of the channels you are joining.{' '}
