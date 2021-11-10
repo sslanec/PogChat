@@ -172,7 +172,7 @@ export default function App() {
               <Route path="/user-following" element={<Following />} />
               <Route path="/user-settings" element={<Settings />} />
               <Route
-                path="/"
+                path="/*"
                 element={loggedIn || loginLoading ? <Chat /> : <Landing />}
               />
             </Routes>
