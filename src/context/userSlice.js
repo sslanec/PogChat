@@ -24,7 +24,6 @@ export const userSlice = createSlice({
       emoteQuality: 3,
       usernameColors: true,
       chatTextSize: 'md',
-      theme: 'dark',
       loadRecent: true,
       msgAmount: 30,
     },
