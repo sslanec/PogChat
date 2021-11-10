@@ -16,8 +16,8 @@
 
 import { useEffect, useReducer, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import { Container, ChakraProvider, Flex, Heading } from '@chakra-ui/react';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { Container, ChakraProvider, Flex } from '@chakra-ui/react';
 import UserContext from 'context/User';
 import getAccountInfo from 'utils/auth/getAccountInfo';
 import getAuthProvider from 'utils/auth/getAuthProvider';
@@ -62,7 +62,7 @@ function userReducer(state, item) {
 export default function App() {
   const [user, setUser] = useReducer(userReducer, userInit);
   const [viewHeight, setViewHeight] = useState(window.innerHeight);
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
   const loginLoading = useSelector(state => state.user.loginLoading);
@@ -71,7 +71,7 @@ export default function App() {
 
   const init = ({ apiClient, userAccInfo, globalBadges, userFollows }) => {
     if (location.pathname === '/') {
-      history.push('/user-following');
+      navigate('/user-following');
     }
     setUser({ apiClient });
     dispatch(
@@ -166,26 +166,16 @@ export default function App() {
           flexGrow={1}
         >
           <UserContext.Provider value={{ user, setUser }}>
-            <Switch>
-              <Route path="/about-us">
-                <AboutUs />
-              </Route>
-              <Route path="/change-log">
-                <Heading>Changelog</Heading>
-              </Route>
-              <Route path="/privacy-policy">
-                <PrivacyPolicy />
-              </Route>
-              <Route path="/user-following">
-                <Following />
-              </Route>
-              <Route path="/user-settings">
-                <Settings />
-              </Route>
-              <Route path="/">
-                {loggedIn || loginLoading ? <Chat /> : <Landing />}
-              </Route>
-            </Switch>
+            <Routes>
+              <Route path="/about-us" element={<AboutUs />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/user-following" element={<Following />} />
+              <Route path="/user-settings" element={<Settings />} />
+              <Route
+                path="/"
+                element={loggedIn || loginLoading ? <Chat /> : <Landing />}
+              />
+            </Routes>
           </UserContext.Provider>
         </Container>
         {/* <Footer /> */}

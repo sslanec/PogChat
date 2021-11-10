@@ -15,7 +15,7 @@
 // along with PogChat.  If not, see <https://www.gnu.org/licenses/>.
 
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
@@ -33,7 +33,7 @@ export default function Settings(props) {
   const dispatch = useDispatch();
   const userOptions = useSelector(state => state.user.userOptions);
   const { toggleColorMode } = useColorMode();
-  const history = useHistory();
+  const navigate = useNavigate();
   const loggedIn = useSelector(state => state.user.loggedIn);
 
   let options = {};
@@ -50,7 +50,7 @@ export default function Settings(props) {
     let mounted = true;
     if (mounted) {
       if (loggedIn === false) {
-        history.push('/');
+        navigate('/');
       }
     }
     return () => (mounted = false);

@@ -16,7 +16,7 @@
 
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import getUserFollows from 'utils/api/getUserFollows';
 import { updateUser } from 'context/userSlice';
@@ -32,13 +32,13 @@ export default function Following() {
   const loginLoading = useSelector(state => state.user.loginLoading);
   const userAccInfo = useSelector(state => state.user.userAccInfo);
   const connected = useSelector(state => state.user.connected);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       if (loggedIn === false) {
-        history.push('/');
+        navigate('/');
       }
 
       if (connected === true) {
