@@ -15,7 +15,7 @@
 // along with PogChat.  If not, see <https://www.gnu.org/licenses/>.
 
 import { useSelector } from 'react-redux';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import ChatMessage from 'features/chat/ChatMessage';
 import SystemMessage from 'features/chat/SystemMessage';
 import GiftMessage from 'features/chat/GiftMessage';
@@ -24,47 +24,64 @@ import { Virtuoso } from 'react-virtuoso';
 
 export default function ChatView(props) {
   const chats = useSelector(state => state.chat);
+  const alertColor = useColorModeValue('orange.300', 'orange.600');
 
   const renderedChats = chats.map((chat, index) => {
     var newChat;
     switch (chat.msgType) {
       case 'chat':
         newChat = (
-          <ChatMessage
-            bits={chat.bits}
-            cheerList={chat.cheerList}
-            msg={chat.msg}
-            self={chat.self}
-            userstate={chat.userstate}
-          />
+          <Box paddingTop={index === 0 ? 0 : 1} paddingBottom={1} key={index}>
+            <ChatMessage
+              bits={chat.bits}
+              cheerList={chat.cheerList}
+              msg={chat.msg}
+              self={chat.self}
+              userstate={chat.userstate}
+            />
+          </Box>
         );
         break;
       case 'system':
-        newChat = <SystemMessage msg={chat.msg} />;
+        newChat = (
+          <Box paddingTop={index === 0 ? 0 : 1} paddingBottom={1} key={index}>
+            <SystemMessage msg={chat.msg} />
+          </Box>
+        );
         break;
       case 'gift':
         newChat = (
-          <GiftMessage
-            msg={chat.msg}
-            recipient={chat.recipient}
-            displayName={chat.displayName}
-          />
+          <Box
+            paddingTop={index === 0 ? 0 : 1}
+            paddingBottom={1}
+            key={index}
+            background={alertColor}
+          >
+            <GiftMessage
+              msg={chat.msg}
+              recipient={chat.recipient}
+              displayName={chat.displayName}
+            />
+          </Box>
         );
         break;
       case 'event':
         newChat = (
-          <EventMessage msg={chat.msg} displayName={chat.displayName} />
+          <Box
+            paddingTop={index === 0 ? 0 : 1}
+            paddingBottom={1}
+            key={index}
+            background={alertColor}
+          >
+            <EventMessage msg={chat.msg} displayName={chat.displayName} />
+          </Box>
         );
         break;
       default:
         break;
     }
 
-    return (
-      <Box paddingTop={index === 0 ? 0 : 1} paddingBottom={1} key={index}>
-        {newChat}
-      </Box>
-    );
+    return newChat;
   });
 
   return (
