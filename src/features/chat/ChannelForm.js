@@ -48,7 +48,7 @@ import getRecentMessages from 'utils/api/getRecentMessages';
 
 const names = [
   'Kitboga',
-  'Daniel_Dekay',
+  'daniel_dekay',
   'metalcomedy',
   'DashDucks',
   'JacksonATucker',

@@ -68,6 +68,7 @@ export default function App() {
   const loginLoading = useSelector(state => state.user.loginLoading);
   const loggedIn = useSelector(state => state.user.loggedIn);
   const userOptions = useSelector(state => state.user.userOptions);
+  const chatChannel = useSelector(state => state.user.chatChannel);
 
   const init = ({ apiClient, userAccInfo, globalBadges, userFollows }) => {
     if (location.pathname === '/') {
@@ -160,10 +161,15 @@ export default function App() {
           flexDirection="column"
           minHeight={0}
           paddingTop={2}
-          paddingLeft={[2, 2, 0, 0]}
-          paddingRight={[2, 2, 0, 0]}
+          paddingLeft={[3, 3, 0, 0]}
+          paddingRight={[3, 3, 0, 0]}
           paddingBottom={2}
           flexGrow={1}
+          overflow={
+            location.pathname === '/' || location.pathname === '/' + chatChannel
+              ? 'hidden'
+              : 'auto'
+          }
         >
           <UserContext.Provider value={{ user, setUser }}>
             <Routes>

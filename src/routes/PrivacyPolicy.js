@@ -18,7 +18,7 @@ import { Flex, Heading, Text } from '@chakra-ui/react';
 
 export default function PrivacyPolicy(props) {
   return (
-    <Flex flex={[1, 1, '1px']} flexDirection="column" overflow="auto">
+    <Flex flex={[1, 1, '1px']} flexDirection="column">
       <Heading>Privacy Policy</Heading>
       <Text paddingTop={2}>
         No information from your Twitch account is ever transmitted or used in

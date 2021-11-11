@@ -27,7 +27,7 @@ export default function Landing(props) {
     'force_verify=true';
 
   return (
-    <Flex flex={[1, 1, '1px']} flexDirection="column" overflow="auto">
+    <Flex flex={[1, 1, '1px']} flexDirection="column">
       <Heading>Welcome to PogChat</Heading>
       <Heading size="md">A web-based Twitch chat alternative</Heading>
 

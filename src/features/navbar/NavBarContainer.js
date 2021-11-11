@@ -26,7 +26,7 @@ export default function NavBarContainer(props) {
       width="100%"
       paddingTop={2}
       paddingBottom={1}
-      paddingLeft={2}
+      paddingLeft={3}
       paddingRight={3}
       {...props}
     >

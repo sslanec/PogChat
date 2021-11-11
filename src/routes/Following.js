@@ -69,7 +69,7 @@ export default function Following() {
         <Heading paddingBottom={4}>Following</Heading>
         <Spinner visibility={visible || loginLoading ? '' : 'hidden'} />
       </HStack>
-      <VStack align="flex-start" overflow="auto">
+      <VStack align="flex-start">
         {follows &&
           follows.map(({ userName, userDisplayName, gameName }) => (
             <Link

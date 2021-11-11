@@ -61,7 +61,7 @@ export default function Settings(props) {
     <>
       <Heading>Settings</Heading>
       {/* TODO Replace Boxes and Stacks with Flex */}
-      <Box paddingTop={4} overflow="auto">
+      <Box paddingTop={4}>
         <HStack spacing="auto">
           <Text fontSize="large">Badge Quality</Text>
           <Select
@@ -79,7 +79,7 @@ export default function Settings(props) {
           </Select>
         </HStack>
 
-        <HStack paddingTop={4} spacing="auto">
+        <HStack paddingTop={6} spacing="auto">
           <Text fontSize="large">Emote Quality</Text>
           <Select
             onChange={event => {
@@ -96,7 +96,7 @@ export default function Settings(props) {
           </Select>
         </HStack>
 
-        <HStack paddingTop={4} spacing="auto">
+        <HStack paddingTop={6} spacing="auto">
           <Text fontSize="large">Username Colors</Text>
           <Checkbox
             onChange={event => {
@@ -109,7 +109,7 @@ export default function Settings(props) {
         </HStack>
 
         {/* TODO Adjust emote sizes to match text sizes */}
-        <HStack paddingTop={4} spacing="auto">
+        <HStack paddingTop={6} spacing="auto">
           <Text fontSize="large">Chat Text Size</Text>
           <Select
             onChange={event => {
@@ -133,7 +133,7 @@ export default function Settings(props) {
           </Select>
         </HStack>
 
-        <HStack paddingTop={4} spacing="auto">
+        <HStack paddingTop={6} spacing="auto">
           <Text fontSize="large">Dark Mode</Text>
           <Checkbox
             onChange={() => {
@@ -145,7 +145,7 @@ export default function Settings(props) {
         </HStack>
 
         {/* TODO Make opt-in with dialog on first login */}
-        <HStack paddingTop={4} spacing="auto">
+        <HStack paddingTop={6} spacing="auto">
           <Text fontSize="large">Load Recent Messages</Text>
           <Checkbox
             onChange={event => {
@@ -157,7 +157,7 @@ export default function Settings(props) {
           />
         </HStack>
 
-        <HStack paddingTop={4} spacing="auto">
+        <HStack paddingTop={6} spacing="auto">
           <Text fontSize="large">Recent message limit</Text>
           <Select
             width="auto"
@@ -182,7 +182,7 @@ export default function Settings(props) {
           </Select>
         </HStack>
 
-        <HStack paddingTop={2}>
+        <HStack paddingTop={3}>
           <Text>
             Recent messages are loaded via a third-party API that requires
             sending the names of the channels you are joining.{' '}
@@ -198,7 +198,7 @@ export default function Settings(props) {
           </Text>
         </HStack>
 
-        <ClearDataAlert paddingTop={4} paddingBottom={1} />
+        <ClearDataAlert paddingTop={6} paddingBottom={1} />
       </Box>
     </>
   );
