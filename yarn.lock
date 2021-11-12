@@ -10120,6 +10120,16 @@ linkify-it@^2.0.0:
   dependencies:
     uc.micro "^1.0.1"
 
+linkify-react@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/linkify-react/-/linkify-react-3.0.3.tgz#97d420694cb173e46f75fb2b7de6f3887059ad4f"
+  integrity sha512-CdERZyocGB+2sHYKMKltAWy5TyelgocnMI7SU5vdT0ojtZd1u8sRuntXrxjA3tvgTirtLm2nD7gDdJFaVXvDAw==
+
+linkifyjs@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-3.0.3.tgz#51ea2160b4c60c2c87c27757a1e9eacd422c6076"
+  integrity sha512-ba5opS5wRHSbDC8VaiDdN14nPGm6LqyRsIPQZGG4qXV4scFdrPneT/uoZOaq9QAPBf6W9I9D/6tNSzWH//815Q==
+
 loader-runner@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.4.0.tgz#ed47066bfe534d7e84c4c7b9998c2a75607d9357"

@@ -16,6 +16,8 @@
     "@twurple/auth-tmi": "^5.0.5",
     "aws-amplify": "^4.2.2",
     "framer-motion": "4.1.17",
+    "linkify-react": "^3.0.3",
+    "linkifyjs": "^3.0.3",
     "react": "^17.0.2",
     "react-cookie-consent": "^6.3.0",
     "react-dom": "^17.0.2",

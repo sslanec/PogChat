@@ -20,6 +20,7 @@ import detectEmotes from 'utils/chat/detectEmotes';
 import insertEmotes from 'utils/chat/insertEmotes';
 import insertSpaces from 'utils/chat/insertSpaces';
 import getBadges from 'utils/chat/getBadges';
+import Linkify from 'linkify-react';
 
 export default function ChatMessage2({
   bits,
@@ -33,6 +34,15 @@ export default function ChatMessage2({
   const bttvEmotes = useSelector(state => state.user.bttvEmotes);
   const globalBadges = useSelector(state => state.user.globalBadges);
   const channelBadges = useSelector(state => state.user.channelBadges);
+  const linkifyOptions = {
+    attributes: {
+      style: {
+        textDecoration: 'underline',
+      },
+    },
+    defaultProtocol: 'https',
+    target: '_blank',
+  };
 
   if (userstate['badges']) {
     var badges = getBadges(
@@ -77,7 +87,7 @@ export default function ChatMessage2({
         as="span"
         fontStyle={userstate['message-type'] === 'action' ? 'italic' : 'normal'}
       >
-        {insertSpaces(msgArray)}
+        <Linkify options={linkifyOptions}>{insertSpaces(msgArray)}</Linkify>
       </Text>
     </Text>
   );
