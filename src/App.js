@@ -165,11 +165,12 @@ export default function App() {
           paddingRight={[3, 3, 0, 0]}
           paddingBottom={2}
           flexGrow={1}
-          overflow={
+          overflowY={
             location.pathname === '/' || location.pathname === '/' + chatChannel
               ? 'hidden'
               : 'auto'
           }
+          overflowX="hidden"
         >
           <UserContext.Provider value={{ user, setUser }}>
             <Routes>
