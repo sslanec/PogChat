@@ -131,7 +131,11 @@ export default function ChannelInput() {
         bits = '(1 bit)';
       }
 
-      const cheerParse = user.cheermotes.parseMessage(message);
+      const cheerParse = user.cheermotes.parseMessage(message, {
+        background: 'light',
+        scale: userOptions.emoteQuality + 1,
+        state: 'animated',
+      });
       const cheerList = getCheerList(cheerParse);
 
       dispatch(
