@@ -31,7 +31,12 @@ export default function ChatView(props) {
     switch (chat.msgType) {
       case 'chat':
         newChat = (
-          <Box paddingTop={index === 0 ? 0 : 1} paddingBottom={1} key={index}>
+          <Box
+            paddingTop={index === 0 ? 0 : 1}
+            paddingBottom={1}
+            key={index}
+            background={chat.bits === false ? '' : alertColor}
+          >
             <ChatMessage
               bits={chat.bits}
               cheerList={chat.cheerList}
