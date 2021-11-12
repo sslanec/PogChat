@@ -68,7 +68,13 @@ export default function App() {
   const loginLoading = useSelector(state => state.user.loginLoading);
   const loggedIn = useSelector(state => state.user.loggedIn);
   const userOptions = useSelector(state => state.user.userOptions);
-  const chatChannel = useSelector(state => state.user.chatChannel);
+  // const chatChannel = useSelector(state => state.user.chatChannel);
+  const scrollPages = [
+    '/about-us',
+    '/privacy-policy',
+    '/user-following',
+    '/user-settings',
+  ];
 
   const init = ({ apiClient, userAccInfo, globalBadges, userFollows }) => {
     if (location.pathname === '/') {
@@ -166,9 +172,12 @@ export default function App() {
           paddingBottom={2}
           flexGrow={1}
           overflowY={
-            location.pathname === '/' || location.pathname === '/' + chatChannel
-              ? 'hidden'
-              : 'auto'
+            scrollPages.indexOf(location.pathname) !== -1 ||
+            (location.pathname === '/' &&
+              loggedIn === false &&
+              loginLoading === false)
+              ? 'auto'
+              : 'hidden'
           }
           overflowX="hidden"
         >
