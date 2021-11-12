@@ -68,13 +68,6 @@ export default function App() {
   const loginLoading = useSelector(state => state.user.loginLoading);
   const loggedIn = useSelector(state => state.user.loggedIn);
   const userOptions = useSelector(state => state.user.userOptions);
-  // const chatChannel = useSelector(state => state.user.chatChannel);
-  const scrollPages = [
-    '/about-us',
-    '/privacy-policy',
-    '/user-following',
-    '/user-settings',
-  ];
 
   const init = ({ apiClient, userAccInfo, globalBadges, userFollows }) => {
     if (location.pathname === '/') {
@@ -171,15 +164,6 @@ export default function App() {
           paddingRight={[3, 3, 0, 0]}
           paddingBottom={2}
           flexGrow={1}
-          overflowY={
-            scrollPages.indexOf(location.pathname) !== -1 ||
-            (location.pathname === '/' &&
-              loggedIn === false &&
-              loginLoading === false)
-              ? 'auto'
-              : 'hidden'
-          }
-          overflowX="hidden"
         >
           <UserContext.Provider value={{ user, setUser }}>
             <Routes>

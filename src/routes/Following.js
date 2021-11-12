@@ -17,7 +17,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import { Flex, Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
 import getUserFollows from 'utils/api/getUserFollows';
 import { updateUser } from 'context/userSlice';
 import UserContext from 'context/User';
@@ -64,7 +64,12 @@ export default function Following() {
   }, []);
 
   return (
-    <>
+    <Flex
+      flex={[1, 1, '1px']}
+      flexDirection="column"
+      overflowY="auto"
+      overflowX="hidden"
+    >
       <HStack spacing="auto">
         <Heading paddingBottom={4}>Following</Heading>
         <Spinner visibility={visible || loginLoading ? '' : 'hidden'} />
@@ -87,6 +92,6 @@ export default function Following() {
             </Link>
           ))}
       </VStack>
-    </>
+    </Flex>
   );
 }

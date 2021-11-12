@@ -18,7 +18,7 @@ import { Flex, Heading, Text } from '@chakra-ui/react';
 
 export default function AboutUs(props) {
   return (
-    <Flex flex={[1, 1, '1px']} flexDirection="column">
+    <Flex flex={[1, 1, '1px']} flexDirection="column" overflow="auto">
       <Heading>About Us</Heading>
       <Text paddingTop={2}>
         PogChat was made by{' '}

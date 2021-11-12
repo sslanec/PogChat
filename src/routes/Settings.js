@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Checkbox,
+  Flex,
   Heading,
   HStack,
   Select,
@@ -58,7 +59,7 @@ export default function Settings(props) {
   });
 
   return (
-    <>
+    <Flex flex={[1, 1, '1px']} flexDirection="column" overflow="auto">
       <Heading>Settings</Heading>
       {/* TODO Replace Boxes and Stacks with Flex */}
       <Box paddingTop={4}>
@@ -194,6 +195,6 @@ export default function Settings(props) {
 
         <ClearDataAlert paddingTop={6} paddingBottom={1} />
       </Box>
-    </>
+    </Flex>
   );
 }
