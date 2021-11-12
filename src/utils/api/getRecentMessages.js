@@ -33,55 +33,57 @@ export default async function getRecentMessages(channel, msgAmount) {
           userstate[stateSplit[0]] = stateSplit[1];
         }
 
-        if (userstate['badges'] !== '') {
-          userstate['badges-raw'] = userstate['badges'];
-          let badges = {};
-          let badgeSplit = userstate['badges'].split(',');
-          for (let i in badgeSplit) {
-            let badge = badgeSplit[i].split('/');
-            badges[badge[0]] = badge[1];
+        // TODO add support for other messages (sub gifts, etc.)
+        if (userstate['user-type'].search('PRIVMSG') !== -1) {
+          if (userstate['badges'] !== '') {
+            userstate['badges-raw'] = userstate['badges'];
+            let badges = {};
+            let badgeSplit = userstate['badges'].split(',');
+            for (let i in badgeSplit) {
+              let badge = badgeSplit[i].split('/');
+              badges[badge[0]] = badge[1];
+            }
+            userstate['badges'] = badges;
+          } else {
+            userstate['badges'] = null;
+            userstate['badges-raw'] = null;
           }
-          userstate['badges'] = badges;
-        } else {
-          userstate['badges'] = null;
-          userstate['badges-raw'] = null;
-        }
 
-        if (userstate['emotes'] !== '') {
-          let emotes = {};
-          let emoteSplit = userstate['emotes'].split('/');
-          for (let i in emoteSplit) {
-            let emote = emoteSplit[i].split(':');
-            emote[1] = emote[1].split(',');
-            emotes[emote[0]] = emote[1];
+          if (userstate['emotes'] !== '') {
+            let emotes = {};
+            let emoteSplit = userstate['emotes'].split('/');
+            for (let i in emoteSplit) {
+              let emote = emoteSplit[i].split(':');
+              emote[1] = emote[1].split(',');
+              emotes[emote[0]] = emote[1];
+            }
+            userstate['emotes'] = emotes;
+          } else {
+            userstate['emotes'] = {};
           }
-          userstate['emotes'] = emotes;
-        } else {
-          userstate['emotes'] = {};
+
+          let msg = '';
+          let msgSplit = userstate['user-type'].split(channel);
+          if (msgSplit[1].charAt(1) === ':') {
+            msg = msgSplit[1].substring(2);
+          } else {
+            msg = msgSplit[1].substring(1);
+          }
+          delete userstate['user-type'];
+
+          let id = userstate['id'];
+          delete userstate['id'];
+
+          messages[i] = {
+            userstate,
+            channel,
+            self: false,
+            msgType: 'chat',
+            bits: false,
+            id,
+            msg,
+          };
         }
-
-        let msg = '';
-        let msgSplit = userstate['user-type'].split(':');
-        if (msgSplit.length === 2) {
-          msgSplit = msgSplit[1].split(' ');
-          msg = msgSplit[msgSplit.length - 1];
-        } else {
-          msg = msgSplit[2];
-        }
-        delete userstate['user-type'];
-
-        let id = userstate['id'];
-        delete userstate['id'];
-
-        messages[i] = {
-          userstate,
-          channel,
-          self: false,
-          msgType: 'chat',
-          bits: false,
-          id,
-          msg,
-        };
       }
     });
   return messages;
