@@ -21,16 +21,14 @@ import ChatForm from 'features/chat/ChatForm';
 
 export default function Chat() {
   return (
-    <Flex
-      paddingLeft={[3, 3, 0, 0]}
-      paddingRight={[3, 3, 1, 1]}
-      paddingBottom={2}
-      direction="column"
-      flexGrow={1}
-    >
-      <ChannelForm />
+    <Flex paddingBottom={2} direction="column" flexGrow={1}>
+      <ChannelForm paddingLeft={[3, 3, 0, 0]} paddingRight={[3, 3, 0, 0]} />
       <ChatView flex={[1, 1, '1px']} paddingTop={2} overflow="auto" />
-      <ChatForm paddingTop={2} />
+      <ChatForm
+        paddingLeft={[3, 3, 0, 0]}
+        paddingRight={[3, 3, 0, 0]}
+        paddingTop={2}
+      />
     </Flex>
   );
 }

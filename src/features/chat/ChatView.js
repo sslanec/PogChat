@@ -33,6 +33,8 @@ export default function ChatView(props) {
         newChat = (
           <Box
             paddingTop={index === 0 ? 0 : 1}
+            paddingLeft={[3, 3, 0, 0]}
+            paddingRight={[3, 3, 1, 1]}
             paddingBottom={1}
             key={index}
             background={chat.bits === false ? '' : alertColor}
@@ -49,7 +51,13 @@ export default function ChatView(props) {
         break;
       case 'system':
         newChat = (
-          <Box paddingTop={index === 0 ? 0 : 1} paddingBottom={1} key={index}>
+          <Box
+            paddingTop={index === 0 ? 0 : 1}
+            paddingBottom={1}
+            paddingLeft={[3, 3, 0, 0]}
+            paddingRight={[3, 3, 1, 1]}
+            key={index}
+          >
             <SystemMessage msg={chat.msg} />
           </Box>
         );
@@ -59,6 +67,8 @@ export default function ChatView(props) {
           <Box
             paddingTop={index === 0 ? 0 : 1}
             paddingBottom={1}
+            paddingLeft={[3, 3, 0, 0]}
+            paddingRight={[3, 3, 1, 1]}
             key={index}
             background={alertColor}
           >
@@ -75,6 +85,8 @@ export default function ChatView(props) {
           <Box
             paddingTop={index === 0 ? 0 : 1}
             paddingBottom={1}
+            paddingLeft={[3, 3, 0, 0]}
+            paddingRight={[3, 3, 1, 1]}
             key={index}
             background={alertColor}
           >
