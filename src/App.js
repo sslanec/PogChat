@@ -160,9 +160,9 @@ export default function App() {
           flexDirection="column"
           minHeight={0}
           paddingTop={2}
-          paddingLeft={[3, 3, 0, 0]}
-          paddingRight={[3, 3, 0, 0]}
-          paddingBottom={2}
+          paddingLeft={0}
+          paddingRight={0}
+          // paddingBottom={0}
           flexGrow={1}
         >
           <UserContext.Provider value={{ user, setUser }}>

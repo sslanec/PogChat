@@ -14,16 +14,23 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with PogChat.  If not, see <https://www.gnu.org/licenses/>.
 
+import { Flex } from '@chakra-ui/react';
 import ChannelForm from 'features/chat/ChannelForm';
 import ChatView from 'features/chat/ChatView';
 import ChatForm from 'features/chat/ChatForm';
 
 export default function Chat() {
   return (
-    <>
+    <Flex
+      paddingLeft={[3, 3, 0, 0]}
+      paddingRight={[3, 3, 1, 1]}
+      paddingBottom={2}
+      direction="column"
+      flexGrow={1}
+    >
       <ChannelForm />
       <ChatView flex={[1, 1, '1px']} paddingTop={2} overflow="auto" />
       <ChatForm paddingTop={2} />
-    </>
+    </Flex>
   );
 }

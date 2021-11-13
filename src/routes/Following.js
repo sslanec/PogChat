@@ -17,7 +17,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Flex, Heading, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Heading,
+  HStack,
+  Spinner,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import getUserFollows from 'utils/api/getUserFollows';
 import { updateUser } from 'context/userSlice';
 import UserContext from 'context/User';
@@ -70,28 +78,38 @@ export default function Following() {
       overflowY="auto"
       overflowX="hidden"
     >
-      <HStack spacing="auto">
-        <Heading paddingBottom={4}>Following</Heading>
-        <Spinner visibility={visible || loginLoading ? '' : 'hidden'} />
-      </HStack>
-      <VStack align="flex-start">
-        {follows &&
-          follows.map(({ userName, userDisplayName, gameName }) => (
-            <Link
-              to={
-                userDisplayName === '' ? `/${userName}` : `/${userDisplayName}`
-              }
-              key={userName}
-            >
-              <Text fontSize="large" fontWeight="bold">
-                {userDisplayName === '' ? `${userName}` : `${userDisplayName}`}{' '}
-                <Text as="span" fontSize="md" fontWeight="normal">
-                  {gameName}
+      <Box
+        paddingLeft={[3, 3, 0, 0]}
+        paddingRight={[3, 3, 1, 1]}
+        paddingBottom={2}
+      >
+        <HStack spacing="auto">
+          <Heading paddingBottom={4}>Following</Heading>
+          <Spinner visibility={visible || loginLoading ? '' : 'hidden'} />
+        </HStack>
+        <VStack align="flex-start">
+          {follows &&
+            follows.map(({ userName, userDisplayName, gameName }) => (
+              <Link
+                to={
+                  userDisplayName === ''
+                    ? `/${userName}`
+                    : `/${userDisplayName}`
+                }
+                key={userName}
+              >
+                <Text fontSize="large" fontWeight="bold">
+                  {userDisplayName === ''
+                    ? `${userName}`
+                    : `${userDisplayName}`}{' '}
+                  <Text as="span" fontSize="md" fontWeight="normal">
+                    {gameName}
+                  </Text>
                 </Text>
-              </Text>
-            </Link>
-          ))}
-      </VStack>
+              </Link>
+            ))}
+        </VStack>
+      </Box>
     </Flex>
   );
 }

@@ -60,140 +60,146 @@ export default function Settings(props) {
 
   return (
     <Flex flex={[1, 1, '1px']} flexDirection="column" overflow="auto">
-      <Heading>Settings</Heading>
-      {/* TODO Replace Boxes and Stacks with Flex */}
-      <Box paddingTop={4}>
-        <HStack spacing="auto">
-          <Text fontSize="large">Badge Quality</Text>
-          <Select
-            onChange={event => {
-              options.badgeQuality = event.target.value;
-              updateOptions();
-            }}
-            value={userOptions.badgeQuality}
-            width="auto"
-            variant="filled"
-          >
-            <option value={3}>High</option>
-            <option value={2}>Medium</option>
-            <option value={1}>Low</option>
-          </Select>
-        </HStack>
-
-        <HStack paddingTop={6} spacing="auto">
-          <Text fontSize="large">Emote Quality</Text>
-          <Select
-            onChange={event => {
-              options.emoteQuality = event.target.value;
-              updateOptions();
-            }}
-            value={userOptions.emoteQuality}
-            width="auto"
-            variant="filled"
-          >
-            <option value={3}>High</option>
-            <option value={2}>Medium</option>
-            <option value={1}>Low</option>
-          </Select>
-        </HStack>
-
-        <HStack paddingTop={6} spacing="auto">
-          <Text fontSize="large">Username Colors</Text>
-          <Checkbox
-            onChange={event => {
-              options.usernameColors = event.target.checked;
-              updateOptions();
-            }}
-            size="lg"
-            isChecked={userOptions.usernameColors}
-          />
-        </HStack>
-
-        {/* TODO Adjust emote sizes to match text sizes */}
-        <HStack paddingTop={6} spacing="auto">
-          <Text fontSize="large">Chat Text Size</Text>
-          <Select
-            onChange={event => {
-              options.chatTextSize = event.target.value;
-              updateOptions();
-            }}
-            value={userOptions.chatTextSize}
-            width="auto"
-            variant="filled"
-          >
-            <option value="6xl">6X-Large</option>
-            <option value="5xl">5X-Large</option>
-            <option value="4xl">4X-Large</option>
-            <option value="3xl">3X-Large</option>
-            <option value="2xl">2X-Large</option>
-            <option value="xl">X-Large</option>
-            <option value="lg">Large</option>
-            <option value="md">Medium</option>
-            <option value="sm">Small</option>
-            <option value="xs">X-Small</option>
-          </Select>
-        </HStack>
-
-        <HStack paddingTop={6} spacing="auto">
-          <Text fontSize="large">Dark Mode</Text>
-          <Checkbox
-            onChange={() => {
-              toggleColorMode();
-            }}
-            isChecked={useColorModeValue(false, true)}
-            size="lg"
-          ></Checkbox>
-        </HStack>
-
-        {/* TODO Make opt-in with dialog on first login */}
-        <HStack paddingTop={6} spacing="auto">
-          <Text fontSize="large">Load Recent Messages</Text>
-          <Checkbox
-            onChange={event => {
-              options.loadRecent = event.target.checked;
-              updateOptions();
-            }}
-            size="lg"
-            isChecked={userOptions.loadRecent}
-          />
-        </HStack>
-
-        <HStack paddingTop={6} spacing="auto">
-          <Text fontSize="large">Recent message limit</Text>
-          <Select
-            width="auto"
-            variant="filled"
-            disabled={options.loadRecent ? false : true}
-            onChange={event => {
-              options.msgAmount = event.target.value;
-              updateOptions();
-            }}
-            value={userOptions.msgAmount}
-          >
-            <option value={100}>100</option>
-            <option value={75}>75</option>
-            <option value={50}>50</option>
-            <option value={25}>25</option>
-          </Select>
-        </HStack>
-
-        <HStack paddingTop={3}>
-          <Text>
-            Recent messages are loaded via a third-party API that requires
-            sending the names of the channels you are joining.{' '}
-            <Text
-              as="a"
-              href="https://recent-messages.robotty.de/"
-              target="_blank"
-              textDecoration="underline"
+      <Box
+        paddingLeft={[3, 3, 0, 0]}
+        paddingRight={[3, 3, 1, 1]}
+        paddingBottom={2}
+      >
+        <Heading>Settings</Heading>
+        {/* TODO Replace Boxes and Stacks with Flex */}
+        <Box paddingTop={4}>
+          <HStack spacing="auto">
+            <Text fontSize="large">Badge Quality</Text>
+            <Select
+              onChange={event => {
+                options.badgeQuality = event.target.value;
+                updateOptions();
+              }}
+              value={userOptions.badgeQuality}
+              width="auto"
+              variant="filled"
             >
-              Learn more
-            </Text>
-            .
-          </Text>
-        </HStack>
+              <option value={3}>High</option>
+              <option value={2}>Medium</option>
+              <option value={1}>Low</option>
+            </Select>
+          </HStack>
 
-        <ClearDataAlert paddingTop={6} paddingBottom={1} />
+          <HStack paddingTop={6} spacing="auto">
+            <Text fontSize="large">Emote Quality</Text>
+            <Select
+              onChange={event => {
+                options.emoteQuality = event.target.value;
+                updateOptions();
+              }}
+              value={userOptions.emoteQuality}
+              width="auto"
+              variant="filled"
+            >
+              <option value={3}>High</option>
+              <option value={2}>Medium</option>
+              <option value={1}>Low</option>
+            </Select>
+          </HStack>
+
+          <HStack paddingTop={6} spacing="auto">
+            <Text fontSize="large">Username Colors</Text>
+            <Checkbox
+              onChange={event => {
+                options.usernameColors = event.target.checked;
+                updateOptions();
+              }}
+              size="lg"
+              isChecked={userOptions.usernameColors}
+            />
+          </HStack>
+
+          {/* TODO Adjust emote sizes to match text sizes */}
+          <HStack paddingTop={6} spacing="auto">
+            <Text fontSize="large">Chat Text Size</Text>
+            <Select
+              onChange={event => {
+                options.chatTextSize = event.target.value;
+                updateOptions();
+              }}
+              value={userOptions.chatTextSize}
+              width="auto"
+              variant="filled"
+            >
+              <option value="6xl">6X-Large</option>
+              <option value="5xl">5X-Large</option>
+              <option value="4xl">4X-Large</option>
+              <option value="3xl">3X-Large</option>
+              <option value="2xl">2X-Large</option>
+              <option value="xl">X-Large</option>
+              <option value="lg">Large</option>
+              <option value="md">Medium</option>
+              <option value="sm">Small</option>
+              <option value="xs">X-Small</option>
+            </Select>
+          </HStack>
+
+          <HStack paddingTop={6} spacing="auto">
+            <Text fontSize="large">Dark Mode</Text>
+            <Checkbox
+              onChange={() => {
+                toggleColorMode();
+              }}
+              isChecked={useColorModeValue(false, true)}
+              size="lg"
+            ></Checkbox>
+          </HStack>
+
+          {/* TODO Make opt-in with dialog on first login */}
+          <HStack paddingTop={6} spacing="auto">
+            <Text fontSize="large">Load Recent Messages</Text>
+            <Checkbox
+              onChange={event => {
+                options.loadRecent = event.target.checked;
+                updateOptions();
+              }}
+              size="lg"
+              isChecked={userOptions.loadRecent}
+            />
+          </HStack>
+
+          <HStack paddingTop={6} spacing="auto">
+            <Text fontSize="large">Recent message limit</Text>
+            <Select
+              width="auto"
+              variant="filled"
+              disabled={options.loadRecent ? false : true}
+              onChange={event => {
+                options.msgAmount = event.target.value;
+                updateOptions();
+              }}
+              value={userOptions.msgAmount}
+            >
+              <option value={100}>100</option>
+              <option value={75}>75</option>
+              <option value={50}>50</option>
+              <option value={25}>25</option>
+            </Select>
+          </HStack>
+
+          <HStack paddingTop={3}>
+            <Text>
+              Recent messages are loaded via a third-party API that requires
+              sending the names of the channels you are joining.{' '}
+              <Text
+                as="a"
+                href="https://recent-messages.robotty.de/"
+                target="_blank"
+                textDecoration="underline"
+              >
+                Learn more
+              </Text>
+              .
+            </Text>
+          </HStack>
+
+          <ClearDataAlert paddingTop={6} paddingBottom={1} />
+        </Box>
       </Box>
     </Flex>
   );

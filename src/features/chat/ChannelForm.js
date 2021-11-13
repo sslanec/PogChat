@@ -71,7 +71,7 @@ const names = [
   'Apoinsettia',
 ];
 
-export default function ChannelInput() {
+export default function ChannelInput(props) {
   const { user, setUser } = useContext(UserContext);
   const [placeholder, setPlaceholder] = useState('');
   const [value, setValue] = useState('');
@@ -604,7 +604,7 @@ export default function ChannelInput() {
   };
 
   return (
-    <FormControl as="form" onSubmit={handleSubmit}>
+    <FormControl as="form" onSubmit={handleSubmit} {...props}>
       <HStack>
         {/* <FormLabel>Channel:</FormLabel> */}
         <Input
