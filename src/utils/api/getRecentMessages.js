@@ -25,16 +25,16 @@ export default async function getRecentMessages(channel, msgAmount) {
   )
     .then(data => data.json())
     .then(data => {
+      // TODO add support for other messages (sub gifts, roomstate, etc.)
       for (var i in data['messages']) {
         let userstate = {};
         let mainSplit = data['messages'][i].split(';');
-        for (var j in mainSplit) {
-          let stateSplit = mainSplit[j].split('=');
-          userstate[stateSplit[0]] = stateSplit[1];
-        }
+        if (mainSplit[mainSplit.length - 1].search('PRIVMSG') !== -1) {
+          for (var j in mainSplit) {
+            let stateSplit = mainSplit[j].split('=');
+            userstate[stateSplit[0]] = stateSplit[1];
+          }
 
-        // TODO add support for other messages (sub gifts, etc.)
-        if (userstate['user-type'].search('PRIVMSG') !== -1) {
           if (userstate['badges'] !== '') {
             userstate['badges-raw'] = userstate['badges'];
             let badges = {};
