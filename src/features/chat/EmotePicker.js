@@ -110,11 +110,19 @@ export default function EmotePicker({ insertEmote }) {
   return (
     <Popover placement="top">
       <PopoverTrigger>
-        <Button disabled={!loggedIn || !connected}>
+        <Button
+          disabled={!loggedIn || !connected}
+          paddingTop={2}
+          paddingBottom={2}
+          paddingLeft={3}
+          paddingRight={3}
+        >
           {
             <Box
               as="img"
               width={[12, 10, 10, 8]}
+              height="auto"
+              padding={0}
               alt="Emote Picker"
               // src="https://static-cdn.jtvnw.net/emoticons/v2/305954156/static/light/3.0" // PogChamp
               src="https://static-cdn.jtvnw.net/emoticons/v2/307445021/static/light/3.0" // Orangie
