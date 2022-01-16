@@ -32,14 +32,14 @@ export default function CookieConsentForm(props) {
       ButtonComponent={Button}
       disableButtonStyles={true}
       buttonStyle={{
-        // background: '#ffd42d',
+        background: '#454545',
         // flex: '0 0 auto',
         marginRight: 10,
         marginBottom: 10,
         marginLeft: 10,
       }}
       declineButtonStyle={{
-        // background: '#c12a2a',
+        background: '#454545',
         // flex: '0 0 auto',
         marginRight: 10,
         marginBottom: 10,
