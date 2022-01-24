@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "paths": {
+    "/TwitchLogin": {
+      "permissions": {
+        "setting": "open"
+      },
+      "lambdaFunction": "TwitchLogin"
+    }
+  }
+}
