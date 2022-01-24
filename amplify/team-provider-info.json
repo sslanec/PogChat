@@ -15,7 +15,7 @@
       "function": {
         "TwitchLogin": {
           "deploymentBucketName": "amplify-pogchat-dev-92526-deployment",
-          "s3Key": "amplify-builds/TwitchLogin-5433466d537267794b6e-build.zip",
+          "s3Key": "amplify-builds/TwitchLogin-713231792b4945466245-build.zip",
           "secretsPathAmplifyAppId": "d1lc3wz31x7gl6",
           "clientSecret": "",
           "clientId": "vxsss3v33fxl8v9fyckzc5z7gtdb48"
