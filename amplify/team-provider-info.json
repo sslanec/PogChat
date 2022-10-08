@@ -17,13 +17,41 @@
           "deploymentBucketName": "amplify-pogchat-dev-92526-deployment",
           "s3Key": "amplify-builds/TwitchLogin-713231792b4945466245-build.zip",
           "secretsPathAmplifyAppId": "d1lc3wz31x7gl6",
-          "clientSecret": "",
           "clientId": "vxsss3v33fxl8v9fyckzc5z7gtdb48"
         }
       },
       "hosting": {
         "amplifyhosting": {
           "appId": "d1lc3wz31x7gl6",
+          "type": "manual"
+        }
+      }
+    }
+  },
+  "pogchat": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pogchat-pogchat-203343-authRole",
+      "UnauthRoleArn": "arn:aws:iam::142997406482:role/amplify-pogchat-pogchat-203343-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::142997406482:role/amplify-pogchat-pogchat-203343-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-pogchat-pogchat-203343-deployment",
+      "UnauthRoleName": "amplify-pogchat-pogchat-203343-unauthRole",
+      "StackName": "amplify-pogchat-pogchat-203343",
+      "StackId": "arn:aws:cloudformation:us-east-1:142997406482:stack/amplify-pogchat-pogchat-203343/dfe06450-46a0-11ed-9fe1-0eac124f0deb",
+      "AmplifyAppId": "d12tw03jog4r9c"
+    },
+    "categories": {
+      "function": {
+        "TwitchLogin": {
+          "secretsPathAmplifyAppId": "d12tw03jog4r9c",
+          "clientId": "vxsss3v33fxl8v9fyckzc5z7gtdb48",
+          "deploymentBucketName": "amplify-pogchat-pogchat-203343-deployment",
+          "s3Key": "amplify-builds/TwitchLogin-713231792b4945466245-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d12tw03jog4r9c",
           "type": "manual"
         }
       }
