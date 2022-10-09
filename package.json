@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@chakra-ui/icons": "^1.1.7",
-    "@chakra-ui/react": "^1.8.6",
+    "@chakra-ui/icons": "^2.0.11",
+    "@chakra-ui/react": "^2.3.5",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
     "@reduxjs/toolkit": "^1.8.0",
@@ -12,26 +12,26 @@
     "@twurple/auth": "^5.0.18",
     "@twurple/auth-tmi": "^5.0.18",
     "aws-amplify": "^4.3.15",
-    "framer-motion": "4.1.17",
-    "linkify-react": "^3.0.4",
-    "linkifyjs": "^3.0.5",
-    "react": "^17.0.2",
-    "react-cookie-consent": "^6.4.1",
-    "react-dom": "^17.0.2",
+    "framer-motion": "7.5.3",
+    "linkify-react": "^4.0.2",
+    "linkifyjs": "^4.0.2",
+    "react": "^18.2.0",
+    "react-cookie-consent": "^8.0.1",
+    "react-dom": "^18.2.0",
     "react-ga": "^3.3.0",
     "react-ga4": "^1.4.1",
     "react-icons": "^4.3.1",
-    "react-redux": "^7.2.6",
+    "react-redux": "^8.0.4",
     "react-router-dom": "^6.2.2",
     "react-scripts": "^5.0.0",
     "react-virtuoso": "^2.8.0",
     "tmi.js": "^1.8.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^3.0.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.2",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "jsdoc": "^3.6.10"
   },
   "scripts": {
@@ -40,7 +40,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "react-scripts build && serve -s build -p 3000",
-    "deploy": "REACT_APP_REDIRECT_URL=https://pogchat.d12tw03jog4r9c.amplifyapp.com amplify publish"
+    "deploy": "REACT_APP_REDIRECT_URL=https://pogchat.d12tw03jog4r9c.amplifyapp.com amplify publish",
+    "lt": "lt --port 3000 --subdomain pogchat"
   },
   "eslintConfig": {
     "extends": "react-app"
