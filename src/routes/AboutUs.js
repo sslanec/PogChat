@@ -94,7 +94,7 @@ export default function AboutUs(props) {
           </Text>
           .
         </Text>
-        <Text paddingTop={2}>&#169; 2021 Sean Slanec & Zoey Taylor</Text>
+        <Text paddingTop={2}>&#169; 2022 Sean Slanec & Zoey Taylor</Text>
       </Box>
     </Flex>
   );
