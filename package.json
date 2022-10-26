@@ -40,7 +40,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "react-scripts build && serve -s build -p 3000",
-    "deploy": "REACT_APP_REDIRECT_URL=https://pogchat.d12tw03jog4r9c.amplifyapp.com amplify publish",
+    "deploy": "REACT_APP_REDIRECT_URL=https://www.pogchat.live amplify publish",
     "lt": "lt --port 3000 --subdomain pogchat"
   },
   "eslintConfig": {
